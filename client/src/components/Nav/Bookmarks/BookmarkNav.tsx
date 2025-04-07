@@ -1,13 +1,13 @@
-import { type FC } from 'react';
-import { useRecoilValue } from 'recoil';
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { BookmarkFilledIcon, BookmarkIcon } from '@radix-ui/react-icons';
+import { type FC } from 'react';
+import { useRecoilValue } from 'recoil';
 import { BookmarkContext } from '~/Providers/BookmarkContext';
 import { useGetConversationTags } from '~/data-provider';
-import BookmarkNavItems from './BookmarkNavItems';
 import { useLocalize } from '~/hooks';
-import { cn } from '~/utils';
 import store from '~/store';
+import { cn } from '~/utils';
+import BookmarkNavItems from './BookmarkNavItems';
 
 type BookmarkNavProps = {
   tags: string[];
@@ -26,14 +26,14 @@ const BookmarkNav: FC<BookmarkNavProps> = ({ tags, setTags, isSmallScreen }: Boo
         <>
           <MenuButton
             className={cn(
-              'mt-text-sm flex h-10 w-full items-center gap-2 rounded-lg p-2 text-sm transition-colors duration-200 hover:bg-surface-active-alt',
-              open ? 'bg-surface-active-alt' : '',
+              'mt-text-sm flex h-10 w-full items-center gap-2 rounded-lg p-2 text-sm transition-colors duration-200  hover:dark:bg-darkbeige800',
+              open ? 'bg-beigetertiary' : '',
               isSmallScreen ? 'h-12' : '',
             )}
             data-testid="bookmark-menu"
           >
-            <div className="h-7 w-7 flex-shrink-0">
-              <div className="relative flex h-full items-center justify-center rounded-full border border-border-medium bg-surface-primary-alt text-text-primary">
+            <div className="h-7 w-6 flex-shrink-0">
+              <div className="relative flex h-full items-center justify-center size-7 text-text-primary">
                 {tags.length > 0 ? (
                   <BookmarkFilledIcon className="h-4 w-4" aria-hidden="true" />
                 ) : (
