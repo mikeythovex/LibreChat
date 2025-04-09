@@ -149,7 +149,7 @@ export default function Conversation({
       )}
     >
       {renaming ? (
-        <div className="absolute inset-0 z-20 flex w-full items-center rounded-lg bg-beige4 p-1.5">
+        <div className="absolute inset-0 z-20 flex w-full items-center rounded-lg bg-beige4 dark:bg-surface-tertiary p-1.5">
           <input
             ref={inputRef}
             type="text"
