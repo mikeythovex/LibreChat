@@ -15,6 +15,8 @@ export default function HeaderNewChat() {
     return null;
   }
 
+  // return null;
+
   return (
     <Button
       size="icon"

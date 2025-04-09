@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { QueryKeys } from 'librechat-data-provider';
 import debounce from 'lodash/debounce';
 import { Search, X } from 'lucide-react';
-import { forwardRef, Ref, useCallback, useMemo, useState } from 'react';
+import { forwardRef, Ref, useCallback, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { useLocalize, useNewConvo } from '~/hooks';
@@ -16,6 +16,7 @@ type SearchBarProps = {
 
 const SearchBar = forwardRef((props: SearchBarProps, ref: Ref<HTMLDivElement>) => {
   const localize = useLocalize();
+  const inputRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
   const queryClient = useQueryClient();
   const { setPageNumber, isSmallScreen } = props;
@@ -76,14 +77,16 @@ const SearchBar = forwardRef((props: SearchBarProps, ref: Ref<HTMLDivElement>) =
     <div
       ref={ref}
       className={cn(
-        'group relative mt-1 flex h-10 cursor-pointer items-center gap-3 rounded-lg border-border-medium px-3 py-2 text-text-primary transition-colors duration-200 focus-within:bg-beige4 hover:bg-beige4',
+        'cursor-text group relative mt-1 flex h-10 items-center gap-3 rounded-lg border-border-medium px-3 py-2 text-text-primary bg-beige4 transition-colors duration-200',
         isSmallScreen === true ? 'mb-2 h-14 rounded-2xl' : '',
       )}
+      onClick={() => inputRef.current?.focus()}
     >
       {
         <Search className="absolute left-3 h-4 w-4 text-text-secondary group-focus-within:text-text-primary group-hover:text-text-primary" />
       }
       <input
+        ref={inputRef}
         type="text"
         className="m-0 mr-0 w-full border-none bg-transparent p-0 pl-7 text-sm leading-tight placeholder-text-secondary placeholder-opacity-100 focus-visible:outline-none group-focus-within:placeholder-text-primary group-hover:placeholder-text-primary"
         value={text}
@@ -102,7 +105,7 @@ const SearchBar = forwardRef((props: SearchBarProps, ref: Ref<HTMLDivElement>) =
       <X
         className={cn(
           'absolute right-[7px] h-5 w-5 cursor-pointer transition-opacity duration-200',
-          showClearIcon ? 'opacity-100' : 'opacity-0',
+          showClearIcon ? 'block' : 'hidden',
           isSmallScreen === true ? 'right-[16px]' : '',
         )}
         onClick={clearText}

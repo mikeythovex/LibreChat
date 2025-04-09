@@ -1,6 +1,5 @@
 import { Constants } from 'librechat-data-provider';
 import React, { useEffect } from 'react';
-import TagManager from 'react-gtm-module';
 import ReactMarkdown from 'react-markdown';
 import { useGetStartupConfig } from '~/data-provider';
 import { useLocalize } from '~/hooks';
@@ -39,15 +38,6 @@ export default function Footer({ className }: { className?: string }) {
       ? config.customFooter
       : Constants.VERSION
   ).split('|');
-
-  useEffect(() => {
-    if (config?.analyticsGtmId != null && typeof window.google_tag_manager === 'undefined') {
-      const tagManagerArgs = {
-        gtmId: config.analyticsGtmId,
-      };
-      TagManager.initialize(tagManagerArgs);
-    }
-  }, [config?.analyticsGtmId]);
 
   const mainContentRender = mainContentParts.map((text, index) => (
     <React.Fragment key={`main-content-part-${index}`}>

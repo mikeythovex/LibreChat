@@ -1,12 +1,9 @@
-import { useQueryClient } from '@tanstack/react-query';
 import type { TConversation, TMessage } from 'librechat-data-provider';
-import { Constants, QueryKeys } from 'librechat-data-provider';
+
 import { Search } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { NewChatIcon } from '~/components/svg';
 import { useGetEndpointsQuery } from '~/data-provider';
-import { useLocalize, useNewConvo } from '~/hooks';
 import { icons } from '~/hooks/Endpoint/Icons';
 import store from '~/store';
 import { cn, getEndpointField, getIconEndpoint, getIconKey } from '~/utils';
@@ -50,30 +47,32 @@ export default function NewChat({
   subHeaders?: React.ReactNode;
   isSmallScreen: boolean;
 }) {
-  const queryClient = useQueryClient();
-  /** Note: this component needs an explicit index passed if using more than one */
-  const { newConversation: newConvo } = useNewConvo(index);
-  const navigate = useNavigate();
-  const localize = useLocalize();
 
-  const { conversation } = store.useCreateConversationAtom(index);
+  // return null;
+  // const queryClient = useQueryClient();
+  // /** Note: this component needs an explicit index passed if using more than one */
+  // const { newConversation: newConvo } = useNewConvo(index);
+  // const navigate = useNavigate();
+  // const localize = useLocalize();
 
-  const clickHandler = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (event.button === 0 && !(event.ctrlKey || event.metaKey)) {
-      event.preventDefault();
-      queryClient.setQueryData<TMessage[]>(
-        [QueryKeys.messages, conversation?.conversationId ?? Constants.NEW_CONVO],
-        [],
-      );
-      newConvo();
-      navigate('/c/new');
-      toggleNav();
-    }
-  };
+  // const { conversation } = store.useCreateConversationAtom(index);
+
+  // const clickHandler = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  //   if (event.button === 0 && !(event.ctrlKey || event.metaKey)) {
+  //     event.preventDefault();
+  //     queryClient.setQueryData<TMessage[]>(
+  //       [QueryKeys.messages, conversation?.conversationId ?? Constants.NEW_CONVO],
+  //       [],
+  //     );
+  //     newConvo();
+  //     navigate('/c/new');
+  //     toggleNav();
+  //   }
+  // };
 
   return (
     <div className="sticky left-0 right-0 top-0 z-50 bg-beige3 pt-3.5">
-      <div className="pb-0.5 last:pb-0" style={{ transform: 'none' }}>
+      {/* <div className="pb-0.5 last:pb-0" style={{ transform: 'none' }}>
         <a
           href="/"
           tabIndex={0}
@@ -95,7 +94,7 @@ export default function NewChat({
             {localize('com_ui_new_chat')}
           </div>
         </a>
-      </div>
+      </div> */}
       {subHeaders != null ? subHeaders : null}
     </div>
   );

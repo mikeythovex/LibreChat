@@ -5,6 +5,7 @@ import type { ContextType } from '~/common';
 import { useGetStartupConfig } from '~/data-provider';
 import { useHasAccess, useMediaQuery } from '~/hooks';
 import AddMultiConvo from './AddMultiConvo';
+import CreateNewChat from './CreateNewChat';
 // import ExportAndShareMenu from './ExportAndShareMenu';
 import { HeaderNewChat, PresetsMenu } from './Menus';
 import BookmarkMenu from './Menus/BookmarkMenu';
@@ -39,9 +40,10 @@ export default function Header() {
         <div className="mx-2 flex items-center gap-2">
           {!navVisible && <HeaderNewChat />}
           {<ModelSelector startupConfig={startupConfig} />}
-          {interfaceConfig.presets === true && interfaceConfig.modelSelect && <PresetsMenu />}
-          {hasAccessToBookmarks === true && <BookmarkMenu />}
+          {/* {interfaceConfig.presets === true && interfaceConfig.modelSelect && <PresetsMenu />} */}
+          {/* {hasAccessToBookmarks === true && <BookmarkMenu />} */}
           {hasAccessToMultiConvo === true && <AddMultiConvo />}
+          <CreateNewChat />
           {isSmallScreen && (
             <>
               {/* <ExportAndShareMenu

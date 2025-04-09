@@ -231,14 +231,6 @@ export const getDisplayValue = ({
       return endpoint.agentNames[selectedValues.model];
     }
 
-    if (
-      isAssistantsEndpoint(endpoint.value) &&
-      endpoint.assistantNames &&
-      endpoint.assistantNames[selectedValues.model]
-    ) {
-      return endpoint.assistantNames[selectedValues.model];
-    }
-
     return selectedValues.model;
   }
 

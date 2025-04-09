@@ -40,13 +40,19 @@ function ModelSelectorContent() {
     [mappedEndpoints, selectedValues, modelSpecs, endpointsConfig],
   );
   const selectedDisplayValue = useMemo(
-    () =>
-      getDisplayValue({
+    () =>{
+      const x = getDisplayValue({
         localize,
         modelSpecs,
         selectedValues,
         mappedEndpoints,
-      }),
+      })
+
+      console.log("selectedDisplayValue", x);
+      return x;
+
+    },
+
     [localize, modelSpecs, selectedValues, mappedEndpoints],
   );
 
@@ -100,6 +106,7 @@ function ModelSelectorContent() {
 }
 
 export default function ModelSelector({ startupConfig }: ModelSelectorProps) {
+  console.log("startupConfig", startupConfig);
   return (
     <ModelSelectorProvider startupConfig={startupConfig}>
       <ModelSelectorContent />

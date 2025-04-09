@@ -533,12 +533,10 @@ export type TStartupConfig = {
   passwordResetEnabled: boolean;
   emailEnabled: boolean;
   showBirthdayIcon: boolean;
-  helpAndFaqURL: string;
   customFooter?: string;
   modelSpecs?: TSpecsConfig;
   sharedLinksEnabled: boolean;
   publicSharedLinksEnabled: boolean;
-  analyticsGtmId?: string;
   instanceProjectId: string;
   bundlerURL?: string;
 };
@@ -902,7 +900,7 @@ export function validateVisionModel({
   return visionModels.concat(additionalModels).some((visionModel) => model.includes(visionModel));
 }
 
-export const imageGenTools = new Set(['dalle', 'dall-e', 'stable-diffusion', 'flux']);
+export const imageGenTools = new Set(['dalle', 'dall-e', 'stable-diffusion']);
 
 /**
  * Enum for collections using infinite queries
