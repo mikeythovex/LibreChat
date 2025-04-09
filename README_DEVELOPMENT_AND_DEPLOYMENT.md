@@ -13,14 +13,7 @@ then https://www.librechat.ai/docs/local/docker#update-librechat
 
 
 ### Update on server
-`sudo docker compose down`
-
-`sudo docker images -a | grep "librechat" | awk '{print $3}' | sudo xargs docker rmi -f`
-
-`sudo docker compose build api`
-
-`sudo docker compose up -d --force-recreate`
-
+`sudo docker compose down && sudo docker images -a | grep "librechat" | awk '{print $3}' | sudo xargs docker rmi -f && sudo docker compose up -d --force-recreate`
 
 ### Development setup
 #### Run backend in vscode dev container
