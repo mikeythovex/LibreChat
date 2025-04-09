@@ -71,7 +71,7 @@ export default function NewChat({
   // };
 
   return (
-    <div className="sticky left-0 right-0 top-0 z-50 bg-beige3 pt-3.5">
+    <div className="sticky left-0 right-0 top-0 z-50 bg-beige3 pt-3.5 dark:bg-darkbeige">
       {/* <div className="pb-0.5 last:pb-0" style={{ transform: 'none' }}>
         <a
           href="/"

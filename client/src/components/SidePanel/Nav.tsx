@@ -9,12 +9,25 @@ import { cn } from '~/utils';
 export default function Nav({ links, isCollapsed, resize, defaultActive }: NavProps) {
   const localize = useLocalize();
   const [active, _setActive] = useState<string | undefined>(defaultActive);
+  // const [navVisible, setNavVisible] = useState<boolean>(true);
   const getVariant = (link: NavLink) => (link.id === active ? 'default' : 'ghost');
 
   const setActive = (id: string) => {
     localStorage.setItem('side:active-panel', id + '');
     _setActive(id);
   };
+
+  // const toggleNavVisible = () => {
+  //   setNavVisible((prev) => {
+  //     const next = !prev;
+  //     document.body.dataset.navVisible = next ? 'true' : 'false';
+  //     localStorage.setItem('navVisible', JSON.stringify(next));
+  //     return next;
+  //   });
+  //     localStorage.setItem('navVisible', JSON.stringify(!prev));
+  //     return !prev;
+  //   });
+  // };
 
   return (
     <div
@@ -56,9 +69,8 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
                     <Accordion
                       key={index}
                       type="single"
-                      value={active}
+                      value="agents"
                       onValueChange={setActive}
-                      collapsible
                     >
                       <AccordionItem value={link.id} className="w-full border-none">
                         <AccordionPrimitive.Header asChild>
@@ -66,12 +78,13 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
                             <Button
                               variant="outline"
                               size="sm"
-                              className="w-full justify-start bg-transparent text-text-secondary data-[state=open]:bg-surface-secondary data-[state=open]:text-text-primary"
+                              className=" cursor-default w-full justify-start bg-transparent text-text-secondary data-[state=open]:bg-surface-secondary data-[state=open]:text-text-primary"
                               onClick={(e) => {
-                                if (link.onClick) {
-                                  link.onClick(e);
-                                  setActive('');
-                                }
+                                // toggleNavVisible();
+                                // if (link.onClick) {
+                                //   link.onClick(e);
+                                //   setActive('');
+                                // }
                               }}
                             >
                               <link.icon className="mr-2 h-4 w-4" />

@@ -32,44 +32,25 @@ export default function useSideNavLinks({
   interfaceConfig: Partial<TInterfaceConfig>;
   endpointsConfig: TEndpointsConfig;
 }) {
-  const hasAccessToPrompts = useHasAccess({
-    permissionType: PermissionTypes.PROMPTS,
-    permission: Permissions.USE,
-  });
-  const hasAccessToBookmarks = useHasAccess({
-    permissionType: PermissionTypes.BOOKMARKS,
-    permission: Permissions.USE,
-  });
-  const hasAccessToAgents = useHasAccess({
-    permissionType: PermissionTypes.AGENTS,
-    permission: Permissions.USE,
-  });
-  const hasAccessToCreateAgents = useHasAccess({
-    permissionType: PermissionTypes.AGENTS,
-    permission: Permissions.CREATE,
-  });
-
   const Links = useMemo(() => {
     const links: NavLink[] = [];
-    if (
-      isAssistantsEndpoint(endpoint) &&
-      assistants &&
-      assistants.disableBuilder !== true &&
-      keyProvided
-    ) {
-      links.push({
-        title: 'com_sidepanel_assistant_builder',
-        label: '',
-        icon: Blocks,
-        id: 'assistants',
-        Component: PanelSwitch,
-      });
-    }
+    // if (
+    //   isAssistantsEndpoint(endpoint) &&
+    //   assistants &&
+    //   assistants.disableBuilder !== true &&
+    //   keyProvided
+    // ) {
+    //   links.push({
+    //     title: 'com_sidepanel_assistant_builder',
+    //     label: '',
+    //     icon: Blocks,
+    //     id: 'assistants',
+    //     Component: PanelSwitch,
+    //   });
+    // }
 
     if (
       endpointsConfig?.[EModelEndpoint.agents] &&
-      hasAccessToAgents &&
-      hasAccessToCreateAgents &&
       agents &&
       agents.disableBuilder !== true
     ) {
@@ -142,10 +123,10 @@ export default function useSideNavLinks({
     endpointType,
     endpoint,
     agents,
-    hasAccessToAgents,
-    hasAccessToPrompts,
-    hasAccessToBookmarks,
-    hasAccessToCreateAgents,
+    null,
+    null,
+    null,
+    null,
     hidePanel,
   ]);
 

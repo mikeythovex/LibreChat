@@ -44,6 +44,7 @@ module.exports = {
         beige600: '#5d5d55',
         beige800: '#423d42',
         darkbeige800: '#42423d',
+        darkbeige900: '#262624',
         darkbeige: '#1A1A18',
         almostblack: '#141413',
         gray: {

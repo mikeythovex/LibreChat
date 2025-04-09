@@ -35,7 +35,7 @@ function CreateNewChat() {
       role="button"
       onClick={clickHandler}
       data-testid="parameters-button"
-      className="inline-flex size-10 flex-shrink-0 items-center justify-center rounded-lg border border-border-light bg-transparent text-text-primary transition-all ease-in-out hover:bg-surface-tertiary disabled:pointer-events-none disabled:opacity-50 radix-state-open:bg-surface-tertiary"
+      className="inline-flex size-10 flex-shrink-0 items-center justify-center rounded-lg border border-border-light bg-transparent text-text-primary transition-all ease-in-out hover:bg-surface-tertiary hover:dark:bg-darkbeige800 disabled:pointer-events-none disabled:opacity-50 radix-state-open:bg-surface-tertiary"
     >
       <PlusCircle size={16} aria-label="Plus Icon" />
     </TooltipAnchor>

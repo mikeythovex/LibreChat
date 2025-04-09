@@ -37,6 +37,7 @@ export default function AgentPanel({
   agentsConfig,
   endpointsConfig,
 }: AgentPanelProps) {
+  console.log('agentpanel endpointsConfig', endpointsConfig)
   const localize = useLocalize();
   const { user } = useAuthContext();
   const { showToast } = useToastContext();
@@ -142,8 +143,7 @@ export default function AgentPanel({
       } = data;
 
       const model = _model ?? '';
-      const provider =
-        (typeof _provider === 'string' ? _provider : (_provider as StringOption).value) ?? '';
+      const provider = "OpenRouter";
 
       if (agent_id) {
         update.mutate({

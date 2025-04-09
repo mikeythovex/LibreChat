@@ -204,6 +204,7 @@ export const useRevokeAllUserKeysMutation = (): UseMutationResult<unknown> => {
 export const useGetModelsQuery = (
   config?: UseQueryOptions<t.TModelsConfig>,
 ): QueryObserverResult<t.TModelsConfig> => {
+  console.log('initialModelsConfig', initialModelsConfig)
   return useQuery<t.TModelsConfig>([QueryKeys.models], () => dataService.getModels(), {
     initialData: initialModelsConfig,
     refetchOnWindowFocus: false,
