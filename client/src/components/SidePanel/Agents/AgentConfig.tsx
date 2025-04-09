@@ -190,7 +190,7 @@ export default function AgentConfig({
               />
             )}
           />
-          <Controller
+          {/* <Controller
             name="id"
             control={control}
             render={({ field }) => (
@@ -198,7 +198,7 @@ export default function AgentConfig({
                 {field.value}
               </p>
             )}
-          />
+          /> */}
         </div>
         {/* Description */}
         <div className="mb-4">
