@@ -187,7 +187,7 @@ export default function Conversation({
           onClick={clickHandler}
           className={cn(
             'flex grow cursor-pointer items-center gap-2 overflow-hidden whitespace-nowrap break-all rounded-lg px-2 py-2',
-            isActiveConvo ? 'bg-beige4' : '',
+            isActiveConvo ? 'bg-beige4 dark:bg-surface-tertiary hover:dark:bg-darkbeige800' : '',
           )}
           title={title ?? ''}
         >

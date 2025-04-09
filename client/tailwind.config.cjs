@@ -27,8 +27,17 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
+        'word-fade-in': {
+          '0%': {
+            opacity: '0',
+          },
+          '100%': {
+            opacity: '1',
+          },
+        },
       },
       animation: {
+        'word-fade-in': 'word-fade-in 0.3s ease-out forwards',
         'fade-in': 'fadeIn 0.5s ease-out forwards',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
@@ -43,6 +52,7 @@ module.exports = {
         beige400: '#af9c5c',
         beige600: '#5d5d55',
         beige800: '#423d42',
+        darkbeige700: '#4d4d49',
         darkbeige800: '#42423d',
         darkbeige900: '#262624',
         darkbeige: '#1A1A18',
@@ -75,7 +85,7 @@ module.exports = {
           900: '#031f29',
         },
         'brand-purple': '#ab68ff',
-        'presentation': 'var(--presentation)',
+        presentation: 'var(--presentation)',
         'text-primary': 'var(--text-primary)',
         'text-secondary': 'var(--text-secondary)',
         'text-secondary-alt': 'var(--text-secondary-alt)',
