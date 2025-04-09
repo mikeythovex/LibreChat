@@ -1,23 +1,17 @@
-import { useMemo } from 'react';
-import { MessageSquareQuote, ArrowRightToLine, Settings2, Bookmark } from 'lucide-react';
+import type { TConfig, TEndpointsConfig, TInterfaceConfig } from 'librechat-data-provider';
 import {
-  isAssistantsEndpoint,
-  isAgentsEndpoint,
-  PermissionTypes,
-  isParamEndpoint,
   EModelEndpoint,
+  isAssistantsEndpoint,
   Permissions,
+  PermissionTypes
 } from 'librechat-data-provider';
-import type { TConfig, TInterfaceConfig, TEndpointsConfig } from 'librechat-data-provider';
+import { useMemo } from 'react';
 import type { NavLink } from '~/common';
 import AgentPanelSwitch from '~/components/SidePanel/Agents/AgentPanelSwitch';
-import BookmarkPanel from '~/components/SidePanel/Bookmarks/BookmarkPanel';
 import PanelSwitch from '~/components/SidePanel/Builder/PanelSwitch';
-import PromptsAccordion from '~/components/Prompts/PromptsAccordion';
-import Parameters from '~/components/SidePanel/Parameters/Panel';
-import FilesPanel from '~/components/SidePanel/Files/Panel';
-import { Blocks, AttachmentIcon } from '~/components/svg';
+import { Blocks, ChatGPTMinimalIcon } from '~/components/svg';
 import { useHasAccess } from '~/hooks';
+
 
 export default function useSideNavLinks({
   hidePanel,
@@ -82,62 +76,62 @@ export default function useSideNavLinks({
       links.push({
         title: 'com_sidepanel_agent_builder',
         label: '',
-        icon: Blocks,
+        icon: ChatGPTMinimalIcon,
         id: 'agents',
         Component: AgentPanelSwitch,
       });
     }
 
-    if (hasAccessToPrompts) {
-      links.push({
-        title: 'com_ui_prompts',
-        label: '',
-        icon: MessageSquareQuote,
-        id: 'prompts',
-        Component: PromptsAccordion,
-      });
-    }
+    // if (hasAccessToPrompts) {
+    //   links.push({
+    //     title: 'com_ui_prompts',
+    //     label: '',
+    //     icon: MessageSquareQuote,
+    //     id: 'prompts',
+    //     Component: PromptsAccordion,
+    //   });
+    // }
 
-    if (
-      interfaceConfig.parameters === true &&
-      isParamEndpoint(endpoint ?? '', endpointType ?? '') === true &&
-      !isAgentsEndpoint(endpoint) &&
-      keyProvided
-    ) {
-      links.push({
-        title: 'com_sidepanel_parameters',
-        label: '',
-        icon: Settings2,
-        id: 'parameters',
-        Component: Parameters,
-      });
-    }
+    // if (
+    //   interfaceConfig.parameters === true &&
+    //   isParamEndpoint(endpoint ?? '', endpointType ?? '') === true &&
+    //   !isAgentsEndpoint(endpoint) &&
+    //   keyProvided
+    // ) {
+    //   links.push({
+    //     title: 'com_sidepanel_parameters',
+    //     label: '',
+    //     icon: Settings2,
+    //     id: 'parameters',
+    //     Component: Parameters,
+    //   });
+    // }
 
-    links.push({
-      title: 'com_sidepanel_attach_files',
-      label: '',
-      icon: AttachmentIcon,
-      id: 'files',
-      Component: FilesPanel,
-    });
+    // links.push({
+    //   title: 'com_sidepanel_attach_files',
+    //   label: '',
+    //   icon: AttachmentIcon,
+    //   id: 'files',
+    //   Component: FilesPanel,
+    // });
 
-    if (hasAccessToBookmarks) {
-      links.push({
-        title: 'com_sidepanel_conversation_tags',
-        label: '',
-        icon: Bookmark,
-        id: 'bookmarks',
-        Component: BookmarkPanel,
-      });
-    }
+    // if (hasAccessToBookmarks) {
+    //   links.push({
+    //     title: 'com_sidepanel_conversation_tags',
+    //     label: '',
+    //     icon: Bookmark,
+    //     id: 'bookmarks',
+    //     Component: BookmarkPanel,
+    //   });
+    // }
 
-    links.push({
-      title: 'com_sidepanel_hide_panel',
-      label: '',
-      icon: ArrowRightToLine,
-      onClick: hidePanel,
-      id: 'hide-panel',
-    });
+    // links.push({
+    //   title: 'com_sidepanel_hide_panel',
+    //   label: '',
+    //   icon: ArrowRightToLine,
+    //   onClick: hidePanel,
+    //   id: 'hide-panel',
+    // });
 
     return links;
   }, [

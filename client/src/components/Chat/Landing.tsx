@@ -1,12 +1,12 @@
-import { useMemo, useCallback, useState, useEffect, useRef } from 'react';
 import { easings } from '@react-spring/web';
 import { EModelEndpoint } from 'librechat-data-provider';
-import { useChatContext, useAgentsMapContext, useAssistantsMapContext } from '~/Providers';
-import { useGetEndpointsQuery, useGetStartupConfig } from '~/data-provider';
-import { BirthdayIcon, TooltipAnchor, SplitText } from '~/components';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useAgentsMapContext, useAssistantsMapContext, useChatContext } from '~/Providers';
+import { BirthdayIcon, SplitText, TooltipAnchor } from '~/components';
 import ConvoIcon from '~/components/Endpoints/ConvoIcon';
-import { useLocalize, useAuthContext } from '~/hooks';
-import { getIconEndpoint, getEntity } from '~/utils';
+import { useGetEndpointsQuery, useGetStartupConfig } from '~/data-provider';
+import { useAuthContext, useLocalize } from '~/hooks';
+import { getEntity, getIconEndpoint } from '~/utils';
 
 const containerClassName =
   'shadow-stroke relative flex h-full items-center justify-center rounded-full bg-white text-black';
@@ -61,35 +61,16 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
       if (user?.name && customWelcome.includes('{{user.name}}')) {
         return customWelcome.replace(/{{user.name}}/g, user.name);
       }
-      return customWelcome;
+      return customWelcome; 
     }
-
-    const now = new Date();
-    const hours = now.getHours();
-
-    const dayOfWeek = now.getDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-
-    // Early morning (midnight to 4:59 AM)
-    if (hours >= 0 && hours < 5) {
-      return localize('com_ui_late_night');
+    
+    // Return model name if available
+    if (conversation?.model) {
+      return `${conversation.model}`;
     }
-    // Morning (6 AM to 11:59 AM)
-    else if (hours < 12) {
-      if (isWeekend) {
-        return localize('com_ui_weekend_morning');
-      }
-      return localize('com_ui_good_morning');
-    }
-    // Afternoon (12 PM to 4:59 PM)
-    else if (hours < 17) {
-      return localize('com_ui_good_afternoon');
-    }
-    // Evening (5 PM to 8:59 PM)
-    else {
-      return localize('com_ui_good_evening');
-    }
-  }, [localize, startupConfig?.interface?.customWelcome, user?.name]);
+    
+    return '';
+  }, [localize, startupConfig?.interface?.customWelcome, user?.name, conversation?.model]);
 
   const handleLineCountChange = useCallback((count: number) => {
     setTextHasMultipleLines(count > 1);
@@ -121,6 +102,8 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
 
     return margin;
   }, [lineCount, description, textHasMultipleLines, contentHeight]);
+
+  return null;
 
   return (
     <div
@@ -156,7 +139,7 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
                 key={`split-text-${name}`}
                 text={name}
                 className="text-4xl font-medium text-text-primary"
-                delay={50}
+                delay={20}
                 textAlign="center"
                 animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
                 animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
@@ -169,13 +152,9 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
           ) : (
             <SplitText
               key={`split-text-${getGreeting()}${user?.name ? '-user' : ''}`}
-              text={
-                typeof startupConfig?.interface?.customWelcome === 'string'
-                  ? getGreeting()
-                  : getGreeting() + (user?.name ? ', ' + user.name : '')
-              }
+              text={getGreeting()}
               className="text-2xl font-medium text-text-primary sm:text-4xl"
-              delay={50}
+              delay={20}
               textAlign="center"
               animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
               animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}

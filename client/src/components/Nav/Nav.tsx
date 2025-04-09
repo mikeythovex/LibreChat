@@ -1,26 +1,26 @@
-import { useCallback, useEffect, useState, useMemo, memo } from 'react';
-import { useRecoilValue } from 'recoil';
-import { PermissionTypes, Permissions } from 'librechat-data-provider';
 import type { ConversationListResponse } from 'librechat-data-provider';
+import { PermissionTypes, Permissions } from 'librechat-data-provider';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { useSearchContext } from '~/Providers';
+import { Conversations } from '~/components/Conversations';
+import { Spinner } from '~/components/svg';
+import { useConversationsInfiniteQuery } from '~/data-provider';
 import {
-  useLocalize,
-  useHasAccess,
-  useMediaQuery,
   useAuthContext,
+  useHasAccess,
   useLocalStorage,
+  useLocalize,
+  useMediaQuery,
   useNavScrolling,
 } from '~/hooks';
-import { useConversationsInfiniteQuery } from '~/data-provider';
-import { Conversations } from '~/components/Conversations';
-import BookmarkNav from './Bookmarks/BookmarkNav';
+import store from '~/store';
+import { cn } from '~/utils';
 import AccountSettings from './AccountSettings';
-import { useSearchContext } from '~/Providers';
-import { Spinner } from '~/components/svg';
-import SearchBar from './SearchBar';
+// import BookmarkNav from './Bookmarks/BookmarkNav';
 import NavToggle from './NavToggle';
 import NewChat from './NewChat';
-import { cn } from '~/utils';
-import store from '~/store';
+import SearchBar from './SearchBar';
 
 const Nav = ({
   navVisible,
@@ -119,7 +119,7 @@ const Nav = ({
       <div
         data-testid="nav"
         className={
-          'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-surface-primary-alt md:max-w-[260px]'
+          'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-beige3 md:max-w-[260px]'
         }
         style={{
           width: navVisible ? navWidth : '0px',
@@ -165,7 +165,7 @@ const Nav = ({
                               isSmallScreen={isSmallScreen}
                             />
                           )}
-                          {hasAccessToBookmarks === true && (
+                          {/* {hasAccessToBookmarks === true && (
                             <>
                               <div className="mt-1.5" />
                               <BookmarkNav
@@ -174,7 +174,7 @@ const Nav = ({
                                 isSmallScreen={isSmallScreen}
                               />
                             </>
-                          )}
+                          )} */}
                         </>
                       }
                     />

@@ -1,14 +1,14 @@
-import { useMemo } from 'react';
-import { SettingsIcon } from 'lucide-react';
 import { EModelEndpoint, isAgentsEndpoint, isAssistantsEndpoint } from 'librechat-data-provider';
+import { SettingsIcon } from 'lucide-react';
+import { useMemo } from 'react';
 import type { Endpoint } from '~/common';
-import { CustomMenu as Menu, CustomMenuItem as MenuItem } from '../CustomMenu';
-import { useModelSelectorContext } from '../ModelSelectorContext';
-import { renderEndpointModels } from './EndpointModelItem';
-import { TooltipAnchor, Spinner } from '~/components';
-import { filterModels } from '../utils';
+import { Spinner } from '~/components';
 import { useLocalize } from '~/hooks';
 import { cn } from '~/utils';
+import { CustomMenu as Menu, CustomMenuItem as MenuItem } from '../CustomMenu';
+import { useModelSelectorContext } from '../ModelSelectorContext';
+import { filterModels } from '../utils';
+import { renderEndpointModels } from './EndpointModelItem';
 
 interface EndpointItemProps {
   endpoint: Endpoint;
@@ -53,6 +53,10 @@ const SettingsButton = ({
 };
 
 export function EndpointItem({ endpoint }: EndpointItemProps) {
+  if (['assistants', 'azureAssistants', 'openAI', 'anthropic', 'google', 'gptPlugins'].includes(endpoint.value)) {
+    return null;
+  }
+
   const localize = useLocalize();
   const {
     agentsMap,
@@ -71,31 +75,19 @@ export function EndpointItem({ endpoint }: EndpointItemProps) {
 
   const renderIconLabel = () => (
     <div className="flex items-center gap-2">
-      {endpoint.icon && (
+      {/* {endpoint.icon && (
         <div className="flex flex-shrink-0 items-center justify-center overflow-hidden">
           {endpoint.icon}
         </div>
-      )}
+      )} */}
       <span
         className={cn(
           'truncate text-left',
           isUserProvided ? 'group-hover:w-24 group-focus:w-24' : '',
         )}
       >
-        {endpoint.label}
+        {endpoint.label === 'Agents' ? 'Custom Agents' : endpoint.label === 'OpenRouter' ? 'Models' : endpoint.label}
       </span>
-      {/* TODO: remove this after deprecation */}
-      {endpoint.value === 'gptPlugins' && (
-        <TooltipAnchor
-          description={localize('com_endpoint_deprecated_info')}
-          aria-label={localize('com_endpoint_deprecated_info_a11y')}
-          render={
-            <span className="ml-2 rounded bg-amber-600/70 px-2 py-0.5 text-xs font-semibold text-white">
-              {localize('com_endpoint_deprecated')}
-            </span>
-          }
-        />
-      )}
     </div>
   );
 
@@ -183,8 +175,39 @@ export function EndpointItem({ endpoint }: EndpointItemProps) {
   }
 }
 
+// This function filters before render, so more removed here is faster
 export function renderEndpoints(mappedEndpoints: Endpoint[]) {
-  return mappedEndpoints.map((endpoint) => (
-    <EndpointItem endpoint={endpoint} key={`endpoint-${endpoint.value}-item`} />
-  ));
+  return mappedEndpoints
+    .filter(endpoint => endpoint.value === 'agents' || endpoint.value === 'OpenRouter')
+    .map((endpoint) => {
+      if (endpoint.value === 'OpenRouter' && endpoint.models) {
+        endpoint.models = endpoint.models.filter(model => {
+          if (model.name.startsWith('anthropic')) {
+            // Only include Claude 3.7 and above
+            const version = parseFloat(model.name.match(/\d+\.\d+/)?.[0] || '0');
+            return version >= 3.7;
+          }
+          if (model.name.startsWith('openai')) {
+            // Only include GPT-4 and GPT-4.5
+            return (!model.name.includes('gpt-4') || (model.name.includes('gpt-4o') || model.name.includes('gpt-4.5'))) && !model.name.includes('gpt-3.5');
+          }
+          if (model.name.startsWith('x-ai')) {
+            return !model.name.includes('grok-2');
+          }
+          if (model.name.startsWith('meta-llama')) {
+            return parseFloat(model.name.match(/\d+\.\d+/)?.[0] || '0') >= 3.2 || model.name.includes('llama-4');
+          }
+          if (model.name.startsWith('google')) {
+            return model.name.includes('gemini-2.0') || model.name.includes('gemini-2.5') || model.name.includes('learn');
+          }
+          if (model.name.startsWith('deepseek')) {
+            return !model.name.includes('r1-distill') && 
+              !model.name.includes('deepseek-v3-base') &&
+              (!model.name.includes('deepseek-chat') || model.name.includes('deepseek-chat-v3'));
+          }
+          return model.name.startsWith('perplexity');
+        });
+      }
+      return <EndpointItem endpoint={endpoint} key={`endpoint-${endpoint.value}-item`} />;
+    });
 }
