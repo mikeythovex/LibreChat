@@ -4,14 +4,12 @@ import type {
   SearchConversationListResponse,
   TConversation,
 } from 'librechat-data-provider';
-import { Permissions, PermissionTypes } from 'librechat-data-provider';
 import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Conversations } from '~/components/Conversations';
 import { useConversationsInfiniteQuery } from '~/data-provider';
 import {
   useAuthContext,
-  useHasAccess,
   useLocalize,
   useLocalStorage,
   useMediaQuery,
@@ -24,7 +22,6 @@ import NavToggle from './NavToggle';
 import NewChat from './NewChat';
 import SearchBar from './SearchBar';
 
-const BookmarkNav = lazy(() => import('./Bookmarks/BookmarkNav'));
 const AccountSettings = lazy(() => import('./AccountSettings'));
 
 const NAV_WIDTH_DESKTOP = '260px';
@@ -67,11 +64,6 @@ const Nav = memo(
     const [isToggleHovering, setIsToggleHovering] = useState(false);
     const [showLoading, setShowLoading] = useState(false);
     const [tags, setTags] = useState<string[]>([]);
-
-    const hasAccessToBookmarks = useHasAccess({
-      permissionType: PermissionTypes.BOOKMARKS,
-      permission: Permissions.USE,
-    });
 
     const isSearchEnabled = useRecoilValue(store.isSearchEnabled);
     const isSearchTyping = useRecoilValue(store.isSearchTyping);
@@ -183,17 +175,9 @@ const Nav = memo(
       () => (
         <>
           {isSearchEnabled === true && <SearchBar isSmallScreen={isSmallScreen} />}
-          {hasAccessToBookmarks && (
-            <>
-              <div className="mt-1.5" />
-              <Suspense fallback={null}>
-                <BookmarkNav tags={tags} setTags={setTags} isSmallScreen={isSmallScreen} />
-              </Suspense>
-            </>
-          )}
         </>
       ),
-      [isSearchEnabled, hasAccessToBookmarks, isSmallScreen, tags, setTags],
+      [isSearchEnabled, isSmallScreen],
     );
 
     const isSearchLoading =
@@ -207,7 +191,7 @@ const Nav = memo(
         <div
           data-testid="nav"
           className={cn(
-            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-surface-primary-alt',
+            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-beigesecondary dark:bg-darkbeige',
             'md:max-w-[260px]',
           )}
           style={{
@@ -228,9 +212,9 @@ const Nav = memo(
                   <nav
                     id="chat-history-nav"
                     aria-label={localize('com_ui_chat_history')}
-                    className="flex h-full flex-col px-3 pb-3.5"
+                    className="flex h-full flex-col pb-3.5"
                   >
-                    <div className="flex flex-1 flex-col" ref={outerContainerRef}>
+                    <div className="flex flex-1 flex-col scrollbar-transparent" ref={outerContainerRef}>
                       <MemoNewChat
                         toggleNav={itemToggleNav}
                         isSmallScreen={isSmallScreen}

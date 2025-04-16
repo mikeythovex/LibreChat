@@ -29,7 +29,7 @@ function AccountSettings() {
       <Select.Select
         aria-label={localize('com_nav_account_settings')}
         data-testid="nav-user"
-        className="mt-text-sm hover:bg-beigetertiary flex h-auto w-full items-center gap-2 rounded-xl p-2 text-sm transition-all duration-200 ease-in-out hover:dark:bg-darkbeige800"
+        className="mt-text-sm hover:bg-beigetertiary flex h-auto items-center gap-2 rounded-xl mx-3 p-2 text-sm transition-all duration-200 ease-in-out hover:dark:bg-darkbeige800"
       >
         <div className="-ml-0.9 -mt-0.8 h-8 w-8 flex-shrink-0">
           <div className="relative flex">

@@ -7,13 +7,13 @@ const {
   // validateModel,
   // validateEndpoint,
   buildEndpointOption,
-  moderateText,
+  // moderateText,
 } = require('~/server/middleware');
 const { initializeClient } = require('~/server/services/Endpoints/bedrock');
 const AgentController = require('~/server/controllers/agents/request');
 const addTitle = require('~/server/services/Endpoints/agents/title');
 
-router.use(moderateText);
+// router.use(moderateText);
 
 /**
  * @route POST /

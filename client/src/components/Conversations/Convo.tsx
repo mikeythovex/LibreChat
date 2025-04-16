@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { NotificationSeverity } from '~/common';
-import EndpointIcon from '~/components/Endpoints/EndpointIcon';
 import { useGetEndpointsQuery, useUpdateConversationMutation } from '~/data-provider';
 import { useMediaQuery } from '~/hooks';
 import useNavigateToConvo from '~/hooks/Conversations/useNavigateToConvo';
@@ -175,14 +174,7 @@ export default function Conversation({
           onRename={handleRename}
           isSmallScreen={isSmallScreen}
           localize={localize}
-        >
-          <EndpointIcon
-            conversation={conversation}
-            endpointsConfig={endpointsConfig}
-            size={20}
-            context="menu-item"
-          />
-        </ConvoLink>
+        />
         // =======
         //         <div className="absolute inset-0 z-20 flex w-full items-center rounded-lg bg-beigetertiary dark:bg-claudeblack p-1.5">
         //           <input
