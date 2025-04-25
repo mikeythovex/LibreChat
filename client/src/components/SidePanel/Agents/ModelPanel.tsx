@@ -26,21 +26,9 @@ export default function ModelPanel({
   const modelParameters = useWatch({ control, name: 'model_parameters' });
 
   const provider = "OpenRouter"
-  //  useMemo(() => {
-  //   const value =
-  //     typeof providerOption === 'string'
-  //       ? providerOption
-  //       : (providerOption as StringOption | undefined)?.value;
-  //   return value ?? '';
-  // }, [providerOption]);
   const models = useMemo(
     () => (provider ? [...(modelsData[provider] ?? [])].sort((a, b) => a.localeCompare(b)) : []),
     [modelsData, provider],
-  );
-
-  const modelItems = useMemo(
-    () => models.map((model) => ({ label: model, value: model })),
-    [models],
   );
 
   useEffect(() => {
@@ -131,7 +119,10 @@ export default function ModelPanel({
                     }
                     searchPlaceholder={localize('com_ui_select_model')}
                     setValue={field.onChange}
-                    items={modelItems}
+                    items={models.map((model) => ({
+                      label: model,
+                      value: model,
+                    }))}
                     disabled={!provider}
                     className={cn('disabled:opacity-50', error ? 'border-2 border-red-500' : '')}
                     ariaLabel={localize('com_ui_model')}
