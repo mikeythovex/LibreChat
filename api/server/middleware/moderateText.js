@@ -41,4 +41,3 @@ async function moderateText(req, res, next) {
 }
 
 module.exports = moderateText;
-

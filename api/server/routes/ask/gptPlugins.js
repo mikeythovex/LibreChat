@@ -12,14 +12,14 @@ const {
   validateModel,
   validateEndpoint,
   buildEndpointOption,
-  // moderateText,
+  moderateText,
 } = require('~/server/middleware');
 const { validateTools } = require('~/app');
 const { logger } = require('~/config');
 
 const router = express.Router();
 
-// router.use(moderateText);
+router.use(moderateText);
 
 router.post(
   '/',
