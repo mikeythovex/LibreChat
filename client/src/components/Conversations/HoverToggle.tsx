@@ -1,6 +1,6 @@
 import React from 'react';
-import { cn } from '~/utils';
 import { ToggleContext } from './ToggleContext';
+import { cn } from '~/utils';
 
 const HoverToggle = ({
   children,

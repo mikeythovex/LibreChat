@@ -1,17 +1,17 @@
-import type { TMessageContentParts } from 'librechat-data-provider';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
-import type { TMessageIcon, TMessageProps } from '~/common';
+import type { TMessageContentParts } from 'librechat-data-provider';
+import type { TMessageProps, TMessageIcon } from '~/common';
 import MessageIcon from '~/components/Chat/Messages/MessageIcon';
-import { useLocalize, useMessageHelpers } from '~/hooks';
+import { useMessageHelpers, useLocalize } from '~/hooks';
 import ContentParts from './Content/ContentParts';
 import SiblingSwitch from './SiblingSwitch';
 
-import store from '~/store';
-import { cn } from '~/utils';
-import HoverButtons from './HoverButtons';
 import MultiMessage from './MultiMessage';
+import HoverButtons from './HoverButtons';
 import SubRow from './SubRow';
+import { cn } from '~/utils';
+import store from '~/store';
 
 export default function Message(props: TMessageProps) {
   const localize = useLocalize();

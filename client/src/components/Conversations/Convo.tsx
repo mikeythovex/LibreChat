@@ -1,19 +1,19 @@
-import type { TConversation } from 'librechat-data-provider';
-import { Constants } from 'librechat-data-provider';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
+import { useParams } from 'react-router-dom';
+import { Constants } from 'librechat-data-provider';
+import type { TConversation } from 'librechat-data-provider';
+import { useNavigateToConvo, useMediaQuery, useLocalize } from '~/hooks';
+import { useUpdateConversationMutation } from '~/data-provider';
+import EndpointIcon from '~/components/Endpoints/EndpointIcon';
+import { useGetEndpointsQuery } from '~/data-provider';
 import { NotificationSeverity } from '~/common';
-import { useGetEndpointsQuery, useUpdateConversationMutation } from '~/data-provider';
-import { useMediaQuery } from '~/hooks';
-import useNavigateToConvo from '~/hooks/Conversations/useNavigateToConvo';
-import useLocalize from '~/hooks/useLocalize';
-import { useToastContext } from '~/Providers';
-import store from '~/store';
-import { cn } from '~/utils';
-import ConvoLink from './ConvoLink';
 import { ConvoOptions } from './ConvoOptions';
+import { useToastContext } from '~/Providers';
 import RenameForm from './RenameForm';
+import ConvoLink from './ConvoLink';
+import { cn } from '~/utils';
+import store from '~/store';
 
 interface ConversationProps {
   conversation: TConversation;
@@ -159,7 +159,6 @@ export default function Conversation({
       data-testid="convo-item"
     >
       {renaming ? (
-        // <<<<<<< HEAD
         <RenameForm
           titleInput={titleInput}
           setTitleInput={setTitleInput}
@@ -175,67 +174,6 @@ export default function Conversation({
           isSmallScreen={isSmallScreen}
           localize={localize}
         />
-        // =======
-        //         <div className="absolute inset-0 z-20 flex w-full items-center rounded-lg bg-beigetertiary dark:bg-claudeblack p-1.5">
-        //           <input
-        //             ref={inputRef}
-        //             type="text"
-        //             className="w-full rounded bg-transparent p-0.5 text-sm leading-tight focus-visible:outline-none"
-        //             value={titleInput ?? ''}
-        //             onChange={(e) => setTitleInput(e.target.value)}
-        //             onKeyDown={handleKeyDown}
-        //             aria-label={`${localize('com_ui_rename')} ${localize('com_ui_chat')}`}
-        //           />
-        //           <div className="flex gap-1">
-        //             <button
-        //               onClick={cancelRename}
-        //               aria-label={`${localize('com_ui_cancel')} ${localize('com_ui_rename')}`}
-        //             >
-        //               <X
-        //                 aria-hidden={true}
-        //                 className="h-4 w-4 transition-colors duration-200 ease-in-out hover:opacity-70"
-        //               />
-        //             </button>
-        //             <button
-        //               onClick={onRename}
-        //               aria-label={`${localize('com_ui_submit')} ${localize('com_ui_rename')}`}
-        //             >
-        //               <Check
-        //                 aria-hidden={true}
-        //                 className="h-4 w-4 transition-colors duration-200 ease-in-out hover:opacity-70"
-        //               />
-        //             </button>
-        //           </div>
-        //         </div>
-        //       ) : (
-        //         <a
-        //           href={`/c/${conversationId}`}
-        //           data-testid="convo-item"
-        //           onClick={clickHandler}
-        //           className={cn(
-        //             'flex grow cursor-pointer items-center gap-2 overflow-hidden whitespace-nowrap break-all rounded-lg px-2 py-1',
-        //             isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800 hover:dark:bg-darkbeige800' : '',
-        //           )}
-        //           title={title ?? ''}
-        //         >
-        //           <div
-        //             className="relative line-clamp-1 flex-1 grow overflow-hidden"
-        //             onDoubleClick={(e) => {
-        //               e.preventDefault();
-        //               e.stopPropagation();
-        //               setTitleInput(title);
-        //               setRenaming(true);
-        //             }}
-        //           >
-        //             {title}
-        //           </div>
-        //           {isActiveConvo ? (
-        //             <div className="absolute bottom-0 right-0 top-0 w-20 rounded-r-lg " />
-        //           ) : (
-        //             <div className="absolute bottom-0 right-0 top-0 w-20 rounded-r-lg" />
-        //           )}
-        //         </a>
-        // >>>>>>> d82f2f8f (Asdf)
       )}
       <div
         className={cn(

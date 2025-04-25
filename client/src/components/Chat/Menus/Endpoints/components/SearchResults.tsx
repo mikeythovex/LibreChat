@@ -1,12 +1,12 @@
-import type { TModelSpec } from 'librechat-data-provider';
-import { isAgentsEndpoint, isAssistantsEndpoint } from 'librechat-data-provider';
+import React, { Fragment } from 'react';
 import { EarthIcon } from 'lucide-react';
-import { Fragment } from 'react';
+import { isAgentsEndpoint, isAssistantsEndpoint } from 'librechat-data-provider';
+import type { TModelSpec } from 'librechat-data-provider';
 import type { Endpoint } from '~/common';
-import { cn } from '~/utils';
-import { CustomMenuItem as MenuItem } from '../CustomMenu';
 import { useModelSelectorContext } from '../ModelSelectorContext';
+import { CustomMenuItem as MenuItem } from '../CustomMenu';
 import SpecIcon from './SpecIcon';
+import { cn } from '~/utils';
 
 interface SearchResultsProps {
   results: (TModelSpec | Endpoint)[] | null;
