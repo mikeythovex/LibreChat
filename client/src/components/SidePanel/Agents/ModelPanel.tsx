@@ -25,15 +25,9 @@ export default function ModelPanel({
   const providerOption = useWatch({ control, name: 'provider' });
   const modelParameters = useWatch({ control, name: 'model_parameters' });
 
-  const provider = useMemo(() => {
-    const value =
-      typeof providerOption === 'string'
-        ? providerOption
-        : (providerOption as StringOption | undefined)?.value;
-    return value ?? '';
-  }, [providerOption]);
+  const provider = "OpenRouter"
   const models = useMemo(
-    () => (provider ? (modelsData[provider] ?? []) : []),
+    () => (provider ? [...(modelsData[provider] ?? [])].sort((a, b) => a.localeCompare(b)) : []),
     [modelsData, provider],
   );
 
@@ -97,55 +91,6 @@ export default function ModelPanel({
       </div>
       <div className="p-2">
         {/* Endpoint aka Provider for Agents */}
-        <div className="mb-4">
-          <label
-            id="provider-label"
-            className="text-token-text-primary model-panel-label mb-2 block font-medium"
-            htmlFor="provider"
-          >
-            {localize('com_ui_provider')} <span className="text-red-500">*</span>
-          </label>
-          <Controller
-            name="provider"
-            control={control}
-            rules={{ required: true, minLength: 1 }}
-            render={({ field, fieldState: { error } }) => {
-              const value =
-                typeof field.value === 'string'
-                  ? field.value
-                  : ((field.value as StringOption)?.value ?? '');
-              const display =
-                typeof field.value === 'string'
-                  ? field.value
-                  : ((field.value as StringOption)?.label ?? '');
-
-              return (
-                <>
-                  <ControlCombobox
-                    selectedValue={value}
-                    displayValue={alternateName[display] ?? display}
-                    selectPlaceholder={localize('com_ui_select_provider')}
-                    searchPlaceholder={localize('com_ui_select_search_provider')}
-                    setValue={field.onChange}
-                    items={providers.map((provider) => ({
-                      label: typeof provider === 'string' ? provider : provider.label,
-                      value: typeof provider === 'string' ? provider : provider.value,
-                    }))}
-                    className={cn(error ? 'border-2 border-red-500' : '')}
-                    ariaLabel={localize('com_ui_provider')}
-                    isCollapsed={false}
-                    showCarat={true}
-                  />
-                  {error && (
-                    <span className="model-panel-error text-sm text-red-500 transition duration-300 ease-in-out">
-                      {localize('com_ui_field_required')}
-                    </span>
-                  )}
-                </>
-              );
-            }}
-          />
-        </div>
         {/* Model */}
         <div className="model-panel-section mb-4">
           <label

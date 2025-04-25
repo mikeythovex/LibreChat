@@ -134,8 +134,8 @@ export default function Conversation({
   return (
     <div
       className={cn(
-        'group relative flex h-12 w-full items-center rounded-lg transition-colors duration-200 md:h-9',
-        isActiveConvo ? 'bg-surface-active-alt' : 'hover:bg-surface-active-alt',
+        'bg-beigesecondary hover:bg-beigetertiary group relative mt-1 flex h-7 w-full items-center rounded-lg dark:bg-darkbeige hover:dark:bg-darkbeige800',
+        isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800' : '',
       )}
       role="listitem"
       tabIndex={0}
@@ -173,14 +173,7 @@ export default function Conversation({
           onRename={handleRename}
           isSmallScreen={isSmallScreen}
           localize={localize}
-        >
-          <EndpointIcon
-            conversation={conversation}
-            endpointsConfig={endpointsConfig}
-            size={20}
-            context="menu-item"
-          />
-        </ConvoLink>
+        />
       )}
       <div
         className={cn(

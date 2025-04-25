@@ -30,10 +30,6 @@ type TCodeProps = {
 };
 
 export const code: React.ElementType = memo(({ className, children }: TCodeProps) => {
-  const canRunCode = useHasAccess({
-    permissionType: PermissionTypes.RUN_CODE,
-    permission: Permissions.USE,
-  });
   const match = /language-(\w+)/.exec(className ?? '');
   const lang = match && match[1];
   const isMath = lang === 'math';
@@ -60,7 +56,7 @@ export const code: React.ElementType = memo(({ className, children }: TCodeProps
         lang={lang ?? 'text'}
         codeChildren={children}
         blockIndex={blockIndex}
-        allowExecution={canRunCode}
+        allowExecution={false}
       />
     );
   }

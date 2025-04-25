@@ -75,8 +75,8 @@ const MessageRender = memo(
       () => ({
         endpoint: msg?.endpoint ?? conversation?.endpoint,
         model: msg?.model ?? conversation?.model,
-        iconURL: msg?.iconURL,
-        modelLabel: messageLabel,
+        iconURL: '/assets/bmo-128x128.png',
+        modelLabel: 'BMO',
         isCreatedByUser: msg?.isCreatedByUser,
       }),
       [
@@ -157,9 +157,9 @@ const MessageRender = memo(
             msg.isCreatedByUser ? 'user-turn' : 'agent-turn',
           )}
         >
-          <h2 className={cn('select-none font-semibold', fontSize)}>{messageLabel}</h2>
+          <h2 className={cn('select-none font-semibold -ml-1', fontSize)}>{msg.isCreatedByUser ? messageLabel : 'BMO'}</h2>
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 -ml-8">
             <div className="flex max-w-full flex-grow flex-col gap-0">
               <MessageContext.Provider
                 value={{

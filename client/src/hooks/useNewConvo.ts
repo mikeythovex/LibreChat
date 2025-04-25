@@ -160,7 +160,7 @@ const useNewConvo = (index = 0) => {
         }
 
         if (conversation.conversationId === Constants.NEW_CONVO && !modelsData) {
-          const appTitle = localStorage.getItem(LocalStorageKeys.APP_TITLE) ?? '';
+          const appTitle = 'Chat with BMO';
           if (appTitle) {
             document.title = appTitle;
           }

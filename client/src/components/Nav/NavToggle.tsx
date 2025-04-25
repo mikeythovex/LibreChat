@@ -1,5 +1,5 @@
-import { useLocalize } from '~/hooks';
 import { TooltipAnchor } from '~/components/ui';
+import { useLocalize } from '~/hooks';
 import { cn } from '~/utils';
 
 export default function NavToggle({
@@ -17,7 +17,7 @@ export default function NavToggle({
   setIsHovering: (isHovering: boolean) => void;
   side?: 'left' | 'right';
   className?: string;
-  translateX?: boolean;
+  translateX?: boolean; 
 }) {
   const localize = useLocalize();
   const transition = {
@@ -25,7 +25,7 @@ export default function NavToggle({
   };
 
   const rotationDegree = 15;
-  const rotation = isHovering || !navVisible ? `${rotationDegree}deg` : '0deg';
+  const rotation = `${rotationDegree}deg`;
   const topBarRotation = side === 'right' ? `-${rotation}` : rotation;
   const bottomBarRotation = side === 'right' ? rotation : `-${rotation}`;
 
@@ -40,20 +40,7 @@ export default function NavToggle({
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <TooltipAnchor
-        side={side === 'right' ? 'left' : 'right'}
-        aria-label={side === 'left' ? localize('com_ui_chat_history') : localize('com_ui_controls')}
-        aria-expanded={navVisible}
-        aria-controls={side === 'left' ? 'chat-history-nav' : 'controls-nav'}
-        id={`toggle-${side}-nav`}
-        onClick={onToggle}
-        role="button"
-        description={
-          navVisible ? localize('com_nav_close_sidebar') : localize('com_nav_open_sidebar')
-        }
-        className="flex items-center justify-center"
-        tabIndex={0}
-      >
+      <div onClick={onToggle} className="cursor-pointer">
         <span className="" data-state="closed">
           <div
             className="flex h-[72px] w-8 items-center justify-center"
@@ -79,7 +66,7 @@ export default function NavToggle({
             </div>
           </div>
         </span>
-      </TooltipAnchor>
+      </div>
     </div>
   );
 }

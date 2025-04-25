@@ -56,7 +56,7 @@ export default function Message(props: TMessageProps) {
       endpoint: message?.endpoint ?? conversation?.endpoint,
       model: message?.model ?? conversation?.model,
       iconURL: message?.iconURL ?? conversation?.iconURL,
-      modelLabel: name,
+      modelLabel: 'BMO',
       isCreatedByUser: message?.isCreatedByUser,
     }),
     [
@@ -107,7 +107,7 @@ export default function Message(props: TMessageProps) {
               )}
             >
               <h2 className={cn('select-none font-semibold text-text-primary', fontSize)}>
-                {name}
+                {isCreatedByUser ? name : 'BMO'}
               </h2>
               <div className="flex flex-col gap-1">
                 <div className="flex max-w-full flex-grow flex-col gap-0">
