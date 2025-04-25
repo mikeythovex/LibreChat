@@ -13,7 +13,7 @@ import { buildTree } from '~/utils';
 import Header from './Header';
 import ChatForm from './Input/ChatForm';
 import ConversationStarters from './Input/ConversationStarters';
-import Landing from './Landing';
+// import Landing from './Landing';
 import MessagesView from './Messages/MessagesView';
 import Presentation from './Presentation';
 
@@ -60,7 +60,7 @@ function ChatView({ index = 0 }: { index?: number }) {
   } else if (!isLandingPage) {
     content = <MessagesView messagesTree={messagesTree} />;
   } else {
-    content = <Landing centerFormOnLanding={centerFormOnLanding} />;
+    // content = <Landing centerFormOnLanding={centerFormOnLanding} />;
   }
 
   return (
