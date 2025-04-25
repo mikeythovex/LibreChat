@@ -279,43 +279,7 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
                     'transition-[max-height] duration-200',
                   )}
                 />
-                <div className="flex flex-col items-start justify-start pt-1.5">
-                  <CollapseChat
-                    isCollapsed={isCollapsed}
-                    isScrollable={isMoreThanThreeRows}
-                    setIsCollapsed={setIsCollapsed}
-                  />
-                </div>
-              </div>
-            )}
-            <div
-              className={cn(
-                'items-between flex gap-2 pb-2',
-                isRTL ? 'flex-row-reverse' : 'flex-row',
-              )}
-            >
-              <div className={`${isRTL ? 'mr-2' : 'ml-2'}`}>
-                <AttachFileChat disableInputs={disableInputs} />
-              </div>
-              <BadgeRow
-                showEphemeralBadges={!isAgentsEndpoint(endpoint) && !isAssistantsEndpoint(endpoint)}
-                conversationId={conversationId}
-                onChange={setBadges}
-                isInChat={
-                  Array.isArray(conversation?.messages) && conversation.messages.length >= 1
-                }
-              />
-              <div className="mx-auto flex" />
-              {/* {SpeechToText && (
-                <AudioRecorder
-                  methods={methods}
-                  ask={submitMessage}
-                  textAreaRef={textAreaRef}
-                  disabled={disableInputs}
-                  isSubmitting={isSubmitting}
-                />
-              )} */}
-              <div className={`${isRTL ? 'ml-2' : 'mr-2'}`}>
+                <div className="m-2">
                 {(isSubmitting || isSubmittingAdded) && (showStopButton || showStopAdded) ? (
                   <StopButton stop={handleStopGenerating} setShowStopButton={setShowStopButton} />
                 ) : (
@@ -328,8 +292,8 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
                   )
                 )}
               </div>
-            </div>
-            {TextToSpeech && automaticPlayback && <StreamAudio index={index} />}
+              </div>
+            )}
           </div>
         </div>
       </div>
