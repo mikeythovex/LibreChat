@@ -40,6 +40,33 @@ export default function NavToggle({
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
+      <div onClick={onToggle} className="cursor-pointer">
+        <span className="" data-state="closed">
+          <div
+            className="flex h-[72px] w-8 items-center justify-center"
+            style={{ ...transition, opacity: isHovering ? 1 : 0.25 }}
+          >
+            <div className="flex h-6 w-6 flex-col items-center">
+              {/* Top bar */}
+              <div
+                className="h-3 w-1 rounded-full bg-black dark:bg-white"
+                style={{
+                  ...transition,
+                  transform: `translateY(0.15rem) rotate(${topBarRotation}) translateZ(0px)`,
+                }}
+              />
+              {/* Bottom bar */}
+              <div
+                className="h-3 w-1 rounded-full bg-black dark:bg-white"
+                style={{
+                  ...transition,
+                  transform: `translateY(-0.15rem) rotate(${bottomBarRotation}) translateZ(0px)`,
+                }}
+              />
+            </div>
+          </div>
+        </span>
+      </div>
     </div>
   );
 }
