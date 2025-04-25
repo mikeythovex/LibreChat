@@ -1,24 +1,24 @@
-import type {
-  Agent,
-  Assistant,
-  TAgentsMap,
-  TAssistantsMap,
-  TEndpointsConfig,
-  TStartupConfig,
-} from 'librechat-data-provider';
+import React, { useMemo, useCallback } from 'react';
+import { useGetModelsQuery } from 'librechat-data-provider/react-query';
 import {
   EModelEndpoint,
   PermissionTypes,
   Permissions,
   alternateName,
 } from 'librechat-data-provider';
-import { useGetModelsQuery } from 'librechat-data-provider/react-query';
-import React, { useCallback, useMemo } from 'react';
+import type {
+  Agent,
+  Assistant,
+  TEndpointsConfig,
+  TAgentsMap,
+  TAssistantsMap,
+  TStartupConfig,
+} from 'librechat-data-provider';
 import type { Endpoint } from '~/common';
+import { mapEndpoints, getIconKey, getEndpointField } from '~/utils';
 import { useGetEndpointsQuery } from '~/data-provider';
-import { useHasAccess } from '~/hooks';
 import { useChatContext } from '~/Providers';
-import { getEndpointField, getIconKey, mapEndpoints } from '~/utils';
+import { useHasAccess } from '~/hooks';
 import { icons } from './Icons';
 
 export const useEndpoints = ({
@@ -137,6 +137,47 @@ export const useEndpoints = ({
           acc[agent.id] = agent?.avatar?.filepath;
           return acc;
         }, {});
+      }
+
+      // Handle assistants case
+      else if (ep === EModelEndpoint.assistants && assistants.length > 0) {
+        result.models = assistants.map((assistant: { id: string }) => ({
+          name: assistant.id,
+          isGlobal: false,
+        }));
+        result.assistantNames = assistants.reduce(
+          (acc: Record<string, string>, assistant: Assistant) => {
+            acc[assistant.id] = assistant.name || '';
+            return acc;
+          },
+          {},
+        );
+        result.modelIcons = assistants.reduce(
+          (acc: Record<string, string | undefined>, assistant: Assistant) => {
+            acc[assistant.id] = assistant.metadata?.avatar;
+            return acc;
+          },
+          {},
+        );
+      } else if (ep === EModelEndpoint.azureAssistants && azureAssistants.length > 0) {
+        result.models = azureAssistants.map((assistant: { id: string }) => ({
+          name: assistant.id,
+          isGlobal: false,
+        }));
+        result.assistantNames = azureAssistants.reduce(
+          (acc: Record<string, string>, assistant: Assistant) => {
+            acc[assistant.id] = assistant.name || '';
+            return acc;
+          },
+          {},
+        );
+        result.modelIcons = azureAssistants.reduce(
+          (acc: Record<string, string | undefined>, assistant: Assistant) => {
+            acc[assistant.id] = assistant.metadata?.avatar;
+            return acc;
+          },
+          {},
+        );
       }
 
       // For other endpoints with models from the modelsQuery
