@@ -112,13 +112,13 @@ export function renderEndpointModels(
 
     // Define provider order
     const providerOrder = {
-      'anthropic': 1,
-      'openai': 2,
-      'x-ai': 3,
-      'deepseek': 4,
-      'perplexity': 5,
-      'meta-llama': 6,
-      'google': 7,
+      'google': 1,
+      'perplexity': 2,
+      'anthropic': 3,
+      'openai': 4,
+      'x-ai': 5,
+      'deepseek': 6,
+      'meta-llama': 7,
     };
 
     // Get provider order values, defaulting to 6 for any other provider

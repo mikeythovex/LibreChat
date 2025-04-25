@@ -58,3 +58,4 @@ sudo docker compose up -d --build --force-recreate
 
 ## Misc
 * Filter out models from model select in `useEndpoints.ts`
+* Provider order in `client/src/components/Chat/Menus/Endpoints/components/EndpointModelItem.tsx`
