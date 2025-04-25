@@ -245,14 +245,10 @@ export function renderSearchResults(
   localize: (phraseKey: any, options?: any) => string,
   searchValue: string,
 ) {
-  const filteredResults = results?.filter(
-    (result) => 'value' in result && (result.value === 'agents' || result.value === 'OpenRouter')
-  ) || null;
-
   return (
     <SearchResults
       key={`search-results-${searchValue}`}
-      results={filteredResults}
+      results={results}
       localize={localize}
       searchValue={searchValue}
     />
