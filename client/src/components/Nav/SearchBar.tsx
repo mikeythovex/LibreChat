@@ -6,8 +6,8 @@ import { QueryKeys } from 'librechat-data-provider';
 import { useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLocalize, useNewConvo } from '~/hooks';
-import store from '~/store';
 import { cn } from '~/utils';
+import store from '~/store';
 
 type SearchBarProps = {
   isSmallScreen?: boolean;

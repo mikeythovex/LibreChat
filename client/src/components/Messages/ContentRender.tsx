@@ -1,16 +1,16 @@
-import type { TMessage, TMessageContentParts } from 'librechat-data-provider';
-import { memo, useCallback, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
-import type { TMessageIcon, TMessageProps } from '~/common';
+import { useCallback, useMemo, memo } from 'react';
+import type { TMessage, TMessageContentParts } from 'librechat-data-provider';
+import type { TMessageProps, TMessageIcon } from '~/common';
 import ContentParts from '~/components/Chat/Messages/Content/ContentParts';
+import PlaceholderRow from '~/components/Chat/Messages/ui/PlaceholderRow';
+import SiblingSwitch from '~/components/Chat/Messages/SiblingSwitch';
 import HoverButtons from '~/components/Chat/Messages/HoverButtons';
 import MessageIcon from '~/components/Chat/Messages/MessageIcon';
-import SiblingSwitch from '~/components/Chat/Messages/SiblingSwitch';
 import SubRow from '~/components/Chat/Messages/SubRow';
-import PlaceholderRow from '~/components/Chat/Messages/ui/PlaceholderRow';
 import { useMessageActions } from '~/hooks';
-import store from '~/store';
 import { cn, logger } from '~/utils';
+import store from '~/store';
 
 type ContentRenderProps = {
   message?: TMessage;
