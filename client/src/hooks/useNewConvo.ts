@@ -1,38 +1,38 @@
-import type {
-  TConversation,
-  TEndpointsConfig,
-  TModelsConfig,
-  TPreset,
-  TSubmission,
-} from 'librechat-data-provider';
+import { useCallback, useRef } from 'react';
+import { useGetModelsQuery } from 'librechat-data-provider/react-query';
+import { useNavigate } from 'react-router-dom';
 import {
   Constants,
-  EModelEndpoint,
   FileSources,
-  isAssistantsEndpoint,
+  EModelEndpoint,
   isParamEndpoint,
   LocalStorageKeys,
+  isAssistantsEndpoint,
 } from 'librechat-data-provider';
-import { useGetModelsQuery } from 'librechat-data-provider/react-query';
-import { useCallback, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState, useRecoilCallback } from 'recoil';
+import type {
+  TPreset,
+  TSubmission,
+  TModelsConfig,
+  TConversation,
+  TEndpointsConfig,
+} from 'librechat-data-provider';
 import type { AssistantListItem } from '~/common';
-import { mainTextareaId } from '~/common';
-import { useDeleteFilesMutation, useGetEndpointsQuery, useGetStartupConfig } from '~/data-provider';
-import store from '~/store';
 import {
+  getEndpointField,
   buildDefaultConvo,
   getDefaultEndpoint,
   getDefaultModelSpec,
-  getEndpointField,
   getModelSpecIconURL,
-  logger,
   updateLastSelectedModel,
 } from '~/utils';
+import { useDeleteFilesMutation, useGetEndpointsQuery, useGetStartupConfig } from '~/data-provider';
 import useAssistantListMap from './Assistants/useAssistantListMap';
-import { usePauseGlobalAudio } from './Audio';
 import { useResetChatBadges } from './useChatBadges';
+import { usePauseGlobalAudio } from './Audio';
+import { mainTextareaId } from '~/common';
+import { logger } from '~/utils';
+import store from '~/store';
 
 const useNewConvo = (index = 0) => {
   const navigate = useNavigate();

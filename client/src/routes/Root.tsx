@@ -37,20 +37,20 @@ export default function Root() {
 
   useSearchEnabled(isAuthenticated);
 
-  // useEffect(() => {
-  //   if (termsData) {
-  //     setShowTerms(!termsData.termsAccepted);
-  //   }
-  // }, [termsData]);
+  useEffect(() => {
+    if (termsData) {
+      setShowTerms(!termsData.termsAccepted);
+    }
+  }, [termsData]);
 
-  // const handleAcceptTerms = () => {
-  //   setShowTerms(false);
-  // };
+  const handleAcceptTerms = () => {
+    setShowTerms(false);
+  };
 
-  // const handleDeclineTerms = () => {
-  //   setShowTerms(false);
-  //   logout('/login?redirect=false');
-  // };
+  const handleDeclineTerms = () => {
+    setShowTerms(false);
+    logout('/login?redirect=false');
+  };
 
   if (!isAuthenticated) {
     return null;
@@ -72,7 +72,7 @@ export default function Root() {
               </div>
             </div>
           </AgentsMapContext.Provider>
-          {/* {config?.interface?.termsOfService?.modalAcceptance === true && (
+          {config?.interface?.termsOfService?.modalAcceptance === true && (
             <TermsAndConditionsModal
               open={showTerms}
               onOpenChange={setShowTerms}
@@ -81,7 +81,7 @@ export default function Root() {
               title={config.interface.termsOfService.modalTitle}
               modalContent={config.interface.termsOfService.modalContent}
             />
-          )} */}
+          )}
         </AssistantsMapContext.Provider>
       </FileMapContext.Provider>
     </SetConvoProvider>
