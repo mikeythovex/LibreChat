@@ -1,14 +1,14 @@
-import type { TEndpointsConfig, TInterfaceConfig } from 'librechat-data-provider';
+import { useState, useCallback, useMemo, memo } from 'react';
 import { useUserKeyQuery } from 'librechat-data-provider/react-query';
-import { memo, useCallback, useMemo, useState } from 'react';
+import type { TEndpointsConfig, TInterfaceConfig } from 'librechat-data-provider';
 import type { ImperativePanelHandle } from 'react-resizable-panels';
-import NavToggle from '~/components/Nav/NavToggle';
 import { ResizableHandleAlt, ResizablePanel } from '~/components/ui/Resizable';
-import { useGetEndpointsQuery } from '~/data-provider';
-import { useLocalStorage, useLocalize, useMediaQuery } from '~/hooks';
+import { useMediaQuery, useLocalStorage, useLocalize } from '~/hooks';
 import useSideNavLinks from '~/hooks/Nav/useSideNavLinks';
-import { useChatContext } from '~/Providers';
+import { useGetEndpointsQuery } from '~/data-provider';
+import NavToggle from '~/components/Nav/NavToggle';
 import { cn, getEndpointField } from '~/utils';
+import { useChatContext } from '~/Providers';
 
 import Nav from './Nav';
 

@@ -1,14 +1,14 @@
-import { getConfigDefaults } from 'librechat-data-provider';
+import { useState, useRef, useCallback, useEffect, useMemo, memo } from 'react';
 import throttle from 'lodash/throttle';
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { ImperativePanelHandle } from 'react-resizable-panels';
 import { useRecoilValue } from 'recoil';
+import { getConfigDefaults } from 'librechat-data-provider';
+import type { ImperativePanelHandle } from 'react-resizable-panels';
 import { ResizableHandleAlt, ResizablePanel, ResizablePanelGroup } from '~/components/ui/Resizable';
 import { useGetStartupConfig } from '~/data-provider';
-import { useMediaQuery } from '~/hooks';
-import store from '~/store';
 import { normalizeLayout } from '~/utils';
+import { useMediaQuery } from '~/hooks';
 import SidePanel from './SidePanel';
+import store from '~/store';
 
 interface SidePanelProps {
   defaultLayout?: number[] | undefined;

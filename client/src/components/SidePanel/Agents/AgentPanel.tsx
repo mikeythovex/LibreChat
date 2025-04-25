@@ -37,7 +37,6 @@ export default function AgentPanel({
   agentsConfig,
   endpointsConfig,
 }: AgentPanelProps) {
-  console.log('agentpanel endpointsConfig', endpointsConfig)
   const localize = useLocalize();
   const { user } = useAuthContext();
   const { showToast } = useToastContext();
