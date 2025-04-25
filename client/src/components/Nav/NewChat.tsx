@@ -84,55 +84,5 @@ export default function NewChat({
   subHeaders?: React.ReactNode;
   isSmallScreen: boolean;
 }) {
-  const queryClient = useQueryClient();
-  /** Note: this component needs an explicit index passed if using more than one */
-  const { newConversation: newConvo } = useNewConvo(index);
-  const navigate = useNavigate();
-  const localize = useLocalize();
-  const { conversation } = store.useCreateConversationAtom(index);
-
-  const clickHandler = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement>) => {
-      if (event.button === 0 && !(event.ctrlKey || event.metaKey)) {
-        event.preventDefault();
-        queryClient.setQueryData<TMessage[]>(
-          [QueryKeys.messages, conversation?.conversationId ?? Constants.NEW_CONVO],
-          [],
-        );
-        newConvo();
-        navigate('/c/new');
-        toggleNav();
-      }
-    },
-    [queryClient, conversation, newConvo, navigate, toggleNav],
-  );
-
-  return (
-    <div className="sticky left-0 right-0 top-0 z-50 bg-surface-primary-alt pt-3.5">
-      <div className="pb-0.5 last:pb-0" style={{ transform: 'none' }}>
-        <a
-          href="/"
-          tabIndex={0}
-          data-testid="nav-new-chat-button"
-          onClick={clickHandler}
-          className={cn(
-            'group flex h-10 items-center gap-2 rounded-lg px-2 font-medium transition-colors duration-200 hover:bg-surface-hover',
-            isSmallScreen ? 'h-14' : '',
-          )}
-          aria-label={localize('com_ui_new_chat')}
-        >
-          <NewChatButtonIcon conversation={conversation} />
-          <div className="grow overflow-hidden text-ellipsis whitespace-nowrap text-sm text-text-primary">
-            {localize('com_ui_new_chat')}
-          </div>
-          <div className="flex gap-3">
-            <span className="flex items-center" data-state="closed">
-              <NewChatIcon className="size-5" />
-            </span>
-          </div>
-        </a>
-      </div>
-      {subHeaders != null ? subHeaders : null}
-    </div>
-  );
+  return null;
 }
