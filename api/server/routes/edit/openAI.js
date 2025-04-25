@@ -6,11 +6,11 @@ const {
   validateModel,
   validateEndpoint,
   buildEndpointOption,
-  // moderateText,
+  moderateText,
 } = require('~/server/middleware');
 
 const router = express.Router();
-// router.use(moderateText);
+router.use(moderateText);
 
 router.post(
   '/',
