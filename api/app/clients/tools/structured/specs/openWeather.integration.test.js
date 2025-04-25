@@ -222,4 +222,3 @@ describe('OpenWeather Tool (Integration Test)', () => {
     }
   });
 });
-

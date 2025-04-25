@@ -102,4 +102,3 @@ class AzureAISearch extends Tool {
 }
 
 module.exports = AzureAISearch;
-

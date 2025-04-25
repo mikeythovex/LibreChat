@@ -552,4 +552,3 @@ class FluxAPI extends Tool {
 }
 
 module.exports = FluxAPI;
-

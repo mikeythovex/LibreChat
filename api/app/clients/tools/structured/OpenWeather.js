@@ -315,4 +315,3 @@ class OpenWeather extends Tool {
 }
 
 module.exports = OpenWeather;
-
