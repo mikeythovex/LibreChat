@@ -9,30 +9,33 @@ import ArchivedChats from './ArchivedChats';
 import ToggleSwitch from '../ToggleSwitch';
 import { Dropdown } from '~/components';
 import store from '~/store';
+import DeleteAccount from '../Account/DeleteAccount';
+import { ClearChats } from '../Data/ClearChats';
 
-const toggleSwitchConfigs = [
-  {
-    stateAtom: store.enableUserMsgMarkdown,
-    localizationKey: 'com_nav_user_msg_markdown',
-    switchId: 'enableUserMsgMarkdown',
-    hoverCardText: undefined,
-    key: 'enableUserMsgMarkdown',
-  },
-  {
-    stateAtom: store.autoScroll,
-    localizationKey: 'com_nav_auto_scroll',
-    switchId: 'autoScroll',
-    hoverCardText: undefined,
-    key: 'autoScroll',
-  },
-  {
-    stateAtom: store.hideSidePanel,
-    localizationKey: 'com_nav_hide_panel',
-    switchId: 'hideSidePanel',
-    hoverCardText: undefined,
-    key: 'hideSidePanel',
-  },
-];
+
+// const toggleSwitchConfigs = [
+//   {
+//     stateAtom: store.enableUserMsgMarkdown,
+//     localizationKey: 'com_nav_user_msg_markdown',
+//     switchId: 'enableUserMsgMarkdown',
+//     hoverCardText: undefined,
+//     key: 'enableUserMsgMarkdown',
+//   },
+//   {
+//     stateAtom: store.autoScroll,
+//     localizationKey: 'com_nav_auto_scroll',
+//     switchId: 'autoScroll',
+//     hoverCardText: undefined,
+//     key: 'autoScroll',
+//   },
+//   {
+//     stateAtom: store.hideSidePanel,
+//     localizationKey: 'com_nav_hide_panel',
+//     switchId: 'hideSidePanel',
+//     hoverCardText: undefined,
+//     key: 'hideSidePanel',
+//   },
+// ];
 
 export const ThemeSelector = ({
   theme,
@@ -155,7 +158,7 @@ function General() {
       <div className="pb-3">
         <LangSelector langcode={langcode} onChange={changeLang} />
       </div>
-      {toggleSwitchConfigs.map((config) => (
+      {/* {toggleSwitchConfigs.map((config) => (
         <div key={config.key} className="pb-3">
           <ToggleSwitch
             stateAtom={config.stateAtom}
@@ -164,9 +167,15 @@ function General() {
             switchId={config.switchId}
           />
         </div>
-      ))}
-      <div className="pb-3">
+      ))} */}
+      {/* <div className="pb-3">
         <ArchivedChats />
+      </div> */}
+      <div className="pb-3">
+        <ClearChats />
+      </div>
+      <div className="pb-3">
+        <DeleteAccount />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { cn } from '~/utils';
 
 interface ConvoLinkProps {
@@ -7,7 +7,6 @@ interface ConvoLinkProps {
   onRename: () => void;
   isSmallScreen: boolean;
   localize: (key: any, options?: any) => string;
-  children: React.ReactNode;
 }
 
 const ConvoLink: React.FC<ConvoLinkProps> = ({
@@ -16,22 +15,25 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   onRename,
   isSmallScreen,
   localize,
-  children,
 }) => {
+    useEffect(() => {
+      if (isActiveConvo && title) {
+        document.title = title + ' - BMO';
+      }
+    }, [isActiveConvo]);
   return (
     <div
       className={cn(
         'flex grow items-center gap-2 overflow-hidden rounded-lg px-2',
-        isActiveConvo ? 'bg-surface-active-alt' : '',
+        isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800 hover:dark:bg-darkbeige800' : '',
       )}
       title={title ?? undefined}
       aria-current={isActiveConvo ? 'page' : undefined}
       style={{ width: '100%' }}
     >
-      {children}
       <div
         className="relative flex-1 grow overflow-hidden whitespace-nowrap"
-        style={{ textOverflow: 'clip' }}
+        style={{ textOverflow: 'ellipsis' }}
         onDoubleClick={(e) => {
           if (isSmallScreen) {
             return;
@@ -47,10 +49,10 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
       </div>
       <div
         className={cn(
-          'absolute bottom-0 right-0 top-0 w-20 rounded-r-lg bg-gradient-to-l',
+          'absolute bottom-0 right-0 top-0 w-5 rounded-r-lg bg-gradient-to-l',
           isActiveConvo
             ? 'from-surface-active-alt'
-            : 'from-surface-primary-alt from-0% to-transparent group-hover:from-surface-active-alt group-hover:from-40%',
+            : 'from-beigesecondary dark:from-darkbeige from-0% to-transparent group-hover:from-beigesecondary dark:group-hover:from-darkbeige group-hover:from-40%',
         )}
         aria-hidden="true"
       />

@@ -30,7 +30,7 @@ function AccountSettings() {
       <Select.Select
         aria-label={localize('com_nav_account_settings')}
         data-testid="nav-user"
-        className="mt-text-sm flex h-auto w-full items-center gap-2 rounded-xl p-2 text-sm transition-all duration-200 ease-in-out hover:bg-surface-hover"
+        className="mt-text-sm hover:bg-beigetertiary flex h-auto items-center gap-2 rounded-xl mx-3 p-2 text-sm transition-all duration-50 ease-in-out hover:dark:bg-darkbeige800"
       >
         <div className="-ml-0.9 -mt-0.8 h-8 w-8 flex-shrink-0">
           <div className="relative flex">
@@ -69,40 +69,20 @@ function AccountSettings() {
           transformOrigin: 'bottom',
           marginRight: '0px',
           translate: '0px',
+          zIndex: 9999,
         }}
       >
-        <div className="text-token-text-secondary ml-3 mr-2 py-2 text-sm" role="note">
-          {user?.email ?? localize('com_nav_user')}
-        </div>
-        <DropdownMenuSeparator />
+        {/* // TODO: Add balance for session */}
         {startupConfig?.balance?.enabled === true &&
           balanceQuery.data != null &&
           !isNaN(parseFloat(balanceQuery.data)) && (
-          <>
-            <div className="text-token-text-secondary ml-3 mr-2 py-2 text-sm" role="note">
-              {localize('com_nav_balance')}: {parseFloat(balanceQuery.data).toFixed(2)}
-            </div>
-            <DropdownMenuSeparator />
-          </>
-        )}
-        <Select.SelectItem
-          value=""
-          onClick={() => setShowFiles(true)}
-          className="select-item text-sm"
-        >
-          <FileText className="icon-md" aria-hidden="true" />
-          {localize('com_nav_my_files')}
-        </Select.SelectItem>
-        {startupConfig?.helpAndFaqURL !== '/' && (
-          <Select.SelectItem
-            value=""
-            onClick={() => window.open(startupConfig?.helpAndFaqURL, '_blank')}
-            className="select-item text-sm"
-          >
-            <LinkIcon aria-hidden="true" />
-            {localize('com_nav_help_faq')}
-          </Select.SelectItem>
-        )}
+            <>
+              <div className="text-token-text-secondary ml-3 mr-2 py-2 text-sm" role="note">
+                {localize('com_nav_balance')}: {parseFloat(balanceQuery.data).toFixed(2)}
+              </div>
+              <DropdownMenuSeparator />
+            </>
+          )}
         <Select.SelectItem
           value=""
           onClick={() => setShowSettings(true)}
@@ -111,7 +91,6 @@ function AccountSettings() {
           <GearIcon className="icon-md" aria-hidden="true" />
           {localize('com_nav_settings')}
         </Select.SelectItem>
-        <DropdownMenuSeparator />
         <Select.SelectItem
           aria-selected={true}
           onClick={() => logout()}
@@ -122,7 +101,6 @@ function AccountSettings() {
           {localize('com_nav_log_out')}
         </Select.SelectItem>
       </Select.SelectPopover>
-      {showFiles && <FilesView open={showFiles} onOpenChange={setShowFiles} />}
       {showSettings && <Settings open={showSettings} onOpenChange={setShowSettings} />}
     </Select.SelectProvider>
   );

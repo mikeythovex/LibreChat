@@ -43,6 +43,7 @@ export default function MessagesView({
               height: '100%',
               overflowY: 'auto',
               width: '100%',
+              overflowX: 'hidden',
             }}
           >
             <div className="flex flex-col pb-9 dark:bg-transparent">

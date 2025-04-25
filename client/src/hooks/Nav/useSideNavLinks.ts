@@ -18,6 +18,7 @@ import Parameters from '~/components/SidePanel/Parameters/Panel';
 import FilesPanel from '~/components/SidePanel/Files/Panel';
 import { Blocks, AttachmentIcon } from '~/components/svg';
 import { useHasAccess } from '~/hooks';
+import { BMOIcon } from '~/components/svg';
 
 export default function useSideNavLinks({
   hidePanel,
@@ -42,10 +43,7 @@ export default function useSideNavLinks({
     permissionType: PermissionTypes.BOOKMARKS,
     permission: Permissions.USE,
   });
-  const hasAccessToAgents = useHasAccess({
-    permissionType: PermissionTypes.AGENTS,
-    permission: Permissions.USE,
-  });
+  const hasAccessToAgents = true;
   const hasAccessToCreateAgents = useHasAccess({
     permissionType: PermissionTypes.AGENTS,
     permission: Permissions.CREATE,
@@ -53,6 +51,14 @@ export default function useSideNavLinks({
 
   const Links = useMemo(() => {
     const links: NavLink[] = [];
+    links.push({
+      title: 'com_sidepanel_agent_builder',
+      label: '',
+      icon: BMOIcon,
+      id: 'agents',
+      Component: AgentPanelSwitch,
+    });
+    return links;
     if (
       isAssistantsEndpoint(endpoint) &&
       endpointsConfig?.[EModelEndpoint.assistants] &&

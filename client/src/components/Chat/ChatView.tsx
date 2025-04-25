@@ -13,9 +13,7 @@ import { Spinner } from '~/components/svg';
 import Presentation from './Presentation';
 import ChatForm from './Input/ChatForm';
 import { buildTree } from '~/utils';
-import Landing from './Landing';
 import Header from './Header';
-import Footer from './Footer';
 import store from '~/store';
 
 function ChatView({ index = 0 }: { index?: number }) {
@@ -61,7 +59,7 @@ function ChatView({ index = 0 }: { index?: number }) {
   } else if (!isLandingPage) {
     content = <MessagesView messagesTree={messagesTree} />;
   } else {
-    content = <Landing centerFormOnLanding={centerFormOnLanding} />;
+    // content = <Landing centerFormOnLanding={centerFormOnLanding} />;
   }
 
   return (
@@ -81,14 +79,12 @@ function ChatView({ index = 0 }: { index?: number }) {
                       <ConversationStarters />
                     </div>
                   </div>
-                  <Footer />
                 </>
               ) : (
                 <div className="flex h-full flex-col overflow-y-auto">
                   {content}
                   <div className="w-full">
                     <ChatForm index={index} />
-                    <Footer />
                   </div>
                 </div>
               )}
