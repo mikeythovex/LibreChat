@@ -157,7 +157,7 @@ const Conversations: FC<ConversationsProps> = ({
       return (
         <CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
           {({ registerChild }) => (
-            <div ref={registerChild} style={style} className="pr-3">
+            <div ref={registerChild} style={style} className="">
               {item.type === 'header' ? (
                 <DateLabel groupName={item.groupName} />
               ) : item.type === 'convo' ? (
@@ -196,7 +196,11 @@ const Conversations: FC<ConversationsProps> = ({
   );
 
   return (
-    <div className="relative flex h-full flex-col gap-2 pb-2 text-sm text-text-primary scrollbar-transparent">
+    <div
+      className="relative flex h-full flex-col gap-2 pb-2 text-sm text-text-primary scrollbar-transparent"
+      style={{ boxShadow: 'inset 0 -5px 10px -5px rgba(0,0,0,0.2)' }} // only bottom inset shadow
+    
+    >
       {isSearchLoading ? (
         <div className="flex flex-1 items-center justify-center">
           <Spinner className="text-text-primary" />

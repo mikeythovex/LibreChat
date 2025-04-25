@@ -28,7 +28,7 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
     >
       <div
         className="relative flex-1 grow overflow-hidden whitespace-nowrap"
-        style={{ textOverflow: 'clip' }}
+        style={{ textOverflow: 'ellipsis' }}
         onDoubleClick={(e) => {
           if (isSmallScreen) {
             return;

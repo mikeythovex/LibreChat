@@ -98,16 +98,16 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
               aria-invalid={!!errors.email}
               className="
                 webkit-dark-styles transition-color peer w-full rounded-2xl border border-border-light
-                bg-surface-primary px-3.5 pb-2.5 pt-3 text-text-primary duration-200 focus:border-black focus:outline-none dark:focus:border-white
+                bg-surface-primary px-3.5 pb-2.5 pt-3 text-text-primary duration-0 focus:border-black focus:outline-none dark:focus:border-white
+                text-sm
               "
               placeholder=" "
             />
             <label
               htmlFor="email"
               className="
-                absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-surface-primary px-2 text-sm text-text-secondary-alt duration-200
-                peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100
-                peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-black dark:peer-focus:text-white
+                absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-surface-primary px-2 text-sm text-text-secondary-alt
+                peer-focus:text-black dark:peer-focus:text-white
                 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 cursor-text
                 "
             >
@@ -133,16 +133,16 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
               aria-invalid={!!errors.password}
               className="
                 webkit-dark-styles transition-color peer w-full rounded-2xl border border-border-light
-                bg-surface-primary px-3.5 pb-2.5 pt-3 text-text-primary duration-200 focus:border-black focus:outline-none dark:focus:border-white
+                bg-surface-primary px-3.5 pb-2.5 pt-3 text-text-primary duration-0 focus:border-black focus:outline-none dark:focus:border-white
+                text-sm
                 "
               placeholder=" "
             />
             <label
               htmlFor="password"
               className="
-                absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-surface-primary px-2 text-sm text-text-secondary-alt duration-200
-                peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100
-                peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-black dark:peer-focus:text-white
+                absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-surface-primary px-2 text-sm text-text-secondary-alt
+                peer-focus:text-black dark:peer-focus:text-white
                 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 cursor-text
                 "
             >
@@ -151,14 +151,14 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
           </div>
           {renderError('password')}
         </div>
-        {startupConfig.passwordResetEnabled && (
+        {/* {startupConfig.passwordResetEnabled && (
           <a
             href="/forgot-password"
             className="inline-flex p-1 text-sm font-medium text-green-600 transition-colors hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 cursor-pointer"
           >
             {localize('com_auth_password_forgot')}
           </a>
-        )}
+        )} */}
         <div className="mt-6">
           <button
             aria-label={localize('com_auth_continue')}
@@ -166,7 +166,7 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
             type="submit"
             className="
             w-full rounded-2xl bg-darkbeige px-4 py-3 text-sm font-medium text-white
-            transition-colors hover:bg-beige800 dark:bg-beige100 dark:hover:bg-darkbeige800 dark:text-darkbeige
+            transition-colors hover:bg-beige800 dark:bg-beige dark:hover:bg-beige/60 dark:text-darkbeige
             cursor-pointer
           "
           >
