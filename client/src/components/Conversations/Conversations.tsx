@@ -1,11 +1,11 @@
-import { useMemo, memo, type FC, useCallback } from 'react';
-import throttle from 'lodash/throttle';
-import { parseISO, isToday } from 'date-fns';
-import { List, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
-import { useLocalize, TranslationKeys, useMediaQuery } from '~/hooks';
+import { isToday, parseISO } from 'date-fns';
 import { TConversation } from 'librechat-data-provider';
-import { groupConversationsByDate } from '~/utils';
+import throttle from 'lodash/throttle';
+import { memo, useCallback, useMemo, type FC } from 'react';
+import { AutoSizer, CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
 import { Spinner } from '~/components/svg';
+import { TranslationKeys, useLocalize, useMediaQuery } from '~/hooks';
+import { groupConversationsByDate } from '~/utils';
 import Convo from './Convo';
 
 interface ConversationsProps {
@@ -157,7 +157,7 @@ const Conversations: FC<ConversationsProps> = ({
       return (
         <CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
           {({ registerChild }) => (
-            <div ref={registerChild} style={style}>
+            <div ref={registerChild} style={style} className="pr-3">
               {item.type === 'header' ? (
                 <DateLabel groupName={item.groupName} />
               ) : item.type === 'convo' ? (
@@ -196,14 +196,14 @@ const Conversations: FC<ConversationsProps> = ({
   );
 
   return (
-    <div className="relative flex h-full flex-col pb-2 text-sm text-text-primary">
+    <div className="relative flex h-full flex-col gap-2 pb-2 text-sm text-text-primary scrollbar-transparent">
       {isSearchLoading ? (
         <div className="flex flex-1 items-center justify-center">
           <Spinner className="text-text-primary" />
           <span className="ml-2 text-text-primary">Loading...</span>
         </div>
       ) : (
-        <div className="flex-1">
+        <div className="flex-1 pl-3 scrollbar-transparent">
           <AutoSizer>
             {({ width, height }) => (
               <List

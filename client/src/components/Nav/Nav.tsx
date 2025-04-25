@@ -18,9 +18,8 @@ import SearchBar from './SearchBar';
 import NewChat from './NewChat';
 import { cn } from '~/utils';
 import store from '~/store';
-
-const BookmarkNav = lazy(() => import('./Bookmarks/BookmarkNav'));
 const AccountSettings = lazy(() => import('./AccountSettings'));
+
 
 const NAV_WIDTH_DESKTOP = '260px';
 const NAV_WIDTH_MOBILE = '320px';
@@ -45,14 +44,10 @@ const NavMask = memo(
 
 const MemoNewChat = memo(NewChat);
 
-const Nav = memo(
-  ({
-    navVisible,
-    setNavVisible,
-  }: {
-    navVisible: boolean;
-    setNavVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  }) => {
+const Nav = memo<{
+  navVisible: boolean;
+  setNavVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}>(({ navVisible, setNavVisible }) => {
     const localize = useLocalize();
     const { isAuthenticated } = useAuthContext();
 
@@ -155,14 +150,14 @@ const Nav = memo(
       () => (
         <>
           {search.enabled === true && <SearchBar isSmallScreen={isSmallScreen} />}
-          {hasAccessToBookmarks && (
+          {/* {hasAccessToBookmarks && (
             <>
               <div className="mt-1.5" />
               <Suspense fallback={null}>
                 <BookmarkNav tags={tags} setTags={setTags} isSmallScreen={isSmallScreen} />
               </Suspense>
             </>
-          )}
+          )} */}
         </>
       ),
       [search.enabled, hasAccessToBookmarks, isSmallScreen, tags, setTags],
@@ -187,7 +182,7 @@ const Nav = memo(
         <div
           data-testid="nav"
           className={cn(
-            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-surface-primary-alt',
+            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-beigesecondary dark:bg-darkbeige',
             'md:max-w-[260px]',
           )}
           style={{
@@ -208,9 +203,9 @@ const Nav = memo(
                   <nav
                     id="chat-history-nav"
                     aria-label={localize('com_ui_chat_history')}
-                    className="flex h-full flex-col px-3 pb-3.5"
+                    className="flex h-full flex-col pb-3.5"
                   >
-                    <div className="flex flex-1 flex-col" ref={outerContainerRef}>
+                    <div className="flex flex-1 flex-col scrollbar-transparent" ref={outerContainerRef}>
                       <MemoNewChat
                         toggleNav={itemToggleNav}
                         isSmallScreen={isSmallScreen}

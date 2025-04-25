@@ -2,7 +2,7 @@ const express = require('express');
 const { getResponseSender } = require('librechat-data-provider');
 const {
   setHeaders,
-  moderateText,
+  // moderateText,
   validateModel,
   handleAbortError,
   validateEndpoint,
@@ -17,7 +17,7 @@ const { logger } = require('~/config');
 
 const router = express.Router();
 
-router.use(moderateText);
+// router.use(moderateText);
 
 router.post(
   '/',
