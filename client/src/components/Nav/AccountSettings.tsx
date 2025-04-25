@@ -68,6 +68,7 @@ function AccountSettings() {
           transformOrigin: 'bottom',
           marginRight: '0px',
           translate: '0px',
+          zIndex: 9999,
         }}
       >
         {/* // TODO: Add balance for session */}
