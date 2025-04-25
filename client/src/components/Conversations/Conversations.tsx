@@ -198,9 +198,12 @@ const Conversations: FC<ConversationsProps> = ({
   return (
     <div
       className="relative flex h-full flex-col gap-2 pb-2 text-sm text-text-primary scrollbar-transparent"
-      style={{ boxShadow: 'inset 0 -5px 10px -5px rgba(0,0,0,0.2)' }} // only bottom inset shadow
-    
     >
+      <div
+        className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-[#f5f4ee] to-transparent pointer-events-none z-10"
+        style={{ position: 'absolute' }}
+      ></div>
+      <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[#f5f4ee] to-transparent pointer-events-none z-10"></div>
       {isSearchLoading ? (
         <div className="flex flex-1 items-center justify-center">
           <Spinner className="text-text-primary" />

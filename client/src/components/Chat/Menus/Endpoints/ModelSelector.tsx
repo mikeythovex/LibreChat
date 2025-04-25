@@ -29,6 +29,12 @@ function ModelSelectorContent() {
     keyDialogEndpoint,
   } = useModelSelectorContext();
 
+  // Memoize the rendered endpoints list with timing
+  const endpointsElements = useMemo(() => renderEndpoints(mappedEndpoints ?? []), [mappedEndpoints]);
+
+  // Memoize rendered model specs list
+  const modelSpecsElements = useMemo(() => renderModelSpecs(modelSpecs, selectedValues.modelSpec || ''), [modelSpecs, selectedValues.modelSpec]);
+
   const selectedIcon = useMemo(
     () =>
       getSelectedIcon({
@@ -40,19 +46,12 @@ function ModelSelectorContent() {
     [mappedEndpoints, selectedValues, modelSpecs, endpointsConfig],
   );
   const selectedDisplayValue = useMemo(
-    () =>{
-      const x = getDisplayValue({
+    () => getDisplayValue({
         localize,
         modelSpecs,
         selectedValues,
         mappedEndpoints,
-      })
-
-      console.log("selectedDisplayValue", x);
-      return x;
-
-    },
-
+      }),
     [localize, modelSpecs, selectedValues, mappedEndpoints],
   );
 
@@ -90,8 +89,8 @@ function ModelSelectorContent() {
           renderSearchResults(searchResults, localize, searchValue)
         ) : (
           <>
-            {renderModelSpecs(modelSpecs, selectedValues.modelSpec || '')}
-            {renderEndpoints(mappedEndpoints ?? [])}
+            {modelSpecsElements}
+            {endpointsElements}
           </>
         )}
       </Menu>
@@ -106,7 +105,6 @@ function ModelSelectorContent() {
 }
 
 export default function ModelSelector({ startupConfig }: ModelSelectorProps) {
-  console.log("startupConfig", startupConfig);
   return (
     <ModelSelectorProvider startupConfig={startupConfig}>
       <ModelSelectorContent />
