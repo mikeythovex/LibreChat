@@ -36,7 +36,7 @@ export const CustomMenu = React.forwardRef<HTMLDivElement, CustomMenuProps>(func
   const menuStore = Ariakit.useMenuStore({
     showTimeout: 100,
     placement: parent ? 'right' : 'bottom-start',
-    defaultOpen: defaultOpen,
+    defaultOpen: false,
   });
 
   const element = (
@@ -47,7 +47,7 @@ export const CustomMenu = React.forwardRef<HTMLDivElement, CustomMenuProps>(func
         className={cn(
           'cursor-pointer hover:cursor-pointer',
           !parent &&
-            'bg-beige hover:bg-beige2 dark:bg-darkbeige dark:hover:bg-darkbeige800 flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-border-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
+            'bg-beige hover:bg-beige2 dark:bg-darkbeige dark:hover:bg-darkbeige800 flex h-10 w-full items-center justify-center gap-2 rounded-lg border border-border-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
           props.className,
         )}
         render={parent ? <CustomMenuItem render={trigger} /> : trigger}
@@ -59,7 +59,6 @@ export const CustomMenu = React.forwardRef<HTMLDivElement, CustomMenuProps>(func
         open={menuStore.useState('open')}
         portal
         overlap
-        unmountOnHide
         gutter={parent ? -4 : 4}
         className={cn(
           `${parent ? 'animate-popover-left ml-3' : 'animate-popover'} outline-none! z-50 flex max-h-[min(450px,var(--popover-available-height))] w-full`,
