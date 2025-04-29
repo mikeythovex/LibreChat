@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { cn } from '~/utils';
 
 interface ConvoLinkProps {
@@ -16,6 +16,11 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   isSmallScreen,
   localize,
 }) => {
+    useEffect(() => {
+      if (isActiveConvo && title) {
+        document.title = title + ' - BMO';
+      }
+    }, [isActiveConvo]);
   return (
     <div
       className={cn(
