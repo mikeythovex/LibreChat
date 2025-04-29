@@ -149,7 +149,7 @@ const SidePanel = ({
         ref={panelRef}
         style={{
           overflowY: 'auto',
-          transition: 'width 0.2s ease, visibility 0s linear 0.2s',
+          transition: 'width 0.12s ease, visibility 0s linear 0.12s',
         }}
         onExpand={() => {
           setIsCollapsed(false);

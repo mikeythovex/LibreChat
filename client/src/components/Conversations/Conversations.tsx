@@ -210,7 +210,7 @@ const Conversations: FC<ConversationsProps> = ({
           <span className="ml-2 text-text-primary">Loading...</span>
         </div>
       ) : (
-        <div className="flex-1 pl-3 scrollbar-transparent">
+        <div className="flex-1 pl-2 scrollbar-transparent">
           <AutoSizer>
             {({ width, height }) => (
               <List

@@ -50,15 +50,15 @@ const localStorageAtoms = {
   showFooter: atomWithLocalStorage('showFooter', true),
 
   // Commands settings
-  atCommand: atomWithLocalStorage('atCommand', true),
-  plusCommand: atomWithLocalStorage('plusCommand', true),
-  slashCommand: atomWithLocalStorage('slashCommand', true),
+  atCommand: atomWithLocalStorage('atCommand', false),
+  plusCommand: atomWithLocalStorage('plusCommand', false),
+  slashCommand: atomWithLocalStorage('slashCommand', false),
 
   // Speech settings
   conversationMode: atomWithLocalStorage('conversationMode', false),
   advancedMode: atomWithLocalStorage('advancedMode', false),
 
-  speechToText: atomWithLocalStorage('speechToText', true),
+  speechToText: atomWithLocalStorage('speechToText', false),
   engineSTT: atomWithLocalStorage('engineSTT', 'browser'),
   languageSTT: atomWithLocalStorage('languageSTT', ''),
   autoTranscribeAudio: atomWithLocalStorage('autoTranscribeAudio', false),

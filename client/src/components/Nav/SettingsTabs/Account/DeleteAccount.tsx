@@ -53,7 +53,7 @@ const DeleteAccount = ({ disabled = false }: { title?: string; disabled?: boolea
               onClick={() => setDialogOpen(true)}
               disabled={disabled}
             >
-              {localize('com_ui_delete')}
+              {localize('com_nav_delete_account')}
             </Button>
           </OGDialogTrigger>
         </div>

@@ -188,7 +188,7 @@ const Nav = memo<{
           style={{
             width: navVisible ? navWidth : '0px',
             visibility: navVisible ? 'visible' : 'hidden',
-            transition: 'width 0.2s, visibility 0.2s',
+            transition: 'width 0.12s, visibility 0.12s',
           }}
         >
           <div className="h-full w-[320px] md:w-[260px]">

@@ -18,12 +18,12 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     const tabs = [
       SettingsTabValues.GENERAL,
-      SettingsTabValues.CHAT,
-      SettingsTabValues.BETA,
-      SettingsTabValues.COMMANDS,
-      SettingsTabValues.SPEECH,
-      SettingsTabValues.DATA,
-      SettingsTabValues.ACCOUNT,
+      // SettingsTabValues.CHAT,
+      // SettingsTabValues.BETA,
+      // SettingsTabValues.COMMANDS,
+      // SettingsTabValues.SPEECH,
+      // SettingsTabValues.DATA,
+      // SettingsTabValues.ACCOUNT,
     ];
     const currentIndex = tabs.indexOf(activeTab);
 
@@ -57,36 +57,36 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
       icon: <GearIcon />,
       label: 'com_nav_setting_general',
     },
-    {
-      value: SettingsTabValues.CHAT,
-      icon: <MessageSquare className="icon-sm" />,
-      label: 'com_nav_setting_chat',
-    },
-    {
-      value: SettingsTabValues.BETA,
-      icon: <ExperimentIcon />,
-      label: 'com_nav_setting_beta',
-    },
-    {
-      value: SettingsTabValues.COMMANDS,
-      icon: <Command className="icon-sm" />,
-      label: 'com_nav_commands',
-    },
-    {
-      value: SettingsTabValues.SPEECH,
-      icon: <SpeechIcon className="icon-sm" />,
-      label: 'com_nav_setting_speech',
-    },
-    {
-      value: SettingsTabValues.DATA,
-      icon: <DataIcon />,
-      label: 'com_nav_setting_data',
-    },
-    {
-      value: SettingsTabValues.ACCOUNT,
-      icon: <UserIcon />,
-      label: 'com_nav_setting_account',
-    },
+    // {
+    //   value: SettingsTabValues.CHAT,
+    //   icon: <MessageSquare className="icon-sm" />,
+    //   label: 'com_nav_setting_chat',
+    // },
+    // {
+    //   value: SettingsTabValues.BETA,
+    //   icon: <ExperimentIcon />,
+    //   label: 'com_nav_setting_beta',
+    // },
+    // {
+    //   value: SettingsTabValues.COMMANDS,
+    //   icon: <Command className="icon-sm" />,
+    //   label: 'com_nav_commands',
+    // },
+    // {
+    //   value: SettingsTabValues.SPEECH,
+    //   icon: <SpeechIcon className="icon-sm" />,
+    //   label: 'com_nav_setting_speech',
+    // },
+    // {
+    //   value: SettingsTabValues.DATA,
+    //   icon: <DataIcon />,
+    //   label: 'com_nav_setting_data',
+    // },
+    // {
+    //   value: SettingsTabValues.ACCOUNT,
+    //   icon: <UserIcon />,
+    //   label: 'com_nav_setting_account',
+    // },
   ];
 
   const handleTabChange = (value: string) => {
@@ -118,7 +118,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
           <div className={cn('fixed inset-0 flex w-screen items-center justify-center p-4')}>
             <DialogPanel
               className={cn(
-                'min-h-[600px] overflow-hidden rounded-xl rounded-b-lg bg-background pb-6 shadow-2xl backdrop-blur-2xl animate-in sm:rounded-2xl md:min-h-[373px] md:w-[680px]',
+                'min-h-[600px] overflow-hidden rounded-xl rounded-b-lg bg-background pb-6 shadow-2xl backdrop-blur-2xl animate-in sm:rounded-2xl md:min-h-[30px] md:w-[480px]',
               )}
             >
               <DialogTitle
@@ -151,14 +151,14 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                   <span className="sr-only">{localize('com_ui_close')}</span>
                 </button>
               </DialogTitle>
-              <div className="max-h-[550px] overflow-auto px-6 md:max-h-[400px] md:min-h-[400px] md:w-[680px]">
+              <div className="max-h-[550px] overflow-auto px-6 md:max-h-[400px] md:min-h-[300px] md:w-[480px]">
                 <Tabs.Root
                   value={activeTab}
                   onValueChange={handleTabChange}
                   className="flex flex-col gap-10 md:flex-row"
                   orientation="vertical"
                 >
-                  <Tabs.List
+                  {/* <Tabs.List
                     aria-label="Settings"
                     className={cn(
                       'min-w-auto max-w-auto relative -ml-[8px] flex flex-shrink-0 flex-col flex-nowrap overflow-auto sm:max-w-none',
@@ -175,7 +175,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                           'group relative z-10 m-1 flex items-center justify-start gap-2 rounded-xl px-2 py-1.5 transition-all duration-200 ease-in-out',
                           isSmallScreen
                             ? 'flex-1 justify-center text-nowrap p-1 px-3 text-sm text-text-secondary radix-state-active:bg-surface-hover radix-state-active:text-text-primary'
-                            : 'bg-transparent text-text-secondary radix-state-active:bg-surface-tertiary radix-state-active:text-text-primary',
+                            : 'bg-transparent text-text-secondary radix-state-active:bg-surface-tertiary radix-state-active:text-text-primary hover:bg-beigesecondary dark:hover:bg-darkbeige800',
                         )}
                         value={value}
                         ref={(el) => (tabRefs.current[value] = el)}
@@ -184,7 +184,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                         {localize(label)}
                       </Tabs.Trigger>
                     ))}
-                  </Tabs.List>
+                  </Tabs.List> */}
                   <div className="overflow-auto sm:w-full sm:max-w-none md:pr-0.5 md:pt-0.5">
                     <Tabs.Content value={SettingsTabValues.GENERAL}>
                       <General />
