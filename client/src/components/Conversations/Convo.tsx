@@ -136,24 +136,24 @@ export default function Conversation({
   return (
     <div
       className={cn(
-        'bg-beigesecondary hover:bg-beigetertiary group relative mt-1 mb-2 flex w-full items-center rounded-lg dark:bg-darkbeige hover:dark:bg-darkbeige800 max-w-[97%]',
+        'group relative mt-1 flex w-full items-center rounded-lg bg-beigesecondary hover:bg-beigetertiary dark:bg-darkbeige hover:dark:bg-darkbeige800',
         isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800' : '',
-        isMobile ? 'h-9' : 'h-7',
+        isMobile ? 'mb-2 h-9 max-w-[97%]' : 'h-7',
       )}
       role="listitem"
       tabIndex={0}
       onClick={(e) => {
-        if (renaming) {
-          return;
-        }
+        // if (renaming) {
+        //   return;
+        // }
         if (e.button === 0) {
           handleNavigation(e.ctrlKey || e.metaKey);
         }
       }}
       onKeyDown={(e) => {
-        if (renaming) {
-          return;
-        }
+        // if (renaming) {
+        //   return;
+        // }
         if (e.key === 'Enter') {
           handleNavigation(false);
         }

@@ -237,13 +237,13 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
           <div
             onClick={handleContainerClick}
             className={cn(
-              'relative flex w-full flex-grow flex-col overflow-hidden rounded-2xl border mb-6 mr-1  text-text-primary transition-all duration-200 sm:rounded-2xl sm:pb-0',
+              'relative mb-6 mr-1 flex w-full flex-grow flex-col overflow-hidden rounded-2xl border text-text-primary transition-all duration-200 sm:rounded-2xl sm:pb-0',
               isTextAreaFocused ? 'shadow-lg' : 'shadow-md',
               isTemporary
                 ? 'border-violet-800/60 bg-violet-950/10'
                 : 'border-border-light bg-surface-chat',
               isSmallScreen ? 'ml-1.5' : '-ml-1',
-              isMobile ? 'mb-8' : '',
+              isMobile ? 'mb-10' : '',
             )}
           >
             <TextareaHeader addedConvo={addedConvo} setAddedConvo={setAddedConvo} />
@@ -286,18 +286,18 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
                   )}
                 />
                 <div className="m-2">
-                {(isSubmitting || isSubmittingAdded) && (showStopButton || showStopAdded) ? (
-                  <StopButton stop={handleStopGenerating} setShowStopButton={setShowStopButton} />
-                ) : (
-                  endpoint && (
-                    <SendButton
-                      ref={submitButtonRef}
-                      control={methods.control}
-                      disabled={filesLoading || isSubmitting || disableInputs}
-                    />
-                  )
-                )}
-              </div>
+                  {(isSubmitting || isSubmittingAdded) && (showStopButton || showStopAdded) ? (
+                    <StopButton stop={handleStopGenerating} setShowStopButton={setShowStopButton} />
+                  ) : (
+                    endpoint && (
+                      <SendButton
+                        ref={submitButtonRef}
+                        control={methods.control}
+                        disabled={filesLoading || isSubmitting || disableInputs}
+                      />
+                    )
+                  )}
+                </div>
               </div>
             )}
           </div>

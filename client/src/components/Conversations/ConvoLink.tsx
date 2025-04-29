@@ -16,11 +16,11 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   isSmallScreen,
   localize,
 }) => {
-    useEffect(() => {
-      if (isActiveConvo && title) {
-        document.title = title + ' - BMO';
-      }
-    }, [isActiveConvo]);
+  useEffect(() => {
+    if (isActiveConvo && title) {
+      document.title = title + ' - BMO';
+    }
+  }, [isActiveConvo]);
   return (
     <div
       className={cn(
@@ -34,14 +34,14 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
       <div
         className="relative flex-1 grow overflow-hidden whitespace-nowrap"
         style={{ textOverflow: 'ellipsis' }}
-        onDoubleClick={(e) => {
-          if (isSmallScreen) {
-            return;
-          }
-          e.preventDefault();
-          e.stopPropagation();
-          onRename();
-        }}
+        // onDoubleClick={(e) => {
+        //   if (isSmallScreen) {
+        //     return;
+        //   }
+        //   e.preventDefault();
+        //   e.stopPropagation();
+        //   onRename();
+        // }}
         role="button"
         aria-label={isSmallScreen ? undefined : localize('com_ui_double_click_to_rename')}
       >
@@ -52,7 +52,7 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
           'absolute bottom-0 right-0 top-0 w-5 rounded-r-lg bg-gradient-to-l',
           isActiveConvo
             ? 'from-surface-active-alt'
-            : 'from-beigesecondary dark:from-darkbeige from-0% to-transparent group-hover:from-beigesecondary dark:group-hover:from-darkbeige group-hover:from-40%',
+            : 'from-beigesecondary from-0% to-transparent group-hover:from-beigesecondary group-hover:from-40% dark:from-darkbeige dark:group-hover:from-darkbeige',
         )}
         aria-hidden="true"
       />
