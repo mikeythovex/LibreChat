@@ -156,7 +156,7 @@ const ContentRender = memo(
         >
           <h2 className={cn('select-none font-semibold', fontSize)}>{msg.isCreatedByUser ? messageLabel : 'BMO'}</h2>
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 -ml-8">
             <div className="flex max-w-full flex-grow flex-col gap-0">
               <ContentParts
                 edit={edit}
