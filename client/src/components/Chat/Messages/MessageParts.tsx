@@ -89,7 +89,7 @@ export default function Message(props: TMessageProps) {
         onWheel={handleScroll}
         onTouchMove={handleScroll}
       >
-        <div className="m-auto justify-center p-4 py-2 md:gap-6">
+        <div className="m-auto justify-center p-2 py-2 md:gap-6">
           <div
             id={messageId}
             aria-label={`message-${message.depth}-${messageId}`}
@@ -102,14 +102,14 @@ export default function Message(props: TMessageProps) {
             </div>
             <div
               className={cn(
-                'relative flex w-11/12 flex-col',
+                'relative flex flex-col w-full',
                 isCreatedByUser ? 'user-turn' : 'agent-turn',
               )}
             >
               <h2 className={cn('select-none font-semibold text-text-primary', fontSize)}>
                 {isCreatedByUser ? name : 'BMO'}
               </h2>
-              <div className="flex flex-col gap-1">
+              <div className="message-parts flex flex-col gap-1 -ml-5 w-full"> 
                 <div className="flex max-w-full flex-grow flex-col gap-0">
                   <ContentParts
                     edit={edit}

@@ -101,8 +101,8 @@ const SearchBar = forwardRef((props: SearchBarProps, ref: Ref<HTMLDivElement>) =
     <div
       ref={ref}
       className={cn(
-        'cursor-text group relative mt-1 flex h-10 items-center gap-3 rounded-lg border-border-medium px-3 py-2 text-text-primary bg-beigetertiary dark:bg-darkbeige900 transition-colors duration-200',
-        isSmallScreen === true ? 'mb-2 h-14 rounded-2xl' : '',
+        'SearchBar cursor-text group relative mt-1 flex h-10 items-center gap-3 rounded-lg border-border-medium px-3 py-2 text-text-primary bg-beigetertiary dark:bg-darkbeige900 transition-colors duration-200',
+        isSmallScreen ? 'mb-2 h-11 rounded-2xl' : '',
       )}
     >
       <Search className="absolute left-3 h-4 w-4 text-text-secondary group-focus-within:text-text-primary group-hover:text-text-primary" />

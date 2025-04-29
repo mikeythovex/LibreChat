@@ -111,9 +111,9 @@ export default function Conversation({
 
     toggleNav();
 
-    if (typeof title === 'string' && title.length > 0) {
-      document.title = title;
-    }
+    // if (typeof title === 'string' && title.length > 0) {
+    //   document.title = title;
+    // }
 
     navigateWithLastTools(
       conversation,
@@ -131,11 +131,14 @@ export default function Conversation({
     setIsPopoverActive,
   };
 
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   return (
     <div
       className={cn(
-        'bg-beigesecondary hover:bg-beigetertiary group relative mt-1 flex h-7 w-full items-center rounded-lg dark:bg-darkbeige hover:dark:bg-darkbeige800',
+        'bg-beigesecondary hover:bg-beigetertiary group relative mt-1 flex w-full items-center rounded-lg dark:bg-darkbeige hover:dark:bg-darkbeige800',
         isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800' : '',
+        isMobile ? 'h-9' : 'h-7',
       )}
       role="listitem"
       tabIndex={0}
