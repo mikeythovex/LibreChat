@@ -136,7 +136,7 @@ export default function Conversation({
   return (
     <div
       className={cn(
-        'bg-beigesecondary hover:bg-beigetertiary group relative mt-1 flex w-full items-center rounded-lg dark:bg-darkbeige hover:dark:bg-darkbeige800',
+        'bg-beigesecondary hover:bg-beigetertiary group relative mt-1 mb-2 flex w-full items-center rounded-lg dark:bg-darkbeige hover:dark:bg-darkbeige800 max-w-[97%]',
         isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800' : '',
         isMobile ? 'h-9' : 'h-7',
       )}
