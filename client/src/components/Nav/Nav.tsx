@@ -4,11 +4,11 @@ import { PermissionTypes, Permissions } from 'librechat-data-provider';
 import type { TConversation, ConversationListResponse } from 'librechat-data-provider';
 import type { InfiniteQueryObserverResult } from '@tanstack/react-query';
 import {
-  useAuthContext,
-  useHasAccess,
   useLocalize,
-  useLocalStorage,
+  useHasAccess,
   useMediaQuery,
+  useAuthContext,
+  useLocalStorage,
   useNavScrolling,
 } from '~/hooks';
 import { useConversationsInfiniteQuery } from '~/data-provider';
@@ -18,8 +18,8 @@ import SearchBar from './SearchBar';
 import NewChat from './NewChat';
 import { cn } from '~/utils';
 import store from '~/store';
-const AccountSettings = lazy(() => import('./AccountSettings'));
 
+const AccountSettings = lazy(() => import('./AccountSettings'));
 
 const NAV_WIDTH_DESKTOP = '260px';
 const NAV_WIDTH_MOBILE = '320px';

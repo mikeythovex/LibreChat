@@ -1,15 +1,16 @@
-import * as Select from '@ariakit/react/select';
-import { LogOut } from 'lucide-react';
-import { memo, useState } from 'react';
+import { useState, memo } from 'react';
 import { useRecoilState } from 'recoil';
-import { DropdownMenuSeparator, GearIcon } from '~/components';
-import { UserIcon } from '~/components/svg';
+import * as Select from '@ariakit/react/select';
+import { FileText, LogOut } from 'lucide-react';
+import { LinkIcon, GearIcon, DropdownMenuSeparator } from '~/components';
 import { useGetStartupConfig, useGetUserBalance } from '~/data-provider';
-import { useLocalize } from '~/hooks';
+import FilesView from '~/components/Chat/Input/Files/FilesView';
 import { useAuthContext } from '~/hooks/AuthContext';
 import useAvatar from '~/hooks/Messages/useAvatar';
-import store from '~/store';
+import { UserIcon } from '~/components/svg';
+import { useLocalize } from '~/hooks';
 import Settings from './Settings';
+import store from '~/store';
 
 function AccountSettings() {
   const localize = useLocalize();

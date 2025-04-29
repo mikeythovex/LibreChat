@@ -1,10 +1,15 @@
-import { getConfigDefaults, Permissions, PermissionTypes } from 'librechat-data-provider';
+import { useMemo } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { getConfigDefaults, PermissionTypes, Permissions } from 'librechat-data-provider';
+import type { ContextType } from '~/common';
+import ModelSelector from './Menus/Endpoints/ModelSelector';
 import { useGetStartupConfig } from '~/data-provider';
-import { useMediaQuery } from '~/hooks';
+import ExportAndShareMenu from './ExportAndShareMenu';
+import { useMediaQuery, useHasAccess } from '~/hooks';
+import BookmarkMenu from './Menus/BookmarkMenu';
+import { TemporaryChat } from './TemporaryChat';
 import AddMultiConvo from './AddMultiConvo';
 import CreateNewChat from './CreateNewChat';
-import ModelSelector from './Menus/Endpoints/ModelSelector';
-import { TemporaryChat } from './TemporaryChat';
 
 export default function Header() {
   const { data: startupConfig } = useGetStartupConfig();

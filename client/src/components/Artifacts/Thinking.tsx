@@ -1,10 +1,10 @@
-import { Atom, ChevronDown } from 'lucide-react';
-import type { FC, MouseEvent } from 'react';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { useState, useMemo, memo, useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
+import { Atom, ChevronDown } from 'lucide-react';
+import type { MouseEvent, FC } from 'react';
 import { useLocalize } from '~/hooks';
-import store from '~/store';
 import { cn } from '~/utils';
+import store from '~/store';
 
 const BUTTON_STYLES = {
   base: 'group mt-3 flex w-fit items-center justify-center rounded-xl bg-surface-tertiary px-3 py-2 text-xs leading-[18px] animate-thinking-appear',

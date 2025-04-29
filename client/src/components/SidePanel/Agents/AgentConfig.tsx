@@ -1,16 +1,23 @@
+import React, { useState, useMemo, useCallback } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { Controller, useWatch, useFormContext } from 'react-hook-form';
+import { QueryKeys, EModelEndpoint, AgentCapabilities } from 'librechat-data-provider';
 import type { TPlugin } from 'librechat-data-provider';
-import { AgentCapabilities, EModelEndpoint, QueryKeys } from 'librechat-data-provider';
-import { useCallback, useMemo, useState } from 'react';
-import { Controller, useFormContext, useWatch } from 'react-hook-form';
-import { useFileMapContext, useToastContext } from '~/Providers';
 import type { AgentForm, AgentPanelProps, IconComponentTypes } from '~/common';
-import { Panel } from '~/common';
+import { cn, defaultTextProps, removeFocusOutlines, getEndpointField, getIconKey } from '~/utils';
+import { useToastContext, useFileMapContext } from '~/Providers';
+import Action from '~/components/SidePanel/Builder/Action';
 import { ToolSelectDialog } from '~/components/Tools';
-import { useLocalize } from '~/hooks';
 import { icons } from '~/hooks/Endpoint/Icons';
-import { cn, defaultTextProps, getEndpointField, getIconKey, processAgentOption, removeFocusOutlines } from '~/utils';
+import { processAgentOption } from '~/utils';
+import AgentAvatar from './AgentAvatar';
+import FileContext from './FileContext';
+import { useLocalize } from '~/hooks';
+import FileSearch from './FileSearch';
+import Artifacts from './Artifacts';
 import AgentTool from './AgentTool';
+import CodeForm from './Code/Form';
+import { Panel } from '~/common';
 
 const labelClass = 'mb-2 text-token-text-primary block font-medium';
 const inputClass = cn(

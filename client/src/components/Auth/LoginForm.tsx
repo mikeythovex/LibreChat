@@ -1,8 +1,8 @@
-import type { TLoginUser, TStartupConfig } from 'librechat-data-provider';
-import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
+import type { TLoginUser, TStartupConfig } from 'librechat-data-provider';
 import type { TAuthContext } from '~/common';
-import { useGetStartupConfig, useResendVerificationEmail } from '~/data-provider';
+import { useResendVerificationEmail, useGetStartupConfig } from '~/data-provider';
 import { useLocalize } from '~/hooks';
 
 type TLoginFormProps = {

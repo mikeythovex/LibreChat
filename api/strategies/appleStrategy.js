@@ -30,7 +30,7 @@ const getProfileDetails = ({ idToken, profile }) => {
       ? decoded.email.split('@')[0].toLowerCase()
       : `user_${decoded.sub}`,
     name: decoded.name
-      ? `${decoded.name.firstName}`
+      ? `${decoded.name.firstName} ${decoded.name.lastName}`
       : profile.displayName || null,
     emailVerified: true, // Apple verifies the email
   };

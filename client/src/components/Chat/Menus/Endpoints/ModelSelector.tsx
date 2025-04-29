@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import type { ModelSelectorProps } from '~/common';
-import { useLocalize } from '~/hooks';
+import { ModelSelectorProvider, useModelSelectorContext } from './ModelSelectorContext';
+import { renderModelSpecs, renderEndpoints, renderSearchResults } from './components';
+import { getSelectedIcon, getDisplayValue } from './utils';
 import { CustomMenu as Menu } from './CustomMenu';
 import DialogManager from './DialogManager';
-import { ModelSelectorProvider, useModelSelectorContext } from './ModelSelectorContext';
-import { renderEndpoints, renderModelSpecs, renderSearchResults } from './components';
-import { getDisplayValue, getSelectedIcon } from './utils';
+import { useLocalize } from '~/hooks';
 
 function ModelSelectorContent() {
   const localize = useLocalize();
