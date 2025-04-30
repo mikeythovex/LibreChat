@@ -52,7 +52,7 @@ function ChatView({ index = 0 }: { index?: number }) {
     content = (
       <div className="relative flex-1 overflow-hidden overflow-y-auto">
         <div className="relative flex h-full items-center justify-center">
-          <Spinner className="text-text-primary" />
+          <Spinner className="text-text-primary w-6 h-6" />
         </div>
       </div>
     );
