@@ -55,21 +55,21 @@ const registerSchema = z
       .refine((value) => value.trim().length > 0, {
         message: 'Password cannot be only spaces',
       }),
-    confirm_password: z
-      .string()
-      .min(8)
-      .max(128)
-      .refine((value) => value.trim().length > 0, {
-        message: 'Password cannot be only spaces',
-      }),
+    // confirm_password: z
+    //   .string()
+    //   .min(8)
+    //   .max(128)
+    //   .refine((value) => value.trim().length > 0, {
+    //     message: 'Password cannot be only spaces',
+    //   }),
   })
   .superRefine(({ confirm_password, password }, ctx) => {
-    if (confirm_password !== password) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'The passwords did not match',
-      });
-    }
+    // if (confirm_password !== password) {
+    //   ctx.addIssue({
+    //     code: 'custom',
+    //     message: 'The passwords did not match',
+    //   });
+    // }
   });
 
 module.exports = {
