@@ -39,7 +39,7 @@ export const CustomMenu = React.forwardRef<HTMLDivElement, CustomMenuProps>(func
   const menuStore = Ariakit.useMenuStore({
     showTimeout: 100,
     placement: parent ? 'right' : 'bottom-start',
-    defaultOpen: isSmallScreen,
+    defaultOpen: isSmallScreen && defaultOpen,
   });
 
   const element = (
@@ -62,6 +62,7 @@ export const CustomMenu = React.forwardRef<HTMLDivElement, CustomMenuProps>(func
         open={menuStore.useState('open')}
         portal
         overlap
+        unmountOnHide={isSmallScreen}
         gutter={parent ? -4 : 4}
         className={cn(
           `${parent ? 'animate-popover-left ml-3' : 'animate-popover'} outline-none! z-50 flex max-h-[min(450px,var(--popover-available-height))] w-full`,
