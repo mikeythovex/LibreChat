@@ -70,9 +70,12 @@ export function ModelSelectorProvider({ children, startupConfig }: ModelSelector
 
   // State
   const [selectedValues, setSelectedValues] = useState<SelectedValues>({
-    endpoint: '',
-    model: '',
-    modelSpec: '',
+    // endpoint: '',
+    // model: '',
+    // modelSpec: '',
+    endpoint: conversation?.endpoint || '',
+    model: conversation?.model || '',
+    modelSpec: conversation?.spec || '',
   });
   useSelectorEffects({
     agentsMap,

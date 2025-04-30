@@ -33,7 +33,7 @@ function ModelSelectorContent() {
   const endpointsElements = useMemo(() => renderEndpoints(mappedEndpoints ?? []), [mappedEndpoints]);
 
   // Memoize rendered model specs list
-  // const modelSpecsElements = useMemo(() => renderModelSpecs(modelSpecs, selectedValues.modelSpec || ''), [modelSpecs, selectedValues.modelSpec]);
+  const modelSpecsElements = useMemo(() => renderModelSpecs(modelSpecs, selectedValues.modelSpec || ''), [modelSpecs, selectedValues.modelSpec]);
 
   const selectedIcon = useMemo(
     () =>
@@ -69,6 +69,10 @@ function ModelSelectorContent() {
     </button>
   );
 
+  console.log('ModelSelector render');
+  console.log(modelSpecsElements)
+  console.log(endpointsElements)
+
   return (
     <div className="relative flex w-full max-w-md flex-col items-center gap-2">
       <Menu
@@ -89,8 +93,8 @@ function ModelSelectorContent() {
           renderSearchResults(searchResults, localize, searchValue)
         ) : (
           <>
-            {/* {modelSpecsElements} */}
-            {endpointsElements}
+            {modelSpecsElements}
+            {renderEndpoints(mappedEndpoints ?? [])}
           </>
         )}
       </Menu>
