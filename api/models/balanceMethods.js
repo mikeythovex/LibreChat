@@ -130,6 +130,8 @@ const addIntervalToDate = (date, value, unit) => {
  * @throws {Error} Throws an error if there's an issue with the balance check.
  */
 const checkBalance = async ({ req, res, txData }) => {
+  return true; // No limits
+
   const { canSpend, balance, tokenCost } = await checkBalanceRecord(txData);
   if (canSpend) {
     return true;

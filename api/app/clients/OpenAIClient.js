@@ -1042,6 +1042,14 @@ ${convo}
    * @returns {Promise<void>}
    */
   async recordTokenUsage({ promptTokens, completionTokens, usage, context = 'message' }) {
+    // Log OpenRouter cost information if available
+    let totalCost = 0;
+    if (this.useOpenRouter && usage) {
+      const promptCost = this.calculateCost(promptTokens, 'prompt');
+      const completionCost = this.calculateCost(completionTokens, 'completion');
+      totalCost = promptCost + completionCost;
+    }
+
     await spendTokens(
       {
         context,
@@ -1050,7 +1058,7 @@ ${convo}
         user: this.user ?? this.options.req.user?.id,
         endpointTokenConfig: this.options.endpointTokenConfig,
       },
-      { promptTokens, completionTokens },
+      { promptTokens, completionTokens, totalCost },
     );
 
     if (
@@ -1070,6 +1078,46 @@ ${convo}
         { completionTokens: usage.reasoning_tokens },
       );
     }
+  }
+
+  /**
+   * Logs the cost information from OpenRouter API responses
+   * @param {OpenAIUsageMetadata} usage - The usage object from the API response
+   * @param {number} promptTokens - The number of prompt tokens
+   * @param {number} completionTokens - The number of completion tokens
+   */
+  // logOpenRouterCost(usage, promptTokens, completionTokens) {
+  //   try {
+  //     const modelName = this.modelOptions.model;
+  //     const promptCost = this.calculateCost(promptTokens, 'prompt');
+  //     const completionCost = this.calculateCost(completionTokens, 'completion');
+  //     const totalCost = promptCost + completionCost;
+
+  //     logger.info(`[OpenRouter Cost] Model: ${modelName}, Total: $${totalCost.toFixed(6)} (Prompt: $${promptCost.toFixed(6)} for ${promptTokens} tokens, Completion: $${completionCost.toFixed(6)} for ${completionTokens} tokens)`);
+  //   } catch (error) {
+  //     logger.error('[OpenRouter Cost] Error logging cost information:', error);
+  //   }
+  // }
+
+  /**
+   * Calculates the cost based on token count and type
+   * @param {number} tokenCount - The number of tokens
+   * @param {'prompt'|'completion'} tokenType - The type of tokens (prompt or completion)
+   * @returns {number} The calculated cost
+   */
+  calculateCost(tokenCount, tokenType) {
+    if (!this.options.endpointTokenConfig || !this.modelOptions.model) {
+      return 0;
+    }
+
+    const modelConfig = this.options.endpointTokenConfig[this.modelOptions.model];
+    if (!modelConfig || !modelConfig[tokenType]) {
+      return 0;
+    }
+
+    // Token costs in endpointTokenConfig are stored as tokens per $1
+    // Convert to cost per token for calculation
+    return (tokenCount * modelConfig[tokenType]) / 1000000;
   }
 
   getTokenCountForResponse(response) {
@@ -1224,9 +1272,9 @@ ${convo}
 
         opts.baseURL = this.langchainProxy
           ? constructAzureURL({
-            baseURL: this.langchainProxy,
-            azureOptions: this.azure,
-          })
+              baseURL: this.langchainProxy,
+              azureOptions: this.azure,
+            })
           : this.azureEndpoint.split(/(?<!\/)\/(chat|completion)\//)[0];
 
         opts.defaultQuery = { 'api-version': this.azure.azureOpenAIApiVersion };

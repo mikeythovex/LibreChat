@@ -17,7 +17,7 @@ function AccountSettings() {
   const { user, isAuthenticated, logout } = useAuthContext();
   const { data: startupConfig } = useGetStartupConfig();
   const balanceQuery = useGetUserBalance({
-    enabled: !!isAuthenticated && startupConfig?.balance?.enabled,
+    enabled: !!isAuthenticated,
   });
   const [showSettings, setShowSettings] = useState(false);
   const [showFiles, setShowFiles] = useRecoilState(store.showFiles);
@@ -25,12 +25,27 @@ function AccountSettings() {
   const avatarSrc = useAvatar(user);
   const avatarSeed = user?.avatar || user?.name || user?.username || '';
 
+  const hasBalance =
+    balanceQuery.data?.balance != null && !isNaN(parseFloat(balanceQuery.data.balance));
+
+  const hasAllTimeCost =
+    balanceQuery.data?.totalCost != null && !isNaN(parseFloat(String(balanceQuery.data.totalCost)));
+
+  const hasMonthlyTotalCost =
+    balanceQuery.data?.monthlyTotalCost != null &&
+    !isNaN(parseFloat(String(balanceQuery.data.monthlyTotalCost)));
+
+  const formatCost = (cost: number | undefined) => {
+    if (cost === undefined) return '$0.0000';
+    return `$${parseFloat(String(cost)).toFixed(4)}`;
+  };
+
   return (
     <Select.SelectProvider>
       <Select.Select
         aria-label={localize('com_nav_account_settings')}
         data-testid="nav-user"
-        className="mt-text-sm hover:bg-beigetertiary flex h-auto items-center gap-2 rounded-xl mx-3 p-2 text-sm transition-all duration-50 ease-in-out hover:dark:bg-darkbeige800"
+        className="mt-text-sm duration-50 mx-3 flex h-auto items-center gap-2 rounded-xl p-2 text-sm transition-all ease-in-out hover:bg-beigetertiary hover:dark:bg-darkbeige800"
       >
         <div className="-ml-0.9 -mt-0.8 h-8 w-8 flex-shrink-0">
           <div className="relative flex">
@@ -73,16 +88,23 @@ function AccountSettings() {
         }}
       >
         {/* // TODO: Add balance for session */}
-        {startupConfig?.balance?.enabled === true &&
-          balanceQuery.data != null &&
-          !isNaN(parseFloat(balanceQuery.data)) && (
-            <>
-              <div className="text-token-text-secondary ml-3 mr-2 py-2 text-sm" role="note">
-                {localize('com_nav_balance')}: {parseFloat(balanceQuery.data).toFixed(2)}
+        {startupConfig?.balance?.enabled === true && (hasAllTimeCost || hasMonthlyTotalCost) && (
+          <>
+            {hasMonthlyTotalCost && (
+              <div className="text-token-text-secondary ml-3 mr-2 py-1 text-sm" role="note">
+                Usage this month: {formatCost(balanceQuery.data?.monthlyTotalCost)}
               </div>
-              <DropdownMenuSeparator />
-            </>
-          )}
+            )}
+
+            {/* {hasAllTimeCost && (
+              <div className="text-token-text-secondary ml-3 mr-2 py-1 text-sm" role="note">
+                All time: {formatCost(balanceQuery.data?.totalCost)}
+              </div>
+            )} */}
+
+            <DropdownMenuSeparator />
+          </>
+        )}
         <Select.SelectItem
           value=""
           onClick={() => setShowSettings(true)}

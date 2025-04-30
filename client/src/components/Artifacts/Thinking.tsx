@@ -26,7 +26,8 @@ export const ThinkingContent: FC<{ children: React.ReactNode; isPart?: boolean }
     <div className={CONTENT_STYLES.wrapper}>
       <div className={isPart === true ? CONTENT_STYLES.partBorder : CONTENT_STYLES.border} />
       <p className={CONTENT_STYLES.text}>
-        {typeof children === 'string'
+        {children}
+        {/* {typeof children === 'string'
           ? children.split(/(\s+)/).map((word, index) => (
               <span
                 key={`${word}-${index}`}
@@ -35,7 +36,7 @@ export const ThinkingContent: FC<{ children: React.ReactNode; isPart?: boolean }
                 {word}
               </span>
             ))
-          : children}
+          : children} */}
       </p>
     </div>
   ),
