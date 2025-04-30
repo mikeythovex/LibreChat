@@ -22,30 +22,37 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
     if (isActiveConvo && title) {
       document.title = title + ' - BMO';
     }
-  }, [isActiveConvo]);
+  }, [isActiveConvo, title]);
+
+  const handleTouch = (e: React.TouchEvent) => {
+    e.preventDefault();
+    if (onClick) {
+      onClick({
+        button: 0,
+        ctrlKey: false,
+        metaKey: false,
+        preventDefault: () => {},
+        stopPropagation: () => {},
+      } as React.MouseEvent);
+    }
+  };
+
   return (
-    <div
+    <button
       className={cn(
-        'flex grow items-center gap-2 overflow-hidden rounded-lg px-2',
+        'flex w-full grow touch-manipulation items-center gap-2 overflow-hidden rounded-lg border-none bg-transparent px-2 text-left',
         isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800 hover:dark:bg-darkbeige800' : '',
       )}
       title={title ?? undefined}
       aria-current={isActiveConvo ? 'page' : undefined}
       style={{ width: '100%' }}
       onClick={onClick}
+      onTouchEnd={handleTouch}
     >
       <div
         className="relative flex-1 grow overflow-hidden whitespace-nowrap"
         style={{ textOverflow: 'ellipsis' }}
-        // onDoubleClick={(e) => {
-        //   if (isSmallScreen) {
-        //     return;
-        //   }
-        //   e.preventDefault();
-        //   e.stopPropagation();
-        //   onRename();
-        // }}
-        role="button"
+        role="presentation"
         aria-label={isSmallScreen ? undefined : localize('com_ui_double_click_to_rename')}
       >
         {title || localize('com_ui_untitled')}
@@ -59,7 +66,7 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
         )}
         aria-hidden="true"
       />
-    </div>
+    </button>
   );
 };
 

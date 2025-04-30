@@ -175,12 +175,9 @@ export default function Conversation({
           onRename={handleRename}
           isSmallScreen={isSmallScreen}
           localize={localize}
-          onClick={(e) => {
-            if (renaming) {
-              return;
-            }
-            if (e.button === 0) {
-              handleNavigation(e.ctrlKey || e.metaKey);
+          onClick={() => {
+            if (!renaming && currentConvoId !== conversationId) {
+              handleNavigation(false);
             }
           }}
         />
