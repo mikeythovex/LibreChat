@@ -715,8 +715,8 @@ pre {
 
 .premium-scroll-button:hover:not(:active) {
   transform: translateY(-1.5px) scale(1.02);
-  box-shadow: 
-    0 5px 10px rgba(0, 0, 0, 0.07), 
+  box-shadow:
+    0 5px 10px rgba(0, 0, 0, 0.07),
     0 7px 14px rgba(0, 0, 0, 0.1),
     0 0 0 1px rgba(255, 255, 255, 0.1);
 }
@@ -1316,12 +1316,12 @@ button {
 .btn-primary {
   --tw-bg-opacity: 1;
   --tw-text-opacity: 1;
-  background-color: rgba(16, 163, 127, var(--tw-bg-opacity));
+  background-color: black;
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 .btn-primary:hover {
   --tw-bg-opacity: 1;
-  background-color: rgba(26, 127, 100, var(--tw-bg-opacity));
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .btn-primary:focus {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width)
@@ -2572,7 +2572,9 @@ html {
 .animate-popover {
   transform-origin: top;
   opacity: 0;
-  transition: opacity 50ms cubic-bezier(0.4, 0, 0.2, 1), transform 50ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    opacity 50ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 50ms cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(0.95) translateY(-0.5rem);
 }
 
@@ -2584,7 +2586,9 @@ html {
 .animate-popover-left {
   transform-origin: left;
   opacity: 0;
-  transition: opacity 50ms cubic-bezier(0.4, 0, 0.2, 1), transform 50ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    opacity 50ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 50ms cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(0.95) translateX(-0.5rem);
 }
 

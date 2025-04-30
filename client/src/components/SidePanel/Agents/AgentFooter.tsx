@@ -63,7 +63,7 @@ export default function AgentFooter({
         />
         {/* Submit Button */}
         <button
-          className="btn btn-primary focus:shadow-outline flex h-9 w-full items-center justify-center px-4 py-2 font-semibold text-white hover:bg-green-600 focus:border-green-500"
+          className="btn btn-primary focus:shadow-outline flex h-9 w-full items-center justify-center px-4 py-2 font-semibold text-white"
           type="submit"
           disabled={createMutation.isLoading || updateMutation.isLoading}
           aria-busy={createMutation.isLoading || updateMutation.isLoading}

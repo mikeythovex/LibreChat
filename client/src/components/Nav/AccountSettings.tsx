@@ -1,7 +1,7 @@
 import { useState, memo } from 'react';
 import { useRecoilState } from 'recoil';
 import * as Select from '@ariakit/react/select';
-import { FileText, LogOut } from 'lucide-react';
+import { FileText, LogOut, Activity } from 'lucide-react';
 import { LinkIcon, GearIcon, DropdownMenuSeparator } from '~/components';
 import { useGetStartupConfig, useGetUserBalance } from '~/data-provider';
 import FilesView from '~/components/Chat/Input/Files/FilesView';
@@ -91,7 +91,11 @@ function AccountSettings() {
         {startupConfig?.balance?.enabled === true && (hasAllTimeCost || hasMonthlyTotalCost) && (
           <>
             {hasMonthlyTotalCost && (
-              <div className="text-token-text-secondary ml-3 mr-2 py-1 text-sm" role="note">
+              <div
+                className="text-token-text-secondary ml-2 mr-2 cursor-default py-1 text-sm"
+                role="note"
+              >
+                <Activity className="icon-md mr-2 inline-block" />
                 Usage this month: {formatCost(balanceQuery.data?.monthlyTotalCost)}
               </div>
             )}
@@ -101,7 +105,6 @@ function AccountSettings() {
                 All time: {formatCost(balanceQuery.data?.totalCost)}
               </div>
             )} */}
-
             <DropdownMenuSeparator />
           </>
         )}
