@@ -186,6 +186,7 @@ export const useEndpoints = ({
         (modelsQuery.data?.[ep]?.length ?? 0) > 0
       ) {
         result.models = modelsQuery.data?.[ep]?.filter(model => {
+          // Define icons in client/src/components/Chat/Menus/Endpoints/utils.ts
           const allowedProviders = [
             'anthropic',
             'google', 
@@ -263,7 +264,6 @@ export const useEndpoints = ({
             'x-ai/grok-beta',
             'x-ai/grok-vision-beta',
 
-            'google/gemini-2.0-flash-001',
             'google/gemini-2.0-flash-lite-001',
             'google/gemini-2.0-flash-thinking-exp-1219:free',
             'google/gemini-flash-1.5',
@@ -282,6 +282,7 @@ export const useEndpoints = ({
             'google/gemma-3-27b-it:free',
             'google/gemma-3-4b-it',
             'google/gemma-3-4b-it:free',
+            'google/gemma-7b-it',
             'google/palm-2-chat-bison',
             'google/palm-2-chat-bison-32k',
             'google/palm-2-codechat-bison',

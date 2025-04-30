@@ -131,7 +131,7 @@ export function renderEndpointModels(
     }
 
     // Then sort by model name in descending order
-    return b.localeCompare(a);
+    return a.localeCompare(b);
   });
 
   return sortedModels.map(

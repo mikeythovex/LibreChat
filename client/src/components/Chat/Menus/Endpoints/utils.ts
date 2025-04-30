@@ -138,44 +138,44 @@ export function getSelectedIcon({
       return null;
     }
 
-    if (selectedEndpoint.value === 'OpenRouter' && model.includes('anthropic')) {
+    if (selectedEndpoint.value === 'OpenRouter' && model.startsWith('anthropic/')) {
       return React.createElement(ClaudeIcon, {
         size: 20,
         className: 'icon-md shrink-0 text-text-primary',
       });
     }
 
-    if (selectedEndpoint.value === 'OpenRouter' && model.includes('openai')) {
+    if (selectedEndpoint.value === 'OpenRouter' && model.startsWith('openai/')) {
       return React.createElement(GPTIcon, {
         size: 20,
         className: 'icon-md shrink-0 text-text-primary',
       });
     }
-    if (selectedEndpoint.value === 'OpenRouter' && model.includes('gemini')) {
+    if (selectedEndpoint.value === 'OpenRouter' && model.startsWith('google/')) {
       return React.createElement(GeminiIcon, {
         size: 20,
         className: 'icon-md shrink-0 text-text-primary',
       });
     }
-    if (selectedEndpoint.value === 'OpenRouter' && model.includes('deepseek')) {
+    if (selectedEndpoint.value === 'OpenRouter' && model.startsWith('deepseek/')) {
       return React.createElement(DeepSeekIcon, {
         size: 20,
         className: 'icon-md shrink-0 text-text-primary',
       });
     }
-    if (selectedEndpoint.value === 'OpenRouter' && model.includes('meta-llama')) {
+    if (selectedEndpoint.value === 'OpenRouter' && model.startsWith('meta-llama/')) {
       return React.createElement(MetaIcon, {
         size: 20,
         className: 'icon-md shrink-0 text-text-primary',
       });
     }
-    if (selectedEndpoint.value === 'OpenRouter' && model.includes('perplexity')) {
+    if (selectedEndpoint.value === 'OpenRouter' && model.startsWith('perplexity/')) {
       return React.createElement(PerplexityIcon, {
         size: 20,
         className: 'icon-md shrink-0 text-text-primary',
       });
     } 
-    if (selectedEndpoint.value === 'OpenRouter' && model.includes('grok')) {
+    if (selectedEndpoint.value === 'OpenRouter' && model.startsWith('grok/')) {
       return React.createElement(GrokIcon, {
         size: 20,
         className: 'icon-md shrink-0 text-text-primary',
