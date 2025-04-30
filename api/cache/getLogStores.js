@@ -262,7 +262,12 @@ if (!isRedisEnabled && !isEnabled(CI)) {
  * @throws Will throw an error if an invalid key is passed.
  */
 const getLogStores = (key) => {
-  if (!key || !namespaces[key]) {
+  if (!key) {
+    // prevent undefined key crashes by defaulting to CONFIG_STORE
+    console.error('[getLogStores] warning: key is undefined, defaulting to CONFIG_STORE');
+    key = CacheKeys.CONFIG_STORE;
+  }
+  if (!namespaces[key]) {
     throw new Error(`Invalid store key: ${key}`);
   }
   return namespaces[key];

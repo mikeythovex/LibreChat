@@ -1,21 +1,20 @@
-import React, {
-  memo,
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useMemo,
-  forwardRef,
-  useReducer,
-} from 'react';
-import { useRecoilValue, useRecoilCallback } from 'recoil';
 import type { LucideIcon } from 'lucide-react';
-import CodeInterpreter from './CodeInterpreter';
+import React, {
+  forwardRef,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
 import type { BadgeItem } from '~/common';
-import { useChatBadges } from '~/hooks';
 import { Badge } from '~/components/ui';
-import MCPSelect from './MCPSelect';
+import { useChatBadges } from '~/hooks';
 import store from '~/store';
+import MCPSelect from './MCPSelect';
 
 interface BadgeRowProps {
   showEphemeralBadges?: boolean;
@@ -354,7 +353,6 @@ function BadgeRow({
       )}
       {showEphemeralBadges === true && (
         <>
-          <CodeInterpreter conversationId={conversationId} />
           <MCPSelect conversationId={conversationId} />
         </>
       )}

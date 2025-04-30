@@ -168,14 +168,9 @@ export default function AgentConfig({
 
   return (
     <>
-      <div className="h-auto bg-white px-4 pt-3 dark:bg-transparent">
+      <div className="h-auto px-2 pt-3 dark:bg-transparent">
         {/* Avatar & Name */}
         <div className="mb-4">
-          <AgentAvatar
-            agent_id={agent_id}
-            createMutation={createMutation}
-            avatar={agent?.['avatar'] ?? null}
-          />
           <label className={labelClass} htmlFor="name">
             {localize('com_ui_name')}
           </label>
@@ -195,7 +190,7 @@ export default function AgentConfig({
               />
             )}
           />
-          <Controller
+          {/* <Controller
             name="id"
             control={control}
             render={({ field }) => (
@@ -203,7 +198,7 @@ export default function AgentConfig({
                 {field.value}
               </p>
             )}
-          />
+          /> */}
         </div>
         {/* Description */}
         <div className="mb-4">
@@ -230,7 +225,7 @@ export default function AgentConfig({
         {/* Instructions */}
         <div className="mb-4">
           <label className={labelClass} htmlFor="instructions">
-            {localize('com_ui_instructions')}
+            System Prompt
           </label>
           <Controller
             name="instructions"
@@ -288,28 +283,8 @@ export default function AgentConfig({
             </div>
           </button>
         </div>
-        {(codeEnabled || fileSearchEnabled || artifactsEnabled || ocrEnabled) && (
-          <div className="mb-4 flex w-full flex-col items-start gap-3">
-            <label className="text-token-text-primary block font-medium">
-              {localize('com_assistants_capabilities')}
-            </label>
-            {/* Code Execution */}
-            {codeEnabled && <CodeForm agent_id={agent_id} files={code_files} />}
-            {/* File Context (OCR) */}
-            {ocrEnabled && <FileContext agent_id={agent_id} files={context_files} />}
-            {/* Artifacts */}
-            {artifactsEnabled && <Artifacts />}
-            {/* File Search */}
-            {fileSearchEnabled && <FileSearch agent_id={agent_id} files={knowledge_files} />}
-          </div>
-        )}
         {/* Agent Tools & Actions */}
         <div className="mb-4">
-          <label className={labelClass}>
-            {`${toolsEnabled === true ? localize('com_ui_tools') : ''}
-              ${toolsEnabled === true && actionsEnabled === true ? ' + ' : ''}
-              ${actionsEnabled === true ? localize('com_assistants_actions') : ''}`}
-          </label>
           <div className="space-y-2">
             {tools?.map((func, i) => (
               <AgentTool
@@ -319,18 +294,6 @@ export default function AgentConfig({
                 agent_id={agent_id}
               />
             ))}
-            {actions
-              .filter((action) => action.agent_id === agent_id)
-              .map((action, i) => (
-                <Action
-                  key={i}
-                  action={action}
-                  onClick={() => {
-                    setAction(action);
-                    setActivePanel(Panel.actions);
-                  }}
-                />
-              ))}
             <div className="flex space-x-2">
               {(toolsEnabled ?? false) && (
                 <button
@@ -341,19 +304,6 @@ export default function AgentConfig({
                 >
                   <div className="flex w-full items-center justify-center gap-2">
                     {localize('com_assistants_add_tools')}
-                  </div>
-                </button>
-              )}
-              {(actionsEnabled ?? false) && (
-                <button
-                  type="button"
-                  disabled={!agent_id}
-                  onClick={handleAddActions}
-                  className="btn btn-neutral border-token-border-light relative h-9 w-full rounded-lg font-medium"
-                  aria-haspopup="dialog"
-                >
-                  <div className="flex w-full items-center justify-center gap-2">
-                    {localize('com_assistants_add_actions')}
                   </div>
                 </button>
               )}

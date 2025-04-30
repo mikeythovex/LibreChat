@@ -53,7 +53,7 @@ const AgentAvatar = ({ className = '', avatar = '', agentName, size }: AgentIcon
     );
   }
 
-  return <Feather className={cn(agentName === '' ? 'icon-2xl' : '', className)} size={size} />;
+  return null; //<Feather className={cn(agentName === '' ? 'icon-2xl' : '', className)} size={size} />;
 };
 
 const Bedrock = ({ className = '' }: IconMapProps) => {

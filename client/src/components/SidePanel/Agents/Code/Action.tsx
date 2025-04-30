@@ -64,7 +64,7 @@ export default function Action({ authType = '', isToolAuthenticated = false }) {
               />
             )}
           />
-          <button
+          {/* <button
             type="button"
             className="flex items-center space-x-2"
             onClick={() => {
@@ -78,7 +78,7 @@ export default function Action({ authType = '', isToolAuthenticated = false }) {
             >
               {localize('com_ui_run_code')}
             </label>
-          </button>
+          </button> */}
           <div className="ml-2 flex gap-2">
             {isUserProvided && (isToolAuthenticated || runCodeIsEnabled) && (
               <button type="button" onClick={() => setIsDialogOpen(true)}>

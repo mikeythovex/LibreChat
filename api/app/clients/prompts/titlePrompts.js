@@ -28,7 +28,7 @@ ${convo}`,
 };
 
 const titleInstruction =
-  'a concise, 5-word-or-less title for the conversation, using its same language, with no punctuation. Apply title case conventions appropriate for the language. Never directly mention the language name or the word "title"';
+  'a concise, optionally humorous/witty/quirky (if appropriate), 8-word-or-less title for the conversation, using English, with no punctuation. Apply title case conventions appropriate for the language. Never directly mention the language name or the word "title"';
 const titleFunctionPrompt = `In this environment you have access to a set of tools you can use to generate the conversation title.
   
 You may call them like this:

@@ -16,7 +16,7 @@ const MessageIcon = memo(
     assistant?: Assistant;
     agent?: Agent;
   }) => {
-    logger.log('icon_data', iconData, assistant, agent);
+    // logger.log('icon_data', iconData, assistant, agent);
     const { data: endpointsConfig } = useGetEndpointsQuery();
 
     const agentName = useMemo(() => agent?.name ?? '', [agent]);
@@ -49,7 +49,7 @@ const MessageIcon = memo(
       return (
         <ConvoIconURL
           iconURL={iconURL}
-          modelLabel={iconData?.modelLabel}
+          modelLabel="BMO"
           context="message"
           assistantAvatar={assistantAvatar}
           agentAvatar={agentAvatar}
@@ -64,7 +64,7 @@ const MessageIcon = memo(
       <Icon
         isCreatedByUser={iconData?.isCreatedByUser ?? false}
         endpoint={endpoint}
-        iconURL={avatarURL || endpointIconURL}
+        iconURL="/assets/bmo-chat-icon-140x140.png"
         model={iconData?.model}
         assistantName={assistantName}
         agentName={agentName}

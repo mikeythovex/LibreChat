@@ -23,7 +23,7 @@ import { TextareaAutosize } from '~/components';
 import { cn, removeFocusRings } from '~/utils';
 import TextareaHeader from './TextareaHeader';
 import PromptsCommand from './PromptsCommand';
-import AudioRecorder from './AudioRecorder';
+// import AudioRecorder from './AudioRecorder';
 import CollapseChat from './CollapseChat';
 import StreamAudio from './StreamAudio';
 import StopButton from './StopButton';
@@ -32,8 +32,10 @@ import EditBadges from './EditBadges';
 import BadgeRow from './BadgeRow';
 import Mention from './Mention';
 import store from '~/store';
+import { useMediaQuery } from '~/hooks';
 
 const ChatForm = memo(({ index = 0 }: { index?: number }) => {
+  const isSmallScreen = useMediaQuery('(max-width: 768px)');
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -233,11 +235,12 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
           <div
             onClick={handleContainerClick}
             className={cn(
-              'relative flex w-full flex-grow flex-col overflow-hidden rounded-t-3xl border pb-4 text-text-primary transition-all duration-200 sm:rounded-3xl sm:pb-0',
+              'relative mb-6 mr-1 flex w-full flex-grow flex-col overflow-hidden rounded-2xl border text-text-primary transition-all duration-200 sm:rounded-2xl sm:pb-0',
               isTextAreaFocused ? 'shadow-lg' : 'shadow-md',
               isTemporary
-                ? 'border-violet-800/60 bg-violet-950/10'
+                ? 'border-dashed border-black dark:border-beigesecondary bg-surface-secondary'
                 : 'border-border-light bg-surface-chat',
+              isSmallScreen ? 'mb-10 ml-1.5' : '-ml-1',
             )}
           >
             <TextareaHeader addedConvo={addedConvo} setAddedConvo={setAddedConvo} />
@@ -279,57 +282,21 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
                     'transition-[max-height] duration-200',
                   )}
                 />
-                <div className="flex flex-col items-start justify-start pt-1.5">
-                  <CollapseChat
-                    isCollapsed={isCollapsed}
-                    isScrollable={isMoreThanThreeRows}
-                    setIsCollapsed={setIsCollapsed}
-                  />
+                <div className="m-2">
+                  {(isSubmitting || isSubmittingAdded) && (showStopButton || showStopAdded) ? (
+                    <StopButton stop={handleStopGenerating} setShowStopButton={setShowStopButton} />
+                  ) : (
+                    endpoint && (
+                      <SendButton
+                        ref={submitButtonRef}
+                        control={methods.control}
+                        disabled={filesLoading || isSubmitting || disableInputs}
+                      />
+                    )
+                  )}
                 </div>
               </div>
             )}
-            <div
-              className={cn(
-                'items-between flex gap-2 pb-2',
-                isRTL ? 'flex-row-reverse' : 'flex-row',
-              )}
-            >
-              <div className={`${isRTL ? 'mr-2' : 'ml-2'}`}>
-                <AttachFileChat disableInputs={disableInputs} />
-              </div>
-              <BadgeRow
-                showEphemeralBadges={!isAgentsEndpoint(endpoint) && !isAssistantsEndpoint(endpoint)}
-                conversationId={conversationId}
-                onChange={setBadges}
-                isInChat={
-                  Array.isArray(conversation?.messages) && conversation.messages.length >= 1
-                }
-              />
-              <div className="mx-auto flex" />
-              {SpeechToText && (
-                <AudioRecorder
-                  methods={methods}
-                  ask={submitMessage}
-                  textAreaRef={textAreaRef}
-                  disabled={disableInputs}
-                  isSubmitting={isSubmitting}
-                />
-              )}
-              <div className={`${isRTL ? 'ml-2' : 'mr-2'}`}>
-                {(isSubmitting || isSubmittingAdded) && (showStopButton || showStopAdded) ? (
-                  <StopButton stop={handleStopGenerating} setShowStopButton={setShowStopButton} />
-                ) : (
-                  endpoint && (
-                    <SendButton
-                      ref={submitButtonRef}
-                      control={methods.control}
-                      disabled={filesLoading || isSubmitting || disableInputs}
-                    />
-                  )
-                )}
-              </div>
-            </div>
-            {TextToSpeech && automaticPlayback && <StreamAudio index={index} />}
           </div>
         </div>
       </div>

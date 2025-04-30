@@ -1,4 +1,4 @@
-import { forwardRef, useState, useCallback, useMemo, useEffect, Ref } from 'react';
+import { forwardRef, useState, useCallback, useMemo, useEffect, Ref, useRef } from 'react';
 import debounce from 'lodash/debounce';
 import { Search, X } from 'lucide-react';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
@@ -26,6 +26,8 @@ const SearchBar = forwardRef((props: SearchBarProps, ref: Ref<HTMLDivElement>) =
   const { newConversation } = useNewConvo();
   const setSearchState = useSetRecoilState(store.search);
   const search = useRecoilValue(store.search);
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const clearSearch = useCallback(() => {
     if (location.pathname.includes('/search')) {
@@ -97,16 +99,22 @@ const SearchBar = forwardRef((props: SearchBarProps, ref: Ref<HTMLDivElement>) =
     }
   }, [search.isTyping, search.isSearching, search.debouncedQuery, search.query, setSearchState]);
 
+  const handleContainerClick = () => {
+    inputRef.current?.focus();
+  };
+
   return (
     <div
       ref={ref}
       className={cn(
-        'group relative mt-1 flex h-10 cursor-pointer items-center gap-3 rounded-lg border-border-medium px-3 py-2 text-text-primary transition-colors duration-200 focus-within:bg-surface-hover hover:bg-surface-hover',
-        isSmallScreen === true ? 'mb-2 h-14 rounded-2xl' : '',
+        'SearchBar cursor-text group relative mt-1 flex h-10 items-center gap-3 rounded-lg border-border-medium px-3 py-2 text-text-primary bg-beigetertiary dark:bg-darkbeige900 transition-colors duration-200 hover:bg-darkbeige/10 dark:hover:bg-darkbeige800',
+        isSmallScreen ? 'mb-2 h-11 rounded-2xl' : '',
       )}
+      onClick={handleContainerClick}
     >
       <Search className="absolute left-3 h-4 w-4 text-text-secondary group-focus-within:text-text-primary group-hover:text-text-primary" />
       <input
+        ref={inputRef}
         type="text"
         className="m-0 mr-0 w-full border-none bg-transparent p-0 pl-7 text-sm leading-tight placeholder-text-secondary placeholder-opacity-100 focus-visible:outline-none group-focus-within:placeholder-text-primary group-hover:placeholder-text-primary"
         value={text}
@@ -125,7 +133,7 @@ const SearchBar = forwardRef((props: SearchBarProps, ref: Ref<HTMLDivElement>) =
       <X
         className={cn(
           'absolute right-[7px] h-5 w-5 cursor-pointer transition-opacity duration-200',
-          showClearIcon ? 'opacity-100' : 'opacity-0',
+          showClearIcon ? 'block' : 'hidden',
           isSmallScreen === true ? 'right-[16px]' : '',
         )}
         onClick={clearText}

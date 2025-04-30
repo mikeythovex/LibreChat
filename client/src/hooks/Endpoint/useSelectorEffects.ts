@@ -33,39 +33,42 @@ export default function useSelectorEffects({
     return Object.values(assistantsMap?.[endpoint ?? ''] ?? {}) as t.Assistant[];
   }, [assistantsMap, endpoint]);
 
-  useEffect(() => {
-    if (!isAgentsEndpoint(endpoint as string)) {
-      return;
-    }
-    if (selectedAgentId == null && agents.length > 0) {
-      let agent_id = localStorage.getItem(`${LocalStorageKeys.AGENT_ID_PREFIX}${index}`);
-      if (agent_id == null) {
-        agent_id = agents[0]?.id;
-      }
-      const agent = agentsMap?.[agent_id];
+  // Commented out auto-selection of agents
+  // useEffect(() => {
+  //   if (!isAgentsEndpoint(endpoint as string)) {
+  //     return;
+  //   }
+  //   if (selectedAgentId == null && agents.length > 0) {
+  //     let agent_id = localStorage.getItem(`${LocalStorageKeys.AGENT_ID_PREFIX}${index}`);
+  //     if (agent_id == null) {
+  //       agent_id = agents[0]?.id;
+  //     }
+  //     const agent = agentsMap?.[agent_id];
 
-      if (agent !== undefined) {
-        setOption('model')('');
-        setOption('agent_id')(agent_id);
-      }
-    }
-  }, [index, agents, selectedAgentId, agentsMap, endpoint, setOption]);
-  useEffect(() => {
-    if (!isAssistantsEndpoint(endpoint as string)) {
-      return;
-    }
-    if (selectedAssistantId == null && assistants.length > 0) {
-      let assistant_id = localStorage.getItem(`${LocalStorageKeys.ASST_ID_PREFIX}${index}`);
-      if (assistant_id == null) {
-        assistant_id = assistants[0]?.id;
-      }
-      const assistant = assistantsMap?.[endpoint ?? '']?.[assistant_id];
-      if (assistant !== undefined) {
-        setOption('model')(assistant.model);
-        setOption('assistant_id')(assistant_id);
-      }
-    }
-  }, [index, assistants, selectedAssistantId, assistantsMap, endpoint, setOption]);
+  //     if (agent !== undefined) {
+  //       setOption('model')('');
+  //       setOption('agent_id')(agent_id);
+  //     }
+  //   }
+  // }, [index, agents, selectedAgentId, agentsMap, endpoint, setOption]);
+
+  // Commented out auto-selection of assistants
+  // useEffect(() => {
+  //   if (!isAssistantsEndpoint(endpoint as string)) {
+  //     return;
+  //   }
+  //   if (selectedAssistantId == null && assistants.length > 0) {
+  //     let assistant_id = localStorage.getItem(`${LocalStorageKeys.ASST_ID_PREFIX}${index}`);
+  //     if (assistant_id == null) {
+  //       assistant_id = assistants[0]?.id;
+  //     }
+  //     const assistant = assistantsMap?.[endpoint ?? '']?.[assistant_id];
+  //     if (assistant !== undefined) {
+  //       setOption('model')(assistant.model);
+  //       setOption('assistant_id')(assistant_id);
+  //     }
+  //   }
+  // }, [index, assistants, selectedAssistantId, assistantsMap, endpoint, setOption]);
 
   const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -80,9 +83,23 @@ export default function useSelectorEffects({
   };
 
   useEffect(() => {
+    console.log("conversation")
+    console.log(conversation)
+    // Only set selected values if this is an existing conversation with values already set
     if (!conversation?.endpoint) {
       return;
     }
+    
+    // Check if this is a new conversation (usually at /c/new path)
+    const isNewConversation = 
+      !conversation.conversationId || 
+      conversation.conversationId === 'new';
+    
+    // Don't set default values for new conversations
+    if (isNewConversation && conversation?.endpoint !== 'OpenRouter') {
+      return;
+    }
+    
     if (
       conversation?.assistant_id ||
       conversation?.agent_id ||
