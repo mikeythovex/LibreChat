@@ -138,6 +138,7 @@ export default function Conversation({
       className={cn(
         'group relative mt-1 flex h-8 w-full max-w-[97%] items-center rounded-lg bg-beigesecondary hover:bg-beigetertiary dark:bg-darkbeige hover:dark:bg-darkbeige800',
         isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800' : '',
+        'touch-manipulation',
       )}
       role="listitem"
       tabIndex={0}
@@ -148,6 +149,13 @@ export default function Conversation({
         if (e.button === 0) {
           handleNavigation(e.ctrlKey || e.metaKey);
         }
+      }}
+      onTouchEnd={(e) => {
+        if (renaming) {
+          return;
+        }
+        e.preventDefault();
+        handleNavigation(false);
       }}
       onKeyDown={(e) => {
         if (renaming) {
@@ -175,7 +183,8 @@ export default function Conversation({
           onRename={handleRename}
           isSmallScreen={isSmallScreen}
           localize={localize}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             if (!renaming && currentConvoId !== conversationId) {
               handleNavigation(false);
             }

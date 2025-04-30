@@ -25,7 +25,10 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   }, [isActiveConvo, title]);
 
   const handleTouch = (e: React.TouchEvent) => {
+    // Prevent default behavior to avoid double events
     e.preventDefault();
+    e.stopPropagation();
+
     if (onClick) {
       onClick({
         button: 0,
@@ -39,14 +42,16 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
 
   return (
     <button
+      type="button"
       className={cn(
-        'flex w-full grow touch-manipulation items-center gap-2 overflow-hidden rounded-lg border-none bg-transparent px-2 text-left',
+        'flex w-full grow touch-manipulation items-center gap-2 overflow-hidden rounded-lg border-none bg-transparent px-2 text-left outline-none',
         isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800 hover:dark:bg-darkbeige800' : '',
       )}
       title={title ?? undefined}
       aria-current={isActiveConvo ? 'page' : undefined}
       style={{ width: '100%' }}
       onClick={onClick}
+      onTouchStart={(e) => e.stopPropagation()}
       onTouchEnd={handleTouch}
     >
       <div
