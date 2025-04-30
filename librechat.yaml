@@ -29,7 +29,7 @@ endpoints:
         default: ['google/gemini-2.0-flash-001']
         fetch: true
       titleConvo: true
-      titleModel: 'google/gemini-2.0-flash-001'
+      titleModel: 'mistralai/ministral-8b'
       dropParams: ['stop'] # Recommended: Drop the stop parameter from the request as Openrouter models use a variety of stop tokens.
       modelDisplayLabel: 'Models'
 
