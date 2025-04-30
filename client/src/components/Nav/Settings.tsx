@@ -118,7 +118,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
           <div className={cn('fixed inset-0 flex w-screen items-center justify-center p-4')}>
             <DialogPanel
               className={cn(
-                'min-h-[600px] overflow-hidden rounded-xl rounded-b-lg bg-background pb-6 shadow-2xl backdrop-blur-2xl animate-in sm:rounded-2xl md:min-h-[30px] md:w-[480px]',
+                'overflow-hidden rounded-xl rounded-b-lg bg-background pb-6 shadow-2xl backdrop-blur-2xl animate-in sm:rounded-2xl w-full md:min-h-[30px] md:w-[480px] sm:max-w-[480px] md:max-w-[480px] lg:max-w-[600px] xl:max-w-[700px]',
               )}
             >
               <DialogTitle
@@ -143,7 +143,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="h-5 w-5 text-text-primary"
+                    className="h-5 w-5 text-text-primary hover:stroke-[3px]"
                   >
                     <line x1="18" x2="6" y1="6" y2="18"></line>
                     <line x1="6" x2="18" y1="6" y2="18"></line>
@@ -151,7 +151,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                   <span className="sr-only">{localize('com_ui_close')}</span>
                 </button>
               </DialogTitle>
-              <div className="max-h-[550px] overflow-auto px-6 md:max-h-[400px] md:min-h-[300px] md:w-[480px]">
+              <div className="max-h-[550px] overflow-auto px-6 md:max-h-[400px] md:w-[480px]">
                 <Tabs.Root
                   value={activeTab}
                   onValueChange={handleTabChange}

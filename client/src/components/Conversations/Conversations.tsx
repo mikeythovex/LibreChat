@@ -86,7 +86,7 @@ const Conversations: FC<ConversationsProps> = ({
   isSearchLoading,
 }) => {
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
-  const convoHeight = isSmallScreen ? 38 : 34;
+  const convoHeight = isSmallScreen ? 44 : 34;
 
   const filteredConversations = useMemo(
     () => rawConversations.filter(Boolean) as TConversation[],

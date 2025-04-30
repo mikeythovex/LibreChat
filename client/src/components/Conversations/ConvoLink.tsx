@@ -49,7 +49,7 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
       </div>
       <div
         className={cn(
-          'absolute bottom-0 right-0 top-0 w-5 rounded-r-lg bg-gradient-to-l',
+          'absolute bottom-0 right-0 top-0 w-5 rounded-r-lg',
           isActiveConvo
             ? 'from-surface-active-alt'
             : 'from-beigesecondary from-0% to-transparent group-hover:from-beigesecondary group-hover:from-40% dark:from-darkbeige dark:group-hover:from-darkbeige',

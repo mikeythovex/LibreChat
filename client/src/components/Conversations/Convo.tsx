@@ -136,9 +136,8 @@ export default function Conversation({
   return (
     <div
       className={cn(
-        'group relative mt-1 flex w-full items-center rounded-lg bg-beigesecondary hover:bg-beigetertiary dark:bg-darkbeige hover:dark:bg-darkbeige800',
+        'group relative mt-1 flex w-full items-center rounded-lg bg-beigesecondary hover:bg-beigetertiary dark:bg-darkbeige hover:dark:bg-darkbeige800 h-8 max-w-[97%]',
         isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800' : '',
-        isMobile ? 'mb-2 h-9 max-w-[97%]' : 'h-7',
       )}
       role="listitem"
       tabIndex={0}

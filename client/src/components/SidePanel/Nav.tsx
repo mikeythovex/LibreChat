@@ -17,18 +17,6 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
     _setActive(id);
   };
 
-  // const toggleNavVisible = () => {
-  //   setNavVisible((prev) => {
-  //     const next = !prev;
-  //     document.body.dataset.navVisible = next ? 'true' : 'false';
-  //     localStorage.setItem('navVisible', JSON.stringify(next));
-  //     return next;
-  //   });
-  //     localStorage.setItem('navVisible', JSON.stringify(!prev));
-  //     return !prev;
-  //   });
-  // };
-
   return (
     <div
       data-collapsed={isCollapsed}
@@ -45,6 +33,7 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
                     <TooltipAnchor
                       side="left"
                       key={`nav-link-${index}`}
+                      description=""
                       render={
                         <Button
                           variant="ghost"
@@ -77,9 +66,8 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
                             <Button
                               variant="outline"
                               size="sm"
-                              className="cursor-default border-none w-full justify-start bg-transparent text-text-primary  data-[state=open]:text-text-primary"
+                              className="cursor-default border-none w-full justify-start bg-transparent text-text-primary hover:bg-beigesecondary  data-[state=open]:text-text-primary"
                               onClick={(e) => {
-                                // toggleNavVisible();
                                 // if (link.onClick) {
                                 //   link.onClick(e);
                                 //   setActive('');

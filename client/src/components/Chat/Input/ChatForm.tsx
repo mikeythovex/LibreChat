@@ -198,8 +198,6 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
     [isCollapsed, isMoreThanThreeRows],
   );
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
-
   return (
     <form
       onSubmit={methods.handleSubmit(submitMessage)}
@@ -242,8 +240,7 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
               isTemporary
                 ? 'border-dashed border-black bg-surface-secondary'
                 : 'border-border-light bg-surface-chat',
-              isSmallScreen ? 'ml-1.5' : '-ml-1',
-              isMobile ? 'mb-10' : '',
+              isSmallScreen ? 'mb-10 ml-1.5' : '-ml-1',
             )}
           >
             <TextareaHeader addedConvo={addedConvo} setAddedConvo={setAddedConvo} />
