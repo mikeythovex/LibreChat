@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as Ariakit from '@ariakit/react';
 import { cn } from '~/utils';
+import { useMediaQuery } from '~/hooks';
 
 export interface CustomMenuProps extends Ariakit.MenuButtonProps<'div'> {
   label?: React.ReactNode;
@@ -33,10 +34,12 @@ export const CustomMenu = React.forwardRef<HTMLDivElement, CustomMenuProps>(func
   const parent = Ariakit.useMenuContext();
   const searchable = !disableSearch && (searchValue != null || !!onSearch || !!combobox);
 
+  const isSmallScreen = useMediaQuery('(max-width: 768px)');
+
   const menuStore = Ariakit.useMenuStore({
     showTimeout: 100,
     placement: parent ? 'right' : 'bottom-start',
-    defaultOpen: false,
+    defaultOpen: isSmallScreen,
   });
 
   const element = (

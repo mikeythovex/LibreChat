@@ -57,7 +57,7 @@ function ModelSelectorContent() {
 
   const trigger = (
     <button
-      className="my-1 flex h-10 w-full max-w-[70vw] items-center justify-center gap-2 rounded-lg border border-border-light bg-beigesecondary  dark:bg-darkbeige hover:dark:bg-darkbeige800 px-3 py-2 text-sm text-text-primary hover:bg-surface-tertiary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+      className="my-1 flex h-10 w-full max-w-[70vw] items-center justify-center gap-2 rounded-lg border border-border-light bg-beigesecondary dark:bg-darkbeige hover:bg-beige2 dark:hover:bg-darkbeige800 px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
       aria-label={localize('com_ui_select_model')}
     >
       {selectedIcon && React.isValidElement(selectedIcon) && (
@@ -94,7 +94,7 @@ function ModelSelectorContent() {
         ) : (
           <>
             {modelSpecsElements}
-            {renderEndpoints(mappedEndpoints ?? [])}
+            {endpointsElements}
           </>
         )}
       </Menu>
