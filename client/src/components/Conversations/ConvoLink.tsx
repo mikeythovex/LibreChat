@@ -7,6 +7,7 @@ interface ConvoLinkProps {
   onRename: () => void;
   isSmallScreen: boolean;
   localize: (key: any, options?: any) => string;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const ConvoLink: React.FC<ConvoLinkProps> = ({
@@ -15,6 +16,7 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   onRename,
   isSmallScreen,
   localize,
+  onClick,
 }) => {
   useEffect(() => {
     if (isActiveConvo && title) {
@@ -30,6 +32,7 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
       title={title ?? undefined}
       aria-current={isActiveConvo ? 'page' : undefined}
       style={{ width: '100%' }}
+      onClick={onClick}
     >
       <div
         className="relative flex-1 grow overflow-hidden whitespace-nowrap"

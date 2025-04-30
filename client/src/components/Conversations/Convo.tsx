@@ -136,23 +136,23 @@ export default function Conversation({
   return (
     <div
       className={cn(
-        'group relative mt-1 flex w-full items-center rounded-lg bg-beigesecondary hover:bg-beigetertiary dark:bg-darkbeige hover:dark:bg-darkbeige800 h-8 max-w-[97%]',
+        'group relative mt-1 flex h-8 w-full max-w-[97%] items-center rounded-lg bg-beigesecondary hover:bg-beigetertiary dark:bg-darkbeige hover:dark:bg-darkbeige800',
         isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800' : '',
       )}
       role="listitem"
       tabIndex={0}
       onClick={(e) => {
-        // if (renaming) {
-        //   return;
-        // }
+        if (renaming) {
+          return;
+        }
         if (e.button === 0) {
           handleNavigation(e.ctrlKey || e.metaKey);
         }
       }}
       onKeyDown={(e) => {
-        // if (renaming) {
-        //   return;
-        // }
+        if (renaming) {
+          return;
+        }
         if (e.key === 'Enter') {
           handleNavigation(false);
         }
@@ -175,6 +175,14 @@ export default function Conversation({
           onRename={handleRename}
           isSmallScreen={isSmallScreen}
           localize={localize}
+          // onClick={(e) => {
+          //   if (renaming) {
+          //     return;
+          //   }
+          //   if (e.button === 0) {
+          //     handleNavigation(e.ctrlKey || e.metaKey);
+          //   }
+          // }}
         />
       )}
       <div
