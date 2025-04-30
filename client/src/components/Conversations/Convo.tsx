@@ -175,14 +175,14 @@ export default function Conversation({
           onRename={handleRename}
           isSmallScreen={isSmallScreen}
           localize={localize}
-          // onClick={(e) => {
-          //   if (renaming) {
-          //     return;
-          //   }
-          //   if (e.button === 0) {
-          //     handleNavigation(e.ctrlKey || e.metaKey);
-          //   }
-          // }}
+          onClick={(e) => {
+            if (renaming) {
+              return;
+            }
+            if (e.button === 0) {
+              handleNavigation(e.ctrlKey || e.metaKey);
+            }
+          }}
         />
       )}
       <div
