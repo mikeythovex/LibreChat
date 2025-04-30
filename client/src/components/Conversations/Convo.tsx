@@ -109,7 +109,7 @@ export default function Conversation({
       return;
     }
 
-    toggleNav();
+    // toggleNav();
 
     // if (typeof title === 'string' && title.length > 0) {
     //   document.title = title;
