@@ -196,7 +196,7 @@ export default function AgentSelect({
             ]
           }
           className={cn(
-            'z-50 flex h-[40px] w-full flex-none items-center justify-center truncate rounded-md bg-transparent font-bold',
+            'z-50 flex h-[40px] w-full flex-none items-center justify-center truncate rounded-md bg-surface-secondary font-bold',
           )}
           ariaLabel={localize('com_ui_agent')}
           isCollapsed={false}

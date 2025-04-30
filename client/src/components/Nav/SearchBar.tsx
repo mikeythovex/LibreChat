@@ -1,4 +1,5 @@
 import React, { forwardRef, useState, useCallback, useMemo, useEffect, useRef } from 'react';
+// import { forwardRef, useState, useCallback, useMemo, useEffect, Ref, useRef } from 'react';
 import debounce from 'lodash/debounce';
 import { useRecoilState } from 'recoil';
 import { Search, X } from 'lucide-react';
@@ -98,18 +99,23 @@ const SearchBar = forwardRef((props: SearchBarProps, ref: React.Ref<HTMLDivEleme
     }
   }, [search.isTyping, search.isSearching, search.debouncedQuery, search.query, setSearchState]);
 
+  const handleContainerClick = () => {
+    inputRef.current?.focus();
+  };
+
   return (
     <div
       ref={ref}
       className={cn(
-        'group relative mt-1 flex h-10 cursor-pointer items-center gap-3 rounded-lg border-border-medium px-3 py-2 text-text-primary transition-colors duration-200 focus-within:bg-surface-hover hover:bg-surface-hover',
-        isSmallScreen === true ? 'mb-2 h-14 rounded-2xl' : '',
+        'SearchBar cursor-text group relative mt-1 flex h-10 items-center gap-3 rounded-lg border-border-medium px-3 py-2 text-text-primary bg-beigetertiary dark:bg-darkbeige900 transition-colors duration-200 hover:bg-darkbeige/10 dark:hover:bg-darkbeige800',
+        isSmallScreen ? 'mb-2 h-11 rounded-2xl' : '',
       )}
+      onClick={handleContainerClick}
     >
       <Search className="absolute left-3 h-4 w-4 text-text-secondary group-focus-within:text-text-primary group-hover:text-text-primary" />
       <input
-        type="text"
         ref={inputRef}
+        type="text"
         className="m-0 mr-0 w-full border-none bg-transparent p-0 pl-7 text-sm leading-tight placeholder-text-secondary placeholder-opacity-100 focus-visible:outline-none group-focus-within:placeholder-text-primary group-hover:placeholder-text-primary"
         value={text}
         onChange={onChange}
@@ -128,8 +134,13 @@ const SearchBar = forwardRef((props: SearchBarProps, ref: React.Ref<HTMLDivEleme
         type="button"
         aria-label={`${localize('com_ui_clear')} ${localize('com_ui_search')}`}
         className={cn(
-          'absolute right-[7px] flex h-5 w-5 items-center justify-center rounded-full border-none bg-transparent p-0 transition-opacity duration-200',
-          showClearIcon ? 'opacity-100' : 'opacity-0',
+// <<<<<<< HEAD
+//           'absolute right-[7px] flex h-5 w-5 items-center justify-center rounded-full border-none bg-transparent p-0 transition-opacity duration-200',
+//           showClearIcon ? 'opacity-100' : 'opacity-0',
+// =======
+          'absolute right-[7px] h-5 w-5 cursor-pointer transition-opacity duration-200',
+          showClearIcon ? 'block' : 'hidden',
+// >>>>>>> b19c9cd3 (bmo)
           isSmallScreen === true ? 'right-[16px]' : '',
         )}
         onClick={clearText}

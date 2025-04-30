@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { cn } from '~/utils';
 
 interface ConvoLinkProps {
@@ -7,7 +7,7 @@ interface ConvoLinkProps {
   onRename: () => void;
   isSmallScreen: boolean;
   localize: (key: any, options?: any) => string;
-  children: React.ReactNode;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const ConvoLink: React.FC<ConvoLinkProps> = ({
@@ -16,45 +16,57 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   onRename,
   isSmallScreen,
   localize,
-  children,
+  onClick,
 }) => {
+  useEffect(() => {
+    if (isActiveConvo && title) {
+      document.title = title + ' - BMO';
+    }
+  }, [isActiveConvo, title]);
+
+  const handleTouch = (e: React.TouchEvent) => {
+    e.preventDefault();
+    if (onClick) {
+      onClick({
+        button: 0,
+        ctrlKey: false,
+        metaKey: false,
+        preventDefault: () => {},
+        stopPropagation: () => {},
+      } as React.MouseEvent);
+    }
+  };
+
   return (
-    <div
+    <button
       className={cn(
-        'flex grow items-center gap-2 overflow-hidden rounded-lg px-2',
-        isActiveConvo ? 'bg-surface-active-alt' : '',
+        'flex w-full grow touch-manipulation items-center gap-2 overflow-hidden rounded-lg border-none bg-transparent px-2 text-left',
+        isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800 hover:dark:bg-darkbeige800' : '',
       )}
       title={title ?? undefined}
       aria-current={isActiveConvo ? 'page' : undefined}
       style={{ width: '100%' }}
+      onClick={onClick}
+      onTouchEnd={handleTouch}
     >
-      {children}
       <div
         className="relative flex-1 grow overflow-hidden whitespace-nowrap"
-        style={{ textOverflow: 'clip' }}
-        onDoubleClick={(e) => {
-          if (isSmallScreen) {
-            return;
-          }
-          e.preventDefault();
-          e.stopPropagation();
-          onRename();
-        }}
-        role="button"
+        style={{ textOverflow: 'ellipsis' }}
+        role="presentation"
         aria-label={isSmallScreen ? undefined : localize('com_ui_double_click_to_rename')}
       >
         {title || localize('com_ui_untitled')}
       </div>
       <div
         className={cn(
-          'absolute bottom-0 right-0 top-0 w-20 rounded-r-lg bg-gradient-to-l',
+          'absolute bottom-0 right-0 top-0 w-5 rounded-r-lg',
           isActiveConvo
             ? 'from-surface-active-alt'
-            : 'from-surface-primary-alt from-0% to-transparent group-hover:from-surface-active-alt group-hover:from-40%',
+            : 'from-beigesecondary from-0% to-transparent group-hover:from-beigesecondary group-hover:from-40% dark:from-darkbeige dark:group-hover:from-darkbeige',
         )}
         aria-hidden="true"
       />
-    </div>
+    </button>
   );
 };
 

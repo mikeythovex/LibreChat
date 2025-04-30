@@ -13,6 +13,7 @@ import { MessageContext } from '~/Providers';
 import { useMessageActions } from '~/hooks';
 import { cn, logger } from '~/utils';
 import store from '~/store';
+import { useMediaQuery } from '~/hooks';
 
 type MessageRenderProps = {
   message?: TMessage;
@@ -75,8 +76,8 @@ const MessageRender = memo(
       () => ({
         endpoint: msg?.endpoint ?? conversation?.endpoint,
         model: msg?.model ?? conversation?.model,
-        iconURL: msg?.iconURL,
-        modelLabel: messageLabel,
+        iconURL: '/assets/bmo-128x128.png',
+        modelLabel: 'BMO',
         isCreatedByUser: msg?.isCreatedByUser,
       }),
       [
@@ -111,7 +112,7 @@ const MessageRender = memo(
       card: 'relative w-full gap-1 rounded-lg border border-border-medium bg-surface-primary-alt p-2 md:w-1/2 md:gap-3 md:p-4',
       chat: maximizeChatSpace
         ? 'w-full max-w-full md:px-5 lg:px-1 xl:px-5'
-        : 'md:max-w-[47rem] xl:max-w-[55rem]',
+        : 'md:max-w-[47rem] xl:max-w-[56rem]',
     };
 
     const conditionalClasses = {
@@ -119,6 +120,8 @@ const MessageRender = memo(
       cardRender: showCardRender ? 'cursor-pointer transition-colors duration-300' : '',
       focus: 'focus:outline-none focus:ring-2 focus:ring-border-xheavy',
     };
+
+    const isSmallScreen = useMediaQuery('(max-width: 768px)');
 
     return (
       <div
@@ -153,13 +156,15 @@ const MessageRender = memo(
 
         <div
           className={cn(
-            'relative flex w-11/12 flex-col',
+            'relative flex flex-col w-full break-words',
             msg.isCreatedByUser ? 'user-turn' : 'agent-turn',
           )}
         >
-          <h2 className={cn('select-none font-semibold', fontSize)}>{messageLabel}</h2>
+          <h2 className={cn('select-none font-semibold -ml-1', fontSize)}>{msg.isCreatedByUser ? messageLabel : 'BMO'}</h2>
 
-          <div className="flex flex-col gap-1">
+          <div className={cn("message-render flex flex-col gap-1 -ml-5 w-full", 
+            isSmallScreen ? '-ml-6 w-[106%]' : '',
+          )}>
             <div className="flex max-w-full flex-grow flex-col gap-0">
               <MessageContext.Provider
                 value={{

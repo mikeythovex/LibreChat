@@ -1,0 +1,12 @@
+services:
+  api:
+    volumes:
+    - type: bind
+      source: ./librechat.yaml
+      target: /app/librechat.yaml
+    ports:
+      - "3090:3090"
+    image: librechat
+    build:
+      context: .
+      target: node

@@ -148,9 +148,27 @@ transactionSchema.methods.calculateTokenValue = function () {
   const multiplier = Math.abs(getMultiplier({ valueKey, tokenType, model, endpointTokenConfig }));
   this.rate = multiplier;
   this.tokenValue = this.rawAmount * multiplier;
+
+  // Calculate cost if endpointTokenConfig is available
+  if (
+    endpointTokenConfig &&
+    model &&
+    endpointTokenConfig[model] &&
+    endpointTokenConfig[model][tokenType]
+  ) {
+    const tokenRate = endpointTokenConfig[model][tokenType];
+    // Convert to cost (tokenRate is in tokens per $1, divide by 1000000 for cost per token)
+    this.cost = Math.abs(this.rawAmount) * (tokenRate / 1000000);
+  } else {
+    this.cost = 0;
+  }
+
   if (this.context && this.tokenType === 'completion' && this.context === 'incomplete') {
     this.tokenValue = Math.ceil(this.tokenValue * cancelRate);
     this.rate *= cancelRate;
+    if (this.cost) {
+      this.cost *= cancelRate;
+    }
   }
 };
 

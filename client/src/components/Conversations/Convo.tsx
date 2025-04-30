@@ -114,9 +114,9 @@ export default function Conversation({
 
     toggleNav();
 
-    if (typeof title === 'string' && title.length > 0) {
-      document.title = title;
-    }
+    // if (typeof title === 'string' && title.length > 0) {
+    //   document.title = title;
+    // }
 
     navigateToConvo(conversation, {
       currentConvoId,
@@ -134,11 +134,13 @@ export default function Conversation({
     setIsPopoverActive,
   };
 
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   return (
     <div
       className={cn(
-        'group relative flex h-12 w-full items-center rounded-lg transition-colors duration-200 md:h-9',
-        isActiveConvo ? 'bg-surface-active-alt' : 'hover:bg-surface-active-alt',
+        'group relative mt-1 flex h-8 w-full max-w-[97%] items-center rounded-lg bg-beigesecondary hover:bg-beigetertiary dark:bg-darkbeige hover:dark:bg-darkbeige800',
+        isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800' : '',
       )}
       role="listitem"
       tabIndex={0}
@@ -176,14 +178,12 @@ export default function Conversation({
           onRename={handleRename}
           isSmallScreen={isSmallScreen}
           localize={localize}
-        >
-          <EndpointIcon
-            conversation={conversation}
-            endpointsConfig={endpointsConfig}
-            size={20}
-            context="menu-item"
-          />
-        </ConvoLink>
+          onClick={() => {
+            if (!renaming && currentConvoId !== conversationId) {
+              handleNavigation(false);
+            }
+          }}
+        />
       )}
       <div
         className={cn(

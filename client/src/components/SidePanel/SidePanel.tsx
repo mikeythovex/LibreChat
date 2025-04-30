@@ -149,7 +149,7 @@ const SidePanel = ({
         ref={panelRef}
         style={{
           overflowY: 'auto',
-          transition: 'width 0.2s ease, visibility 0s linear 0.2s',
+          transition: 'width 0.12s ease, visibility 0s linear 0.12s',
         }}
         onExpand={() => {
           setIsCollapsed(false);
@@ -160,7 +160,7 @@ const SidePanel = ({
           localStorage.setItem('react-resizable-panels:collapsed', 'true');
         }}
         className={cn(
-          'sidenav hide-scrollbar border-l border-border-light bg-background py-1 transition-opacity',
+          'sidenav hide-scrollbar border-l border-border-light bg-beigesecondary dark:bg-darkbeige py-1 transition-opacity',
           isCollapsed ? 'min-w-[50px]' : 'min-w-[340px] sm:min-w-[352px]',
           (isSmallScreen && isCollapsed && (minSize === 0 || collapsedSize === 0)) || fullCollapse
             ? 'hidden min-w-0'

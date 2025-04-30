@@ -49,14 +49,5 @@ const App = () => {
 export default () => (
   <ScreenshotProvider>
     <App />
-    <iframe
-      src="/assets/silence.mp3"
-      allow="autoplay"
-      id="audio"
-      title="audio-silence"
-      style={{
-        display: 'none',
-      }}
-    />
   </ScreenshotProvider>
 );

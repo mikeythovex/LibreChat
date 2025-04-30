@@ -16,7 +16,6 @@ import { buildTree, cn } from '~/utils';
 import ChatForm from './Input/ChatForm';
 import Landing from './Landing';
 import Header from './Header';
-import Footer from './Footer';
 import store from '~/store';
 
 function LoadingSpinner() {
@@ -71,7 +70,7 @@ function ChatView({ index = 0 }: { index?: number }) {
   } else if (!isLandingPage) {
     content = <MessagesView messagesTree={messagesTree} />;
   } else {
-    content = <Landing centerFormOnLanding={centerFormOnLanding} />;
+    // content = <Landing centerFormOnLanding={centerFormOnLanding} />;
   }
 
   return (
@@ -98,10 +97,8 @@ function ChatView({ index = 0 }: { index?: number }) {
                     )}
                   >
                     <ChatForm index={index} />
-                    {isLandingPage ? <ConversationStarters /> : <Footer />}
                   </div>
                 </div>
-                {isLandingPage && <Footer />}
               </>
             </div>
           </Presentation>

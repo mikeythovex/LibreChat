@@ -18,7 +18,6 @@ import NewChat from './NewChat';
 import { cn } from '~/utils';
 import store from '~/store';
 
-const BookmarkNav = lazy(() => import('./Bookmarks/BookmarkNav'));
 const AccountSettings = lazy(() => import('./AccountSettings'));
 
 const NAV_WIDTH_DESKTOP = '260px';
@@ -44,14 +43,10 @@ const NavMask = memo(
 
 const MemoNewChat = memo(NewChat);
 
-const Nav = memo(
-  ({
-    navVisible,
-    setNavVisible,
-  }: {
-    navVisible: boolean;
-    setNavVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  }) => {
+const Nav = memo<{
+  navVisible: boolean;
+  setNavVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}>(({ navVisible, setNavVisible }) => {
     const localize = useLocalize();
     const { isAuthenticated } = useAuthContext();
 
@@ -158,10 +153,10 @@ const Nav = memo(
       () =>
         hasAccessToBookmarks && (
           <>
-            <div className="mt-1.5" />
+            {/* <div className="mt-1.5" />
             <Suspense fallback={null}>
               <BookmarkNav tags={tags} setTags={setTags} isSmallScreen={isSmallScreen} />
-            </Suspense>
+            </Suspense> */}
           </>
         ),
       [hasAccessToBookmarks, tags, isSmallScreen],
@@ -186,13 +181,13 @@ const Nav = memo(
         <div
           data-testid="nav"
           className={cn(
-            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-surface-primary-alt',
+            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-beigesecondary dark:bg-darkbeige border-r border-border-light',
             'md:max-w-[260px]',
           )}
           style={{
             width: navVisible ? navWidth : '0px',
             visibility: navVisible ? 'visible' : 'hidden',
-            transition: 'width 0.2s, visibility 0.2s',
+            transition: 'width 0.12s, visibility 0.12s',
           }}
         >
           <div className="h-full w-[320px] md:w-[260px]">
@@ -202,9 +197,13 @@ const Nav = memo(
                   <nav
                     id="chat-history-nav"
                     aria-label={localize('com_ui_chat_history')}
+// <<<<<<< HEAD
                     className="flex h-full flex-col px-2 pb-3.5 md:px-3"
+// =======
+//                     className="flex h-full flex-col pb-3.5"
+// >>>>>>> b19c9cd3 (bmo)
                   >
-                    <div className="flex flex-1 flex-col" ref={outerContainerRef}>
+                    <div className="flex flex-1 flex-col scrollbar-transparent" ref={outerContainerRef}>
                       <MemoNewChat
                         subHeaders={subHeaders}
                         toggleNav={toggleNavVisible}

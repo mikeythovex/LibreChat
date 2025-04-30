@@ -1,14 +1,15 @@
-import { useState } from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import { useState } from 'react';
 import type { NavLink, NavProps } from '~/common';
-import { Accordion, AccordionItem, AccordionContent } from '~/components/ui/Accordion';
-import { TooltipAnchor, Button } from '~/components';
+import { Button, TooltipAnchor } from '~/components';
+import { Accordion, AccordionContent, AccordionItem } from '~/components/ui/Accordion';
 import { useLocalize } from '~/hooks';
 import { cn } from '~/utils';
 
 export default function Nav({ links, isCollapsed, resize, defaultActive }: NavProps) {
   const localize = useLocalize();
   const [active, _setActive] = useState<string | undefined>(defaultActive);
+  // const [navVisible, setNavVisible] = useState<boolean>(true);
   const getVariant = (link: NavLink) => (link.id === active ? 'default' : 'ghost');
 
   const setActive = (id: string) => {
@@ -30,9 +31,9 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
                   const variant = getVariant(link);
                   return isCollapsed ? (
                     <TooltipAnchor
-                      description={localize(link.title)}
                       side="left"
                       key={`nav-link-${index}`}
+                      description=""
                       render={
                         <Button
                           variant="ghost"
@@ -56,9 +57,8 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
                     <Accordion
                       key={index}
                       type="single"
-                      value={active}
+                      value="agents"
                       onValueChange={setActive}
-                      collapsible
                     >
                       <AccordionItem value={link.id} className="w-full border-none">
                         <AccordionPrimitive.Header asChild>
@@ -66,15 +66,15 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
                             <Button
                               variant="outline"
                               size="sm"
-                              className="w-full justify-start bg-transparent text-text-secondary data-[state=open]:bg-surface-secondary data-[state=open]:text-text-primary"
+                              className="cursor-default border-none w-full justify-start bg-transparent text-text-primary hover:bg-beigesecondary  data-[state=open]:text-text-primary"
                               onClick={(e) => {
-                                if (link.onClick) {
-                                  link.onClick(e);
-                                  setActive('');
-                                }
+                                // if (link.onClick) {
+                                //   link.onClick(e);
+                                //   setActive('');
+                                // }
                               }}
                             >
-                              <link.icon className="mr-2 h-4 w-4" />
+                              {/* <link.icon className="mr-2 h-4 w-4" /> */}
                               {localize(link.title)}
                               {link.label != null && link.label && (
                                 <span

@@ -29,11 +29,11 @@ export const ClearChats = () => {
       <OGDialog open={open} onOpenChange={setOpen}>
         <OGDialogTrigger asChild>
           <Button
-            variant="destructive"
-            className="flex items-center justify-center rounded-lg transition-colors duration-200"
+            variant="outline"
+            className="flex items-center justify-center rounded-lg h-9 transition-colors duration-200"
             onClick={() => setOpen(true)}
           >
-            {localize('com_ui_delete')}
+            Clear
           </Button>
         </OGDialogTrigger>
         <OGDialogTemplate
@@ -49,7 +49,7 @@ export const ClearChats = () => {
             selectHandler: clearConvos,
             selectClasses:
               'bg-destructive text-white transition-all duration-200 hover:bg-destructive/80',
-            selectText: clearConvosMutation.isLoading ? <Spinner /> : localize('com_ui_delete'),
+            selectText: clearConvosMutation.isLoading ? <Spinner /> : localize('com_nav_clear_all_chats'),
           }}
         />
       </OGDialog>

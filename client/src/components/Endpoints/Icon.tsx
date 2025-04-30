@@ -53,7 +53,6 @@ const UserAvatar = memo(({ size, user, avatarSrc, username, className }: UserAva
           <img
             className="rounded-full"
             src={(user?.avatar ?? '') || avatarSrc}
-            alt="avatar"
             onError={handleImageError}
           />
         )}

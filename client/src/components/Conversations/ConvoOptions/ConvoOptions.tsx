@@ -130,40 +130,40 @@ function ConvoOptions({
 
   const dropdownItems = useMemo(
     () => [
-      {
-        label: localize('com_ui_share'),
-        onClick: handleShareClick,
-        icon: <Share2 className="icon-sm mr-2 text-text-primary" />,
-        show: startupConfig && startupConfig.sharedLinksEnabled,
-        hideOnClick: false,
-        ref: shareButtonRef,
-        render: (props) => <button {...props} />,
-      },
+      // {
+      //   label: localize('com_ui_share'),
+      //   onClick: handleShareClick,
+      //   icon: <Share2 className="icon-sm mr-2 text-text-primary" />,
+      //   show: startupConfig && startupConfig.sharedLinksEnabled,
+      //   hideOnClick: false,
+      //   ref: shareButtonRef,
+      //   render: (props) => <button {...props} />,
+      // },
       {
         label: localize('com_ui_rename'),
         onClick: renameHandler,
         icon: <Pen className="icon-sm mr-2 text-text-primary" />,
       },
-      {
-        label: localize('com_ui_duplicate'),
-        onClick: handleDuplicateClick,
-        hideOnClick: false,
-        icon: isDuplicateLoading ? (
-          <Spinner className="size-4" />
-        ) : (
-          <Copy className="icon-sm mr-2 text-text-primary" />
-        ),
-      },
-      {
-        label: localize('com_ui_archive'),
-        onClick: handleArchiveClick,
-        hideOnClick: false,
-        icon: isArchiveLoading ? (
-          <Spinner className="size-4" />
-        ) : (
-          <Archive className="icon-sm mr-2 text-text-primary" />
-        ),
-      },
+      // {
+      //   label: localize('com_ui_duplicate'),
+      //   onClick: handleDuplicateClick,
+      //   hideOnClick: false,
+      //   icon: isDuplicateLoading ? (
+      //     <Spinner className="size-4" />
+      //   ) : (
+      //     <Copy className="icon-sm mr-2 text-text-primary" />
+      //   ),
+      // },
+      // {
+      //   label: localize('com_ui_archive'),
+      //   onClick: handleArchiveClick,
+      //   hideOnClick: false,
+      //   icon: isArchiveLoading ? (
+      //     <Spinner className="size-4" />
+      //   ) : (
+      //     <Archive className="icon-sm mr-2 text-text-primary" />
+      //   ),
+      // },
       {
         label: localize('com_ui_delete'),
         onClick: handleDeleteClick,
@@ -198,26 +198,26 @@ function ConvoOptions({
         isOpen={isPopoverActive}
         setIsOpen={setIsPopoverActive}
         trigger={
-          <Menu.MenuButton
+            <Menu.MenuButton
             id={`conversation-menu-${conversationId}`}
             aria-label={localize('com_nav_convo_menu_options')}
             className={cn(
-              'inline-flex h-7 w-7 items-center justify-center gap-2 rounded-md border-none p-0 text-sm font-medium ring-ring-primary transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50',
+              'hover:bg-black/10 inline-flex h-6 w-6 items-center justify-center gap-2 rounded-md border-none p-0 text-sm font-medium ring-ring-primary transition-all duration-10 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50',
               isActiveConvo === true || isPopoverActive
-                ? 'opacity-100'
-                : 'opacity-0 focus:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100 data-[open]:opacity-100',
+              ? 'opacity-100'
+              : 'opacity-0 focus:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100 data-[open]:opacity-100',
             )}
             onClick={(e: MouseEvent<HTMLButtonElement>) => {
               e.stopPropagation();
             }}
             onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
               if (e.key === 'Enter' || e.key === ' ') {
-                e.stopPropagation();
+              e.stopPropagation();
               }
             }}
-          >
+            >
             <Ellipsis className="icon-md text-text-secondary" aria-hidden={true} />
-          </Menu.MenuButton>
+            </Menu.MenuButton>
         }
         items={dropdownItems}
         menuId={menuId}
