@@ -163,7 +163,7 @@ const MessageRender = memo(
           <h2 className={cn('select-none font-semibold -ml-1', fontSize)}>{msg.isCreatedByUser ? messageLabel : 'BMO'}</h2>
 
           <div className={cn("message-render flex flex-col gap-1 -ml-5 w-full", 
-            isSmallScreen ? '-ml-6 w-[106%]' : '',
+            isSmallScreen ? '-ml-6 w-[calc(100vw-2rem)]' : '',
           )}>
             <div className="flex max-w-full flex-grow flex-col gap-0">
               <MessageContext.Provider
