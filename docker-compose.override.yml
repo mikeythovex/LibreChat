@@ -10,3 +10,5 @@ services:
     build:
       context: .
       target: node
+    environment:
+      - COMPOSE_BAKE=true
