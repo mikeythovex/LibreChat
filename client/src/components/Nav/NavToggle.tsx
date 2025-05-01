@@ -34,6 +34,7 @@ export default function NavToggle({
       className={cn(
         className,
         '-translate-y-1/2 transition-transform',
+        side === 'left' ? 'ml-2' : 'mr-8',
         navVisible ? 'rotate-0' : 'rotate-180',
         navVisible && translateX ? 'translate-x-[260px]' : 'translate-x-0 ',
       )}

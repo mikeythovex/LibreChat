@@ -166,7 +166,7 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
             type="submit"
             className="
             w-full rounded-2xl bg-darkbeige px-4 py-3 text-sm font-medium text-white
-            transition-colors hover:bg-beige800 dark:bg-beige dark:hover:bg-beige/60 dark:text-darkbeige
+            transition-colors hover:bg-beige800 dark:bg-surface-primary dark:hover:bg-surface-primary/60 dark:text-darkbeige
             cursor-pointer
           "
           >

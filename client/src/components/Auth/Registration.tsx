@@ -182,7 +182,7 @@ const Registration: React.FC = () => {
                 type="submit"
                 aria-label="Submit registration"
                 className="
-            w-full rounded-2xl dark:bg-beige dark:text-black  px-4 py-3 text-sm font-medium text-white
+            w-full rounded-2xl dark:bg-surface-primary dark:text-black  px-4 py-3 text-sm font-medium text-white
             transition-colors focus:outline-none 
             focus:ring-green-500  disabled:opacity-50
             

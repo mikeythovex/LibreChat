@@ -12,9 +12,9 @@ const buttonVariants = cva(
         destructive:
           'bg-surface-destructive text-destructive-foreground hover:bg-surface-destructive-hover',
         outline:
-          'text-text-primary border border-border-light bg-background hover:bg-beigetertiary hover:dark:bg-darkbeige800 hover:text-accent-foreground',
+          'text-text-primary border border-border-light bg-background hover:bg-surface-tertiary hover:dark:bg-darkbeige800 hover:text-accent-foreground',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost: 'hover:bg-beigetertiary hover:text-accent-foreground hover:dark:bg-darkbeige800',
+        ghost: 'hover:bg-surface-tertiary hover:text-accent-foreground hover:dark:bg-darkbeige800',
         link: 'text-primary underline-offset-4 hover:underline',
         // hardcoded text color because of WCAG contrast issues (text-white)
         submit: 'bg-surface-submit text-white hover:bg-surface-submit-hover',

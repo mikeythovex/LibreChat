@@ -5,7 +5,7 @@ import { getConfigDefaults } from 'librechat-data-provider';
 import type { ImperativePanelHandle } from 'react-resizable-panels';
 import { ResizableHandleAlt, ResizablePanel, ResizablePanelGroup } from '~/components/ui/Resizable';
 import { useGetStartupConfig } from '~/data-provider';
-import { normalizeLayout } from '~/utils';
+import { cn, normalizeLayout } from '~/utils';
 import { useMediaQuery } from '~/hooks';
 import SidePanel from './SidePanel';
 import store from '~/store';
@@ -91,13 +91,20 @@ const SidePanelGroup = ({
       <ResizablePanelGroup
         direction="horizontal"
         onLayout={(sizes) => throttledSaveLayout(sizes)}
-        className="transition-width relative h-full w-full flex-1 overflow-auto bg-beige dark:bg-darkbeige900"
+        className={cn(
+          "transition-width relative h-full w-fullflex-1 overflow-auto bg-surface-secondary",
+          isSmallScreen ? '' : ' px-2 '
+        )}
       >
         <ResizablePanel
           defaultSize={currentLayout[0]}
           minSize={minSizeMain}
           order={1}
           id="messages-view"
+          className={cn(
+            "bg-surface-primary dark:bg-darkbeige",
+            isSmallScreen ? '' : 'rounded-lg my-2'
+          )}
         >
           {children}
         </ResizablePanel>

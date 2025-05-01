@@ -45,7 +45,7 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
       type="button"
       className={cn(
         'flex w-full grow touch-manipulation items-center gap-2 overflow-hidden rounded-lg border-none bg-transparent px-2 text-left outline-none',
-        isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800 hover:dark:bg-darkbeige800' : '',
+        isActiveConvo ? 'bg-surface-tertiary dark:bg-darkbeige800 hover:dark:bg-darkbeige800' : '',
       )}
       title={title ?? undefined}
       aria-current={isActiveConvo ? 'page' : undefined}

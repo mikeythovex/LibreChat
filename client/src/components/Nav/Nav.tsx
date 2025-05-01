@@ -182,8 +182,9 @@ const Nav = memo<{
         <div
           data-testid="nav"
           className={cn(
-            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-beigesecondary dark:bg-darkbeige border-r border-border-light',
+            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-surface-secondary dark:bg-darkbeige',
             'md:max-w-[260px]',
+            // !isSmallScreen && '-pr-2',
           )}
           style={{
             width: navVisible ? navWidth : '0px',
