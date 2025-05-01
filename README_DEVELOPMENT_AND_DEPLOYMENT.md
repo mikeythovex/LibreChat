@@ -41,18 +41,17 @@ if needed: `git remote add upstream https://github.com/danny-avila/LibreChat.git
 `npm run frontend`
 
 
-### Linux command to Remove all existing images
-docker images -a | grep "librechat" | awk '{print $3}' | xargs docker rmi
-
-then https://www.librechat.ai/docs/local/docker#update-librechat
-
-
 ### Update on server
 ```
+sudo docker compose up -d --build api
+```
+<!-- ``` old command
 sudo docker compose down --remove-orphans && \
 sudo docker images -a | grep "librechat" | awk '{print $3}' | sudo xargs docker rmi -f && \
 sudo docker compose up -d --build --force-recreate
-```
+``` -->
+
+also see https://www.librechat.ai/docs/local/docker#update-librechat
 
 
 
