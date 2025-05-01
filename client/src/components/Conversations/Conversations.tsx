@@ -33,7 +33,7 @@ const DateLabel: FC<{ groupName: string }> = memo(({ groupName }) => {
   const localize = useLocalize();
   return (
     <div
-      className="mt-2 pl-2 pt-1 text-text-secondary"
+      className="mt-2 pl-2 pt-1 text-text-secondary cursor-default"
       style={{ fontSize: '0.75rem', fontWeight: '500' }}
     >
       {localize(groupName as TranslationKeys) || groupName}
