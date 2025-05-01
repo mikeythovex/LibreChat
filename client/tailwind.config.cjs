@@ -46,6 +46,7 @@ module.exports = {
         beige: '#faf9f5',
         beigesecondary: '#f5f4ee',
         beigetertiary: '#e8e6dd',
+        beigetertiaryhover: '#d3d0bf',
         claudeblack: '#0F0F0E',
         beige2: '#F5F4ED',
         beige3: '#eceadd',
