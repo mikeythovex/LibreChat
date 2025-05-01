@@ -99,6 +99,8 @@ export default function Conversation({
     setRenaming(false);
   };
 
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   const handleNavigation = (ctrlOrMetaKey: boolean) => {
     if (ctrlOrMetaKey) {
       toggleNav();
@@ -109,7 +111,9 @@ export default function Conversation({
       return;
     }
 
-    // toggleNav();
+    if (isMobile) {
+      toggleNav();
+    }
 
     // if (typeof title === 'string' && title.length > 0) {
     //   document.title = title;
@@ -130,8 +134,6 @@ export default function Conversation({
     isPopoverActive,
     setIsPopoverActive,
   };
-
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <div
