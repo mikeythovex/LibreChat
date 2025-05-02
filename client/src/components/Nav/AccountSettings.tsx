@@ -79,7 +79,7 @@ function AccountSettings() {
         </div>
       </Select.Select>
       <Select.SelectPopover
-        className="popover-ui w-[235px]"
+        className="popover-ui w-[235px] bg-surface-primary"
         style={{
           transformOrigin: 'bottom',
           marginRight: '0px',

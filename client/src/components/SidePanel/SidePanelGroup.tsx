@@ -102,7 +102,7 @@ const SidePanelGroup = ({
           order={1}
           id="messages-view"
           className={cn(
-            "bg-surface-primary dark:bg-darkbeige",
+            "bg-surface-primary",
             isSmallScreen ? '' : 'rounded-lg my-2'
           )}
         >
