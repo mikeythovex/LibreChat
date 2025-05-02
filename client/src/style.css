@@ -70,6 +70,7 @@ html {
   --surface-secondary-alt: var(--gray-200);
   --surface-tertiary: #e8e8e4;
   --surface-tertiary-alt: var(--white);
+  --surface-quaternary: #dbdbd8;
   --surface-dialog: var(--white);
   --surface-submit: var(--green-700);
   --surface-submit-hover: var(--green-800);
@@ -1204,7 +1205,6 @@ pre {
     Andale Mono,
     Ubuntu Mono,
     monospace !important;
-    
 }
 code[class='language-plaintext'] {
   white-space: pre-line;
@@ -1306,7 +1306,6 @@ pre[class*='language-'] {
 .hljs-function .hljs-name {
   color: #33ff6d;
 }
-
 
 [role='button'],
 button {

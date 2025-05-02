@@ -11,6 +11,8 @@ import { UserIcon } from '~/components/svg';
 import { useLocalize } from '~/hooks';
 import Settings from './Settings';
 import store from '~/store';
+import { cn } from '~/utils';
+import { useMediaQuery } from '~/hooks';
 
 function AccountSettings() {
   const localize = useLocalize();
@@ -40,12 +42,14 @@ function AccountSettings() {
     return `$${parseFloat(String(cost)).toFixed(4)}`;
   };
 
+  const isSmallScreen = useMediaQuery('(max-width: 768px)');
+
   return (
     <Select.SelectProvider>
       <Select.Select
         aria-label={localize('com_nav_account_settings')}
         data-testid="nav-user"
-        className="mt-text-sm duration-50 ml-2 my-0 flex h-auto items-center gap-2 rounded-xl p-2 text-sm transition-all ease-in-out hover:bg-surface-tertiary hover:dark:bg-darkbeige800"
+        className={cn("mt-text-sm duration-50 ml-2 my-0 flex h-auto items-center gap-2 rounded-xl p-2 text-sm transition-all ease-in-out hover:bg-surface-tertiary hover:dark:bg-darkbeige800", isSmallScreen ? 'mr-2' : '')}
       >
         <div className="h-8 w-6 flex-shrink-0">
           <div className="relative flex">

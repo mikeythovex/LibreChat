@@ -107,6 +107,7 @@ module.exports = {
         'surface-primary': 'var(--surface-primary)',
         'surface-secondary': 'var(--surface-secondary)',
         'surface-tertiary': 'var(--surface-tertiary)',
+        'surface-quaternary': 'var(--surface-quaternary)',
         'surface-primary-dark': '#262624',
         'surface-secondary-dark': '#1f1e1d',
         'surface-tertiary-dark': '#0f0f0e',
