@@ -34,23 +34,23 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
                       side="left"
                       key={`nav-link-${index}`}
                       description=""
-                      render={
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={(e) => {
-                            if (link.onClick) {
-                              link.onClick(e);
-                              setActive('');
-                              return;
-                            }
-                            setActive(link.id);
-                            resize && resize(25);
-                          }}
-                        >
-                          <link.icon className="h-4 w-4 text-text-secondary" />
-                          <span className="sr-only">{localize(link.title)}</span>
-                        </Button>
+                      render={<></>
+                        // <Button
+                        //   variant="ghost"
+                        //   size="icon"
+                        //   onClick={(e) => {
+                        //     if (link.onClick) {
+                        //       link.onClick(e);
+                        //       setActive('');
+                        //       return;
+                        //     }
+                        //     setActive(link.id);
+                        //     resize && resize(25);
+                        //   }}
+                        // >
+                        //   <link.icon className="h-4 w-4 text-text-secondary" />
+                        //   <span className="sr-only">{localize(link.title)}</span>
+                        // </Button>
                       }
                     />
                   ) : (
@@ -66,7 +66,7 @@ export default function Nav({ links, isCollapsed, resize, defaultActive }: NavPr
                             <Button
                               variant="outline"
                               size="sm"
-                              className="cursor-default border-none w-full justify-start bg-transparent text-text-primary hover:bg-beigesecondary  data-[state=open]:text-text-primary"
+                              className="cursor-default border-none w-full justify-start bg-transparent text-text-primary hover:bg-surface-secondary  data-[state=open]:text-text-primary"
                               onClick={(e) => {
                                 // if (link.onClick) {
                                 //   link.onClick(e);

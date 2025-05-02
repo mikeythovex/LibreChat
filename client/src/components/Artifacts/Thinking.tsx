@@ -7,7 +7,7 @@ import { cn } from '~/utils';
 import store from '~/store';
 
 const BUTTON_STYLES = {
-  base: 'group mt-3 flex w-fit items-center justify-center rounded-xl bg-surface-tertiary px-3 py-2 text-xs leading-[18px] animate-thinking-appear',
+  base: 'group mt-3 flex w-fit items-center justify-center rounded-xl bg-surface-secondary hover:bg-beigetertiaryhover/60 px-3 py-2 text-xs leading-[18px] animate-thinking-appear',
   icon: 'icon-sm ml-1.5 transform-gpu text-text-primary transition-transform duration-200',
 } as const;
 

@@ -32,7 +32,10 @@ const LoadingSpinner = memo(() => {
 const DateLabel: FC<{ groupName: string }> = memo(({ groupName }) => {
   const localize = useLocalize();
   return (
-    <div className="mt-2 pl-2 pt-1 text-text-secondary" style={{ fontSize: '0.7rem' }}>
+    <div
+      className="mt-2 pl-2 pt-1 text-text-secondary cursor-default"
+      style={{ fontSize: '0.75rem', fontWeight: '500' }}
+    >
       {localize(groupName as TranslationKeys) || groupName}
     </div>
   );
@@ -157,7 +160,7 @@ const Conversations: FC<ConversationsProps> = ({
       return (
         <CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
           {({ registerChild }) => (
-            <div ref={registerChild} style={style} className="">
+            <div ref={registerChild} style={style} className="touch-manipulation">
               {item.type === 'header' ? (
                 <DateLabel groupName={item.groupName} />
               ) : item.type === 'convo' ? (
@@ -196,21 +199,19 @@ const Conversations: FC<ConversationsProps> = ({
   );
 
   return (
-    <div
-      className="relative flex h-full flex-col gap-2 pb-2 text-sm text-text-primary scrollbar-transparent"
-    >
+    <div className="scrollbar-transparent relative flex h-full flex-col gap-2 pb-2 text-sm text-text-primary">
       <div
-        className="absolute top-0 left-0 right-0 h-6 dark:h-4 bg-gradient-to-b from-[#f5f4ee] dark:from-[#1A1A18] to-transparent pointer-events-none z-10"
+        className="pointer-events-none absolute left-0 right-0 top-0 z-10 h-6 bg-gradient-to-b from-[#f5f4ee] to-transparent dark:h-4 dark:from-[#1A1A18]"
         style={{ position: 'absolute' }}
       ></div>
-      <div className="absolute bottom-0 left-0 right-0 h-10 dark:h-6 bg-gradient-to-t from-[#f5f4ee] dark:from-[#1A1A18] to-transparent pointer-events-none z-10"></div>
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-10 bg-gradient-to-t from-[#f5f4ee] to-transparent dark:h-6 dark:from-[#1A1A18]"></div>
       {isSearchLoading ? (
         <div className="flex flex-1 items-center justify-center">
           <Spinner className="text-text-primary" />
           <span className="ml-2 text-text-primary">Loading...</span>
         </div>
       ) : (
-        <div className="flex-1 pl-2 scrollbar-transparent">
+        <div className="scrollbar-transparent flex-1 pl-2">
           <AutoSizer>
             {({ width, height }) => (
               <List
@@ -222,7 +223,7 @@ const Conversations: FC<ConversationsProps> = ({
                 rowHeight={getRowHeight}
                 rowRenderer={rowRenderer}
                 overscanRowCount={10}
-                className="outline-none"
+                className="touch-manipulation outline-none"
                 style={{ outline: 'none' }}
                 role="list"
                 aria-label="Conversations"

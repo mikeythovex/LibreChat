@@ -63,13 +63,14 @@ html {
   --surface-active-alt: var(--gray-200);
   --surface-hover: var(--gray-200);
   --surface-hover-alt: var(--gray-300);
-  --surface-primary: var(--white);
+  --surface-primary: #fcfcf9;
   --surface-primary-alt: var(--gray-50);
   --surface-primary-contrast: var(--gray-100);
-  --surface-secondary: var(--gray-50);
+  --surface-secondary: #f3f3ee;
   --surface-secondary-alt: var(--gray-200);
-  --surface-tertiary: var(--gray-100);
+  --surface-tertiary: #e8e8e4;
   --surface-tertiary-alt: var(--white);
+  --surface-quaternary: #dbdbd8;
   --surface-dialog: var(--white);
   --surface-submit: var(--green-700);
   --surface-submit-hover: var(--green-800);
@@ -121,12 +122,12 @@ html {
   --surface-active-alt: var(--gray-700);
   --surface-hover: var(--gray-600);
   --surface-hover-alt: var(--gray-600);
-  --surface-primary: var(--gray-900);
+  --surface-primary: #262624;
   --surface-primary-alt: var(--gray-850);
   --surface-primary-contrast: var(--gray-850);
-  --surface-secondary: var(--gray-800);
+  --surface-secondary: #1f1e1d;
   --surface-secondary-alt: var(--gray-800);
-  --surface-tertiary: var(--gray-700);
+  --surface-tertiary: #0f0f0e;
   --surface-tertiary-alt: var(--gray-700);
   --surface-dialog: var(--gray-850);
   --surface-submit: var(--green-700);
@@ -1212,8 +1213,8 @@ code.hljs,
 code[class*='language-'],
 pre[class*='language-'] {
   word-wrap: normal;
-  background: none;
-  color: #fff;
+  background: #1d1f27;
+  color: #f8f8f2;
   -webkit-hyphens: none;
   hyphens: none;
   font-size: 0.85rem;
@@ -1224,39 +1225,48 @@ pre[class*='language-'] {
   word-break: normal;
   word-spacing: normal;
 }
+
 pre[class*='language-'] {
   border-radius: 0.3em;
   overflow: auto;
+  background: #1d1f27;
 }
+
 :not(pre) > code.hljs,
 :not(pre) > code[class*='language-'] {
   border-radius: 0.3em;
   padding: 0.1em;
   white-space: normal;
 }
+
 .hljs-comment {
-  color: hsla(0, 0%, 100%, 0.5);
+  color: #8294c6;
 }
+
 .hljs-meta {
-  color: hsla(0, 0%, 100%, 0.6);
+  color: #bd93f9;
 }
+
 .hljs-built_in,
 .hljs-class .hljs-title {
-  color: #e9950c;
+  color: #50fa7b;
 }
+
 .hljs-doctag,
 .hljs-formula,
 .hljs-keyword,
 .hljs-literal {
-  color: #2e95d3;
+  color: #ff66c4;
 }
+
 .hljs-addition,
 .hljs-attribute,
 .hljs-meta-string,
 .hljs-regexp,
 .hljs-string {
-  color: #00a67d;
+  color: #fffc79;
 }
+
 .hljs-attr,
 .hljs-number,
 .hljs-selector-attr,
@@ -1265,14 +1275,36 @@ pre[class*='language-'] {
 .hljs-template-variable,
 .hljs-type,
 .hljs-variable {
-  color: #df3079;
+  color: #c38fff;
 }
+
 .hljs-bullet,
 .hljs-link,
 .hljs-selector-id,
 .hljs-symbol,
 .hljs-title {
-  color: #f22c3d;
+  color: #66f9ff;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-tag .hljs-name {
+  color: #ff66c4;
+}
+
+/* Target specifically the tag name inside angle brackets */
+.hljs-tag .hljs-name {
+  color: #ff66c4;
+}
+.hljs-tag {
+  color: #f8f8f2; /* Default text color to reset the angle brackets */
+}
+
+/* Color method names green */
+.hljs-function .hljs-title,
+.hljs-method,
+.hljs-function .hljs-name {
+  color: #33ff6d;
 }
 
 [role='button'],

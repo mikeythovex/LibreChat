@@ -181,8 +181,9 @@ const Nav = memo<{
         <div
           data-testid="nav"
           className={cn(
-            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-beigesecondary dark:bg-darkbeige border-r border-border-light',
+            'nav active max-w-[320px] flex-shrink-0 overflow-x-hidden bg-surface-secondary',
             'md:max-w-[260px]',
+            // !isSmallScreen && '-pr-2',
           )}
           style={{
             width: navVisible ? navWidth : '0px',
@@ -203,7 +204,7 @@ const Nav = memo<{
 //                     className="flex h-full flex-col pb-3.5"
 // >>>>>>> b19c9cd3 (bmo)
                   >
-                    <div className="flex flex-1 flex-col scrollbar-transparent" ref={outerContainerRef}>
+                    <div className={cn("flex flex-1 flex-col scrollbar-transparent", isSmallScreen ? 'pr-2' : '')} ref={outerContainerRef}>
                       <MemoNewChat
                         subHeaders={subHeaders}
                         toggleNav={toggleNavVisible}

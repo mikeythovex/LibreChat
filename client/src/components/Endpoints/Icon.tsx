@@ -41,8 +41,8 @@ const UserAvatar = memo(({ size, user, avatarSrc, username, className }: UserAva
     <div
       title={username}
       style={{
-        width: size,
-        height: size,
+        width: '24px',
+        height: '24px',
       }}
       className={cn('relative flex items-center justify-center', className ?? '')}
     >

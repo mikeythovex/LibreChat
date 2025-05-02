@@ -56,7 +56,7 @@ function AuthLayout({
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-beige dark:bg-darkbeige">
+    <div className="relative flex min-h-screen flex-col bg-surface-primary">
       <Banner />
       <DisplayError />
       <div className="absolute bottom-0 left-0 md:m-4">

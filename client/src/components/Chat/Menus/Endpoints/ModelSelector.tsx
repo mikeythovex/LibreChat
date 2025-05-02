@@ -57,7 +57,7 @@ function ModelSelectorContent() {
 
   const trigger = (
     <button
-      className="my-1 flex h-10 w-full max-w-[70vw] items-center justify-center gap-2 rounded-lg border border-border-light bg-beigesecondary dark:bg-darkbeige hover:bg-beigetertiary dark:hover:bg-darkbeige800 px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+      className="my-1 flex h-10 w-full max-w-[70vw] items-center justify-center gap-2 rounded-lg border border-border-light dark:border-border-surface-tertiary bg-surface-secondary hover:bg-surface-primary px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
       aria-label={localize('com_ui_select_model')}
     >
       {selectedIcon && React.isValidElement(selectedIcon) && (

@@ -128,7 +128,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
         plugin={plugin === true}
         allowExecution={allowExecution}
       />
-      <div className={cn(classProp, 'overflow-y-auto p-4')}>
+      <div className={cn(classProp, 'overflow-y-auto p-4 bg-dracula-background')}>
         <code
           ref={codeRef}
           className={cn(

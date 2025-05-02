@@ -69,8 +69,7 @@ export default function HoverButtons({
     return (
       <button
         className={cn(
-          'hover-button active rounded-md p-1 hover:bg-gray-100 hover:text-gray-500 focus:opacity-100 dark:text-gray-400/70 dark:hover:bg-gray-700 dark:hover:text-gray-200 disabled:dark:hover:text-gray-400 md:invisible md:group-hover:visible md:group-[.final-completion]:visible',
-          !isLast ? 'md:opacity-0 md:group-hover:opacity-100' : '',
+          'hover-button active rounded-md p-1 hover:bg-gray-100 hover:text-gray-500 focus:opacity-100 dark:text-gray-400/70 dark:hover:bg-gray-700 dark:hover:text-gray-200 disabled:dark:hover:text-gray-400',
         )}
         onClick={regenerate}
         type="button"
@@ -103,9 +102,7 @@ export default function HoverButtons({
     <div className="visible mt-0 flex justify-center gap-1 self-end text-gray-500 lg:justify-start">
       <button
         className={cn(
-          'ml-0 flex items-center gap-1.5 rounded-md p-1 text-xs hover:bg-gray-100 hover:text-gray-500 focus:opacity-100 dark:text-gray-400/70 dark:hover:bg-gray-700 dark:hover:text-gray-200 disabled:dark:hover:text-gray-400 md:group-hover:visible md:group-[.final-completion]:visible',
-          isSubmitting && isCreatedByUser ? 'md:opacity-0 md:group-hover:opacity-100' : '',
-          !isLast ? 'md:opacity-0 md:group-hover:opacity-100' : '',
+          'ml-0 flex items-center gap-1.5 rounded-md p-1 text-xs hover:bg-gray-100 hover:text-gray-500 focus:opacity-100 dark:text-gray-400/70 dark:hover:bg-gray-700 dark:hover:text-gray-200 disabled:dark:hover:text-gray-400',
         )}
         onClick={() => copyToClipboard(setIsCopied)}
         type="button"
@@ -119,8 +116,7 @@ export default function HoverButtons({
       {continueSupported === true ? (
         <button
           className={cn(
-            'hover-button active rounded-md p-1 hover:bg-gray-100 hover:text-gray-500 focus:opacity-100 dark:text-gray-400/70 dark:hover:bg-gray-700 dark:hover:text-gray-200 disabled:dark:hover:text-gray-400 md:invisible md:group-hover:visible',
-            !isLast ? 'md:opacity-0 md:group-hover:opacity-100' : '',
+            'hover-button active rounded-md p-1 hover:bg-gray-100 hover:text-gray-500 focus:opacity-100 dark:text-gray-400/70 dark:hover:bg-gray-700 dark:hover:text-gray-200 disabled:dark:hover:text-gray-400',
           )}
           onClick={handleContinue}
           type="button"

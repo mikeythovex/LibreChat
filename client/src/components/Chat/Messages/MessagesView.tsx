@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { CSSTransition } from 'react-transition-group';
 import type { TMessage } from 'librechat-data-provider';
-import { useScreenshot, useMessageScrolling, useLocalize } from '~/hooks';
+import { useScreenshot, useMessageScrolling, useLocalize, useMediaQuery } from '~/hooks';
 import ScrollToBottom from '~/components/Messages/ScrollToBottom';
 import MultiMessage from './MultiMessage';
 import { cn } from '~/utils';
@@ -30,6 +30,8 @@ export default function MessagesView({
 
   const { conversationId } = conversation ?? {};
 
+  const isSmallScreen = useMediaQuery('(max-width: 768px)');
+
   return (
     <>
       <div className="relative flex-1 overflow-hidden overflow-y-auto">
@@ -45,7 +47,7 @@ export default function MessagesView({
               overflowX: 'hidden',
             }}
           >
-            <div className="flex flex-col pb-9 dark:bg-transparent">
+            <div className={cn("flex flex-col pb-9 dark:bg-transparent", isSmallScreen ? 'mt-2' : 'mt-12')}>
               {(_messagesTree && _messagesTree.length == 0) || _messagesTree === null ? (
                 <div
                   className={cn(

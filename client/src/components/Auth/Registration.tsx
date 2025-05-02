@@ -23,7 +23,7 @@ const Registration: React.FC = () => {
 
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [countdown, setCountdown] = useState<number>(3);
+  const [countdown, setCountdown] = useState<number>(0.5);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -35,7 +35,7 @@ const Registration: React.FC = () => {
     },
     onSuccess: () => {
       setIsSubmitting(false);
-      setCountdown(3);
+      setCountdown(0.5);
       const timer = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 1) {
@@ -79,7 +79,7 @@ const Registration: React.FC = () => {
         <label
           htmlFor={id}
           className="
-            absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-surface-primary px-2 text-sm text-text-secondary-alt duration-200
+            absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-surface-primary dark:bg-surface-tertiary-dark px-2 text-sm text-text-secondary-alt duration-200
              peer-focus:px-2 dark:peer-focus:text-white
           "
         >
@@ -112,7 +112,7 @@ const Registration: React.FC = () => {
               : 'com_auth_registration_success_insecure',
           ) +
             ' ' +
-            localize('com_auth_email_verification_redirecting', { 0: countdown.toString() })}
+            localize('com_auth_email_verification_redirecting')}
         </div>
       )}
       {!startupConfigError && !isFetching && (
@@ -182,10 +182,8 @@ const Registration: React.FC = () => {
                 type="submit"
                 aria-label="Submit registration"
                 className="
-            w-full rounded-2xl dark:bg-beige dark:text-black  px-4 py-3 text-sm font-medium text-white
-            transition-colors focus:outline-none 
-            focus:ring-green-500  disabled:opacity-50
-            
+            w-full rounded-2xl bg-surface-tertiary-dark hover:bg-surface-tertiary-dark/70 dark:bg-beige dark:hover:bg-beige/70 dark:text-black  px-4 py-3 text-sm font-medium text-white
+            transition-colors focus:outline-none disabled:opacity-50
           "
               >
                 {isSubmitting ? <Spinner /> : localize('com_auth_continue')}

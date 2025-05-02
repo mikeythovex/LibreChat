@@ -198,6 +198,11 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
       ),
     [isCollapsed, isMoreThanThreeRows],
   );
+  
+  const centerForm =  centerFormOnLanding &&
+    (conversationId == null || conversationId === Constants.NEW_CONVO) &&
+    !isSubmitting &&
+    conversation?.messages?.length === 0;
 
   return (
     <form
@@ -205,12 +210,9 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
       className={cn(
         'mx-auto flex flex-row gap-3 sm:px-2',
         maximizeChatSpace ? 'w-full max-w-full' : 'md:max-w-3xl xl:max-w-4xl',
-        centerFormOnLanding &&
-          (conversationId == null || conversationId === Constants.NEW_CONVO) &&
-          !isSubmitting &&
-          conversation?.messages?.length === 0
+        centerForm
           ? 'transition-all duration-200 sm:mb-28'
-          : 'sm:mb-10',
+          : isSmallScreen ? 'sm:mb-10' : 'sm:mb-2',
       )}
     >
       <div className="relative flex h-full flex-1 items-stretch md:flex-col">
@@ -237,11 +239,11 @@ const ChatForm = memo(({ index = 0 }: { index?: number }) => {
             onClick={handleContainerClick}
             className={cn(
               'relative mb-6 mr-1 flex w-full flex-grow flex-col overflow-hidden rounded-2xl border text-text-primary transition-all duration-200 sm:rounded-2xl sm:pb-0',
-              isTextAreaFocused ? 'shadow-lg' : 'shadow-md',
+              isTextAreaFocused ? 'shadow-md' : 'shadow-sm',
               isTemporary
                 ? 'border-dashed border-black dark:border-beigesecondary bg-surface-secondary'
                 : 'border-border-light bg-surface-chat',
-              isSmallScreen ? 'mb-10 ml-1.5' : '-ml-1',
+              isSmallScreen ? 'mb-8 ml-1.5 rounded-3xl' : '-ml-1',
             )}
           >
             <TextareaHeader addedConvo={addedConvo} setAddedConvo={setAddedConvo} />

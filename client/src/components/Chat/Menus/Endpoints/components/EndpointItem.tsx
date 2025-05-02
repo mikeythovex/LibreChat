@@ -177,7 +177,6 @@ export function EndpointItem({ endpoint }: EndpointItemProps) {
 
 // This function filters before render, so more removed here is faster
 export function renderEndpoints(mappedEndpoints: Endpoint[]) {
-  // console.log('mappedEndpoints', mappedEndpoints.map(endpoint => endpoint.models?.map(x => x.name).sort()));
   return mappedEndpoints
     .filter(endpoint => endpoint.value === 'agents' || endpoint.value === 'OpenRouter')
     .map((endpoint) => {

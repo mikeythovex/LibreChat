@@ -7,7 +7,6 @@ interface ConvoLinkProps {
   onRename: () => void;
   isSmallScreen: boolean;
   localize: (key: any, options?: any) => string;
-  onClick?: (e: React.MouseEvent) => void;
 }
 
 const ConvoLink: React.FC<ConvoLinkProps> = ({
@@ -16,7 +15,6 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   onRename,
   isSmallScreen,
   localize,
-  onClick,
 }) => {
   useEffect(() => {
     if (isActiveConvo && title) {
@@ -24,30 +22,16 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
     }
   }, [isActiveConvo, title]);
 
-  const handleTouch = (e: React.TouchEvent) => {
-    e.preventDefault();
-    if (onClick) {
-      onClick({
-        button: 0,
-        ctrlKey: false,
-        metaKey: false,
-        preventDefault: () => {},
-        stopPropagation: () => {},
-      } as React.MouseEvent);
-    }
-  };
-
   return (
     <button
+      type="button"
       className={cn(
-        'flex w-full grow touch-manipulation items-center gap-2 overflow-hidden rounded-lg border-none bg-transparent px-2 text-left',
-        isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800 hover:dark:bg-darkbeige800' : '',
+        'flex w-full grow touch-manipulation items-center gap-2 overflow-hidden rounded-lg border-none bg-transparent pl-2 pr-0.5 text-left outline-none',
+        isActiveConvo ? 'bg-surface-tertiary dark:bg-darkbeige800 hover:dark:bg-darkbeige800' : '',
       )}
       title={title ?? undefined}
       aria-current={isActiveConvo ? 'page' : undefined}
       style={{ width: '100%' }}
-      onClick={onClick}
-      onTouchEnd={handleTouch}
     >
       <div
         className="relative flex-1 grow overflow-hidden whitespace-nowrap"
@@ -70,4 +54,4 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   );
 };
 
-export default ConvoLink;
+export default ConvoLink; 

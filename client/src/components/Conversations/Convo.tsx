@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router-dom';
 import { Constants } from 'librechat-data-provider';
@@ -11,9 +11,13 @@ import { NotificationSeverity } from '~/common';
 import { ConvoOptions } from './ConvoOptions';
 import { useToastContext } from '~/Providers';
 import RenameForm from './RenameForm';
-import ConvoLink from './ConvoLink';
 import { cn } from '~/utils';
 import store from '~/store';
+import ConvoLink from './ConvoLink';
+
+
+// A threshold in pixels to differentiate between a tap and a scroll/drag
+const SCROLL_THRESHOLD = 10; // Adjust as needed
 
 interface ConversationProps {
   conversation: TConversation;
@@ -31,17 +35,22 @@ export default function Conversation({
   const params = useParams();
   const localize = useLocalize();
   const { showToast } = useToastContext();
-  const { navigateToConvo } = useNavigateToConvo();
   const { data: endpointsConfig } = useGetEndpointsQuery();
+  const { navigateToConvo } = useNavigateToConvo();
   const currentConvoId = useMemo(() => params.conversationId, [params.conversationId]);
   const updateConvoMutation = useUpdateConversationMutation(currentConvoId ?? '');
   const activeConvos = useRecoilValue(store.allConversationsSelector);
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const { conversationId, title = '' } = conversation;
 
   const [titleInput, setTitleInput] = useState(title || '');
   const [renaming, setRenaming] = useState(false);
   const [isPopoverActive, setIsPopoverActive] = useState(false);
+
+  // Refs for touch handling
+  const touchStartPos = useRef({ x: null as number | null, y: null as number | null });
+  const didMove = useRef(false);
 
   const previousTitle = useRef(title);
 
@@ -60,8 +69,10 @@ export default function Conversation({
     if (currentConvoId !== Constants.NEW_CONVO) {
       return currentConvoId === conversationId;
     } else {
-      const latestConvo = activeConvos?.[0];
-      return latestConvo === conversationId;
+      // Assuming activeConvos is sorted with the latest first
+      const latestConvoId = activeConvos?.[0];
+      // Match against the specific ID, not the whole object comparison
+      return latestConvoId === conversationId;
     }
   }, [currentConvoId, conversationId, activeConvos]);
 
@@ -99,30 +110,125 @@ export default function Conversation({
     setRenaming(false);
   };
 
-  const handleNavigation = (ctrlOrMetaKey: boolean) => {
-    if (ctrlOrMetaKey) {
-      toggleNav();
-      const baseUrl = window.location.origin;
-      const path = `/c/${conversationId}`;
-      window.open(baseUrl + path, '_blank');
-      return;
-    }
+  const handleNavigation = useCallback(
+    (ctrlOrMetaKey: boolean) => {
+      if (renaming || isPopoverActive) {
+        return;
+      }
 
-    if (currentConvoId === conversationId || isPopoverActive) {
-      return;
-    }
+      if (ctrlOrMetaKey) {
+        toggleNav();
+        const baseUrl = window.location.origin;
+        const path = `/c/${conversationId}`;
+        window.open(baseUrl + path, '_blank');
+        return;
+      }
 
-    toggleNav();
+      if (currentConvoId === conversationId) {
+        return;
+      }
 
-    // if (typeof title === 'string' && title.length > 0) {
-    //   document.title = title;
-    // }
+      if (isMobile) {
+        toggleNav();
+      }
 
-    navigateToConvo(conversation, {
+      navigateToConvo(
+        conversation,
+        {
+          currentConvoId,
+          resetLatestMessage: !(conversationId ?? '') || conversationId === Constants.NEW_CONVO,
+        },
+      );
+    },
+    [
+      renaming,
+      isPopoverActive,
+      toggleNav,
+      conversationId,
       currentConvoId,
-      resetLatestMessage: !(conversationId ?? '') || conversationId === Constants.NEW_CONVO,
-    });
-  };
+      isMobile,
+      navigateToConvo,
+      conversation,
+    ],
+  );
+
+  const handleTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    if (renaming || e.touches.length !== 1) {
+      return;
+    }
+    touchStartPos.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+    didMove.current = false;
+  }, [renaming]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    if (renaming || didMove.current || e.touches.length !== 1 || touchStartPos.current.x === null || touchStartPos.current.y === null) {
+        return;
+    }
+
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const deltaX = Math.abs(currentX - touchStartPos.current.x);
+    const deltaY = Math.abs(currentY - touchStartPos.current.y);
+
+    if (deltaX > SCROLL_THRESHOLD || deltaY > SCROLL_THRESHOLD) {
+      didMove.current = true;
+    }
+  }, [renaming]);
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      if (renaming) {
+        return;
+      }
+
+      const wasMove = didMove.current;
+      touchStartPos.current = { x: null, y: null };
+      didMove.current = false;
+
+      if (wasMove) {
+        return;
+      }
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      handleNavigation(false);
+    },
+    [renaming, handleNavigation],
+  );
+
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (renaming) {
+        return;
+      }
+      if (e.button !== 0) {
+        return;
+      }
+
+      if (e.detail === 0) {
+          return;
+      }
+
+      handleNavigation(e.ctrlKey || e.metaKey);
+    },
+    [renaming, handleNavigation],
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (renaming) {
+        return;
+      }
+      if (e.key === 'Enter') {
+        handleNavigation(false);
+      }
+    },
+    [renaming, handleNavigation],
+  );
 
   const convoOptionsProps = {
     title,
@@ -134,33 +240,24 @@ export default function Conversation({
     setIsPopoverActive,
   };
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
-
   return (
     <div
       className={cn(
-        'group relative mt-1 flex h-8 w-full max-w-[97%] items-center rounded-lg bg-beigesecondary hover:bg-beigetertiary dark:bg-darkbeige hover:dark:bg-darkbeige800',
-        isActiveConvo ? 'bg-beigetertiary dark:bg-darkbeige800' : '',
+        'group relative mt-1 flex h-8 w-full items-center rounded-lg bg-surface-secondary hover:bg-surface-tertiary dark:bg-darkbeige hover:dark:bg-darkbeige800',
+        isActiveConvo ? 'bg-surface-tertiary dark:bg-darkbeige800' : '',
+        'touch-manipulation',
       )}
       role="listitem"
-      tabIndex={0}
-      onClick={(e) => {
-        if (renaming) {
-          return;
-        }
-        if (e.button === 0) {
-          handleNavigation(e.ctrlKey || e.metaKey);
-        }
+      tabIndex={renaming ? -1 : 0}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      style={{
+        cursor: renaming ? 'default' : 'pointer',
+        WebkitTapHighlightColor: 'transparent',
       }}
-      onKeyDown={(e) => {
-        if (renaming) {
-          return;
-        }
-        if (e.key === 'Enter') {
-          handleNavigation(false);
-        }
-      }}
-      style={{ cursor: renaming ? 'default' : 'pointer' }}
       data-testid="convo-item"
     >
       {renaming ? (
@@ -175,26 +272,24 @@ export default function Conversation({
         <ConvoLink
           isActiveConvo={isActiveConvo}
           title={title}
-          onRename={handleRename}
+          onRename={() => {}}
           isSmallScreen={isSmallScreen}
           localize={localize}
-          onClick={() => {
-            if (!renaming && currentConvoId !== conversationId) {
-              handleNavigation(false);
-            }
-          }}
         />
       )}
       <div
         className={cn(
           'mr-2 flex origin-left',
+          'transition-all duration-150 ease-in-out',
           isPopoverActive || isActiveConvo
             ? 'pointer-events-auto max-w-[28px] scale-x-100 opacity-100'
-            : 'pointer-events-none max-w-0 scale-x-0 opacity-0 group-focus-within:pointer-events-auto group-focus-within:max-w-[28px] group-focus-within:scale-x-100 group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:max-w-[28px] group-hover:scale-x-100 group-hover:opacity-100',
+            : 'max-w-0 scale-x-0 opacity-0 group-hover:pointer-events-auto group-hover:max-w-[28px] group-hover:scale-x-100 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:max-w-[28px] group-focus-within:scale-x-100 group-focus-within:opacity-100',
         )}
         aria-hidden={!(isPopoverActive || isActiveConvo)}
       >
-        {!renaming && <ConvoOptions {...convoOptionsProps} />}
+        <div onClick={(e) => e.stopPropagation()} onTouchEnd={(e) => e.stopPropagation()}>
+          {!renaming && <ConvoOptions {...convoOptionsProps} />}
+        </div>
       </div>
     </div>
   );
