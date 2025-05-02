@@ -19,7 +19,8 @@ const defaultContextValue: ProviderValue = {
 
 export const isDark = (theme: string): boolean => {
   if (theme === 'system') {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Always return false for system theme to force light mode
+    return false;
   }
   return theme === 'dark';
 };

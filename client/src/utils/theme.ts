@@ -27,9 +27,9 @@ export const getInitialTheme = () => {
     if (typeof storedPrefs === 'string') {
       return storedPrefs;
     }
-
-    // No longer checking system preference
-    // Light theme will be the default for all new users
+    
+    // Always default to light theme for new users
+    // System preference is no longer considered
   }
 
   return 'light'; // Light theme as the default

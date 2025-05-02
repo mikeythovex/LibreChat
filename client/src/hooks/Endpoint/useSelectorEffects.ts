@@ -83,8 +83,6 @@ export default function useSelectorEffects({
   };
 
   useEffect(() => {
-    console.log("conversation")
-    console.log(conversation)
     // Only set selected values if this is an existing conversation with values already set
     if (!conversation?.endpoint) {
       return;
