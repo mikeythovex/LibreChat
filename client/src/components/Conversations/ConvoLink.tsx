@@ -52,7 +52,7 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
       style={{ width: '100%' }}
       onClick={onClick}
       onTouchStart={(e) => e.stopPropagation()}
-      onTouchEnd={handleTouch}
+      // onTouchEnd={handleTouch}
     >
       <div
         className="relative flex-1 grow overflow-hidden whitespace-nowrap"

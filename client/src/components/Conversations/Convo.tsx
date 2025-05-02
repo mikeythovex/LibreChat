@@ -152,13 +152,13 @@ export default function Conversation({
           handleNavigation(e.ctrlKey || e.metaKey);
         }
       }}
-      onTouchEnd={(e) => {
-        if (renaming) {
-          return;
-        }
-        e.preventDefault();
-        handleNavigation(false);
-      }}
+      // onTouchEnd={(e) => {
+      //   if (renaming) {
+      //     return;
+      //   }
+      //   e.preventDefault();
+      //   handleNavigation(false);
+      // }}
       onKeyDown={(e) => {
         if (renaming) {
           return;
