@@ -51,10 +51,6 @@ export default function Presentation({ children }: { children: React.ReactNode }
     const resizableLayout = localStorage.getItem('react-resizable-panels:layout');
     return typeof resizableLayout === 'string' ? JSON.parse(resizableLayout) : undefined;
   }, []);
-  const defaultCollapsed = useMemo(() => {
-    const collapsedPanels = localStorage.getItem('react-resizable-panels:collapsed');
-    return typeof collapsedPanels === 'string' ? JSON.parse(collapsedPanels) : true;
-  }, []);
   const fullCollapse = useMemo(() => localStorage.getItem('fullPanelCollapse') === 'true', []);
 
   return (
@@ -62,7 +58,7 @@ export default function Presentation({ children }: { children: React.ReactNode }
       <SidePanelGroup
         defaultLayout={defaultLayout}
         fullPanelCollapse={fullCollapse}
-        defaultCollapsed={defaultCollapsed}
+        defaultCollapsed
         artifacts={
           artifactsVisibility === true && Object.keys(artifacts ?? {}).length > 0 ? (
             <EditorProvider>
