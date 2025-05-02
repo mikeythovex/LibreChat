@@ -1,6 +1,9 @@
 import { useRecoilState } from 'recoil';
 import Cookies from 'js-cookie';
 import React, { useContext, useCallback } from 'react';
+import { Activity } from 'lucide-react';
+import { useGetStartupConfig, useGetUserBalance } from '~/data-provider';
+import { useAuthContext } from '~/hooks/AuthContext';
 import UserMsgMarkdownSwitch from './UserMsgMarkdownSwitch';
 import HideSidePanelSwitch from './HideSidePanelSwitch';
 import { ThemeContext, useLocalize } from '~/hooks';
@@ -54,7 +57,7 @@ export const ThemeSelector = ({
 
   return (
     <div className="flex items-center justify-between">
-      <div>{localize('com_nav_theme')}</div>
+      <div className="cursor-default">{localize('com_nav_theme')}</div>
 
       <Dropdown
         value={theme}
@@ -109,7 +112,7 @@ export const LangSelector = ({
 
   return (
     <div className="flex items-center justify-between">
-      <div>{localize('com_nav_language')}</div>
+      <div className="cursor-default">{localize('com_nav_language')}</div>
 
       <Dropdown
         value={langcode}
@@ -124,6 +127,12 @@ export const LangSelector = ({
 
 function General() {
   const { theme, setTheme } = useContext(ThemeContext);
+  const localize = useLocalize();
+  const { user, isAuthenticated } = useAuthContext();
+  const { data: startupConfig } = useGetStartupConfig();
+  const balanceQuery = useGetUserBalance({
+    enabled: !!isAuthenticated,
+  });
 
   const [langcode, setLangcode] = useRecoilState(store.lang);
 
@@ -150,27 +159,51 @@ function General() {
     [setLangcode],
   );
 
+  const hasAllTimeCost =
+    balanceQuery.data?.totalCost != null && !isNaN(parseFloat(String(balanceQuery.data.totalCost)));
+
+  const hasMonthlyTotalCost =
+    balanceQuery.data?.monthlyTotalCost != null &&
+    !isNaN(parseFloat(String(balanceQuery.data.monthlyTotalCost)));
+
+  const formatCost = (cost: number | undefined) => {
+    if (cost === undefined) return '$0.0000';
+    return `$${parseFloat(String(cost)).toFixed(4)}`;
+  };
+
   return (
-    <div className="flex flex-col gap-3 p-1 text-sm text-text-primary">
+    <div className="flex flex-col gap-3 p-1 text-sm text-text-primary cursor-default">
       <div className="pb-3">
         <ThemeSelector theme={theme} onChange={changeTheme} />
       </div>
       <div className="pb-3">
         <LangSelector langcode={langcode} onChange={changeLang} />
       </div>
-      {/* {toggleSwitchConfigs.map((config) => (
-        <div key={config.key} className="pb-3">
-          <ToggleSwitch
-            stateAtom={config.stateAtom}
-            localizationKey={config.localizationKey}
-            hoverCardText={config.hoverCardText}
-            switchId={config.switchId}
-          />
-        </div>
-      ))} */}
-      {/* <div className="pb-3">
-        <ArchivedChats />
-      </div> */}
+      {startupConfig?.balance?.enabled === true && (hasAllTimeCost || hasMonthlyTotalCost) && (
+        <>
+          {hasMonthlyTotalCost && (
+            <div className="pb-3">
+              <div className="flex items-center justify-between">
+                <div className="cursor-default">Usage this month</div>
+                <div className="flex items-center">
+                  {formatCost(balanceQuery.data?.monthlyTotalCost)}
+                </div>
+              </div>
+            </div>
+          )}
+          {hasAllTimeCost && (
+            <div className="pb-3">
+               <div className="flex items-center justify-between">
+                <div className="cursor-default">All time usage</div>
+                <div className="flex items-center">
+                  {formatCost(balanceQuery.data?.totalCost)}
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="my-1 h-px bg-surface-tertiary" />
+        </>
+      )}
       <div className="pb-3">
         <ClearChats />
       </div>

@@ -5,12 +5,16 @@ import { Constants } from 'librechat-data-provider';
 import type { TConversation } from 'librechat-data-provider';
 import { useNavigateToConvo, useMediaQuery, useLocalize } from '~/hooks';
 import { useUpdateConversationMutation } from '~/data-provider';
+import EndpointIcon from '~/components/Endpoints/EndpointIcon';
+import { useGetEndpointsQuery } from '~/data-provider';
 import { NotificationSeverity } from '~/common';
 import { ConvoOptions } from './ConvoOptions';
 import { useToastContext } from '~/Providers';
 import RenameForm from './RenameForm';
 import { cn } from '~/utils';
 import store from '~/store';
+import ConvoLink from './ConvoLink';
+
 
 // A threshold in pixels to differentiate between a tap and a scroll/drag
 const SCROLL_THRESHOLD = 10; // Adjust as needed
@@ -26,7 +30,7 @@ export default function Conversation({
   conversation,
   retainView,
   toggleNav,
-  // isLatestConvo, // Removed as unused
+  isLatestConvo,
 }: ConversationProps) {
   const params = useParams();
   const localize = useLocalize();
@@ -34,9 +38,9 @@ export default function Conversation({
   const currentConvoId = useMemo(() => params.conversationId, [params.conversationId]);
   const updateConvoMutation = useUpdateConversationMutation(currentConvoId ?? '');
   const activeConvos = useRecoilValue(store.allConversationsSelector);
-  // const { data: endpointsConfig } = useGetEndpointsQuery(); // Removed as unused
+  const { data: endpointsConfig } = useGetEndpointsQuery(); // Unused? Consider removing if not needed.
   const { navigateWithLastTools } = useNavigateToConvo();
-  const isMobile = useMediaQuery('(max-width: 768px)'); // Consolidated useMediaQuery
+  const isSmallScreen = useMediaQuery('(max-width: 768px)'); // Same as isMobile below, could consolidate
   const { conversationId, title = '' } = conversation;
 
   const [titleInput, setTitleInput] = useState(title || '');
@@ -56,7 +60,6 @@ export default function Conversation({
     }
   }, [title]);
 
-  // Moved isActiveConvo definition before its usage
   const isActiveConvo = useMemo(() => {
     if (conversationId === Constants.NEW_CONVO) {
       return currentConvoId === Constants.NEW_CONVO;
@@ -66,25 +69,17 @@ export default function Conversation({
       return currentConvoId === conversationId;
     } else {
       // Assuming activeConvos is sorted with the latest first
-      const latestConvoId = activeConvos?.[0]; // Access conversationId safely
+      const latestConvoId = activeConvos?.[0];
       // Match against the specific ID, not the whole object comparison
       return latestConvoId === conversationId;
     }
   }, [currentConvoId, conversationId, activeConvos]);
 
-  // Effect to update document title (moved from ConvoLink)
-  useEffect(() => {
-    if (isActiveConvo && title) {
-      document.title = title + ' - BMO';
-    }
-    // Consider adding a cleanup function to reset the title if needed when component unmounts or isActiveConvo becomes false
-  }, [isActiveConvo, title]);
-
-  const handleRename = useCallback(() => { // Wrap handleRename in useCallback
+  const handleRename = () => {
     setIsPopoverActive(false);
     setTitleInput(title as string);
     setRenaming(true);
-  }, [title]); // Add dependencies
+  };
 
   const handleRenameSubmit = async (newTitle: string) => {
     if (!conversationId || newTitle === title) {
@@ -113,6 +108,8 @@ export default function Conversation({
     setTitleInput(title as string);
     setRenaming(false);
   };
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   // Combined navigation logic, wrapped in useCallback
   const handleNavigation = useCallback(
@@ -243,7 +240,7 @@ export default function Conversation({
         return; // Ignore if renaming
       }
       if (e.key === 'Enter') {
-        handleNavigation(false); // Enter key doesn't have ctrl/meta context here
+        handleNavigation(false);
       }
     },
     [renaming, handleNavigation], // Dependencies
@@ -258,9 +255,7 @@ export default function Conversation({
     conversationId,
     isPopoverActive,
     setIsPopoverActive,
-  //}), [title, retainView, handleRename, isActiveConvo, conversationId, isPopoverActive, setIsPopoverActive]);
-  // handleRename is memoized with useCallback, no need to include it here unless its identity changes
-  }), [title, retainView, isActiveConvo, conversationId, isPopoverActive, setIsPopoverActive, handleRename]);
+  }), [title, retainView, handleRename, isActiveConvo, conversationId, isPopoverActive, setIsPopoverActive]);
 
 
   return (
@@ -296,52 +291,28 @@ export default function Conversation({
           localize={localize}
         />
       ) : (
-        // Inlined ConvoLink structure
-        <>
-          <div
-            className={cn(
-              'flex grow items-center gap-2 overflow-hidden whitespace-nowrap px-2 text-left',
-              // Removed unnecessary button styles like border-none, bg-transparent, outline-none as parent handles interaction
-              // Ensure touch-manipulation is on the parent if needed, seems it is already
-            )}
-            title={title ?? undefined}
-            aria-current={isActiveConvo ? 'page' : undefined}
-            style={{ WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', textOverflow: 'ellipsis', overflow: 'hidden', display: '-webkit-box' }} // Ellipsis styles
-          >
-            {title || localize('com_ui_untitled')}
-          </div>
-          {/* Fade out gradient */}
-          <div
-            className={cn(
-              'absolute bottom-0 right-0 top-0 w-5 bg-gradient-to-l', // Ensure gradient covers options button area if needed
-              isActiveConvo
-                ? 'from-surface-active-alt'
-                : 'from-beigesecondary from-0% to-transparent group-hover:from-beigesecondary group-hover:from-40% dark:from-darkbeige dark:group-hover:from-darkbeige',
-              // Ensure this gradient aligns correctly with the options menu appearing/disappearing
-              'rounded-r-lg' // Match parent rounding
-            )}
-            aria-hidden="true"
-          />
-        </>
-        // End Inlined ConvoLink structure
+        <ConvoLink
+          isActiveConvo={isActiveConvo}
+          title={title}
+          onRename={() => {}} // This might be handled by ConvoOptions now? Ensure no conflicts.
+          isSmallScreen={isSmallScreen}
+          localize={localize}
+        />
       )}
       <div
         className={cn(
-          'absolute right-0 mr-1 flex origin-right items-center pr-1', // Added absolute, right-0, items-center, pr-1
+          'mr-2 flex origin-left',
           // Simplified condition for visibility based on focus/hover/active states
           'transition-all duration-150 ease-in-out', // Added transition
           isPopoverActive || isActiveConvo
             ? 'pointer-events-auto max-w-[28px] scale-x-100 opacity-100'
-            // Ensure hover/focus still reveal options correctly
-            : 'max-w-0 scale-x-0 opacity-0 group-hover:pointer-events-auto group-hover:max-w-[28px] group-hover:scale-x-100 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:max-w-[28px] group-focus-within:scale-x-100 group-focus-within:opacity-100',
-          renaming ? 'hidden' : '', // Hide options when renaming
+            : 'max-w-0 scale-x-0 opacity-0 group-hover:pointer-events-auto group-hover:max-w-[28px] group-hover:scale-x-100 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:max-w-[28px] group-focus-within:scale-x-100 group-focus-within:opacity-100', // Order of focus/hover might matter visually
         )}
-        aria-hidden={renaming || !(isPopoverActive || isActiveConvo)} // Also hide if renaming
+        aria-hidden={!(isPopoverActive || isActiveConvo)}
       >
         {/* Prevent options button from triggering navigation if clicked */}
-        {/* Wrap options in a div that stops propagation */}
         <div onClick={(e) => e.stopPropagation()} onTouchEnd={(e) => e.stopPropagation()}>
-          <ConvoOptions {...convoOptionsProps} />
+          {!renaming && <ConvoOptions {...convoOptionsProps} />}
         </div>
       </div>
     </div>
