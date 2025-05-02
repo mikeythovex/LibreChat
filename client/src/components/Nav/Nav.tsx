@@ -206,7 +206,7 @@ const Nav = memo<{
                     aria-label={localize('com_ui_chat_history')}
                     className="flex h-full flex-col pb-3.5"
                   >
-                    <div className="flex flex-1 flex-col scrollbar-transparent" ref={outerContainerRef}>
+                    <div className={cn("flex flex-1 flex-col scrollbar-transparent", isSmallScreen ? 'pr-2' : '')} ref={outerContainerRef}>
                       <MemoNewChat
                         toggleNav={itemToggleNav}
                         isSmallScreen={isSmallScreen}

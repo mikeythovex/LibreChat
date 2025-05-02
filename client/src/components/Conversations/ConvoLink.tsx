@@ -7,7 +7,6 @@ interface ConvoLinkProps {
   onRename: () => void;
   isSmallScreen: boolean;
   localize: (key: any, options?: any) => string;
-  onClick?: (e: React.MouseEvent) => void;
 }
 
 const ConvoLink: React.FC<ConvoLinkProps> = ({
@@ -16,33 +15,12 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   onRename,
   isSmallScreen,
   localize,
-  onClick,
 }) => {
   useEffect(() => {
     if (isActiveConvo && title) {
       document.title = title + ' - BMO';
     }
   }, [isActiveConvo, title]);
-
-  const handleTouch = (e: React.TouchEvent) => {
-    // Only process single-tap touch events
-    if (e.changedTouches.length === 1) {
-      // We need to prevent default for tap handling, but allow scrolling
-      // This is the key to working well on mobile
-      e.preventDefault();
-      
-      if (onClick) {
-        // Create a simulated mouse event to pass to the click handler
-        onClick({
-          button: 0,
-          ctrlKey: false,
-          metaKey: false,
-          preventDefault: () => {},
-          stopPropagation: () => {},
-        } as React.MouseEvent);
-      }
-    }
-  };
 
   return (
     <button
@@ -54,9 +32,6 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
       title={title ?? undefined}
       aria-current={isActiveConvo ? 'page' : undefined}
       style={{ width: '100%' }}
-      onClick={onClick}
-      onTouchStart={(e) => e.stopPropagation()}
-      onTouchEnd={handleTouch}
     >
       <div
         className="relative flex-1 grow overflow-hidden whitespace-nowrap"

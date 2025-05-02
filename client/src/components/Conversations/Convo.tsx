@@ -148,13 +148,6 @@ export default function Conversation({
           handleNavigation(e.ctrlKey || e.metaKey);
         }
       }}
-      onTouchStart={(e) => {
-        // Allow touchstart to propagate for scrolling
-      }}
-      onTouchEnd={(e) => {
-        // We'll handle taps at the ConvoLink level
-        // This will allow scrolling to work properly
-      }}
       onKeyDown={(e) => {
         if (renaming) {
           return;
@@ -181,12 +174,6 @@ export default function Conversation({
           onRename={handleRename}
           isSmallScreen={isSmallScreen}
           localize={localize}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (!renaming && currentConvoId !== conversationId) {
-              handleNavigation(false);
-            }
-          }}
         />
       )}
       <div
