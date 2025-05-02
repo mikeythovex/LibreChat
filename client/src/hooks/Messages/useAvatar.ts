@@ -8,8 +8,8 @@ const avatarCache: Record<string, string> = {};
 const useAvatar = (user: TUser | undefined) => {
   return useMemo(() => {
     const { username, name } = user ?? {};
-    const seed = name || username;
-    if (!seed) {
+    const fullSeed = name || username;
+    if (!fullSeed) {
       return '';
     }
 
@@ -17,14 +17,18 @@ const useAvatar = (user: TUser | undefined) => {
       return user.avatar;
     }
 
+    // Extract only the first letter for the seed
+    const seed = fullSeed.charAt(0).toUpperCase();
+    
     if (avatarCache[seed]) {
       return avatarCache[seed];
     }
 
     const avatar = createAvatar(initials, {
       seed,
-      fontFamily: ['Verdana'],
-      fontSize: 36,
+      fontFamily: ['sans-serif'],
+      backgroundColor: ['#f0f0f0'],
+      fontSize: 44,
     });
 
     let avatarDataUri = '';

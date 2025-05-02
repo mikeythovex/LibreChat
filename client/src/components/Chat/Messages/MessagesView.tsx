@@ -46,7 +46,7 @@ export default function MessagesView({
               overflowX: 'hidden',
             }}
           >
-            <div className="flex flex-col pb-9 dark:bg-transparent">
+            <div className="flex flex-col pb-9 dark:bg-transparent mt-12">
               {(_messagesTree && _messagesTree.length == 0) || _messagesTree === null ? (
                 <div
                   className={cn(

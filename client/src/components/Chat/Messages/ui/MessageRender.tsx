@@ -14,6 +14,7 @@ import { useMessageActions } from '~/hooks';
 import { cn, logger } from '~/utils';
 import store from '~/store';
 import { useMediaQuery } from '~/hooks';
+import { CircleUser, Bot } from 'lucide-react';
 
 type MessageRenderProps = {
   message?: TMessage;
@@ -161,9 +162,13 @@ const MessageRender = memo(
           )}
         >
           <div className="flex items-center gap-1">
-            <MessageIcon iconData={iconData} assistant={assistant} agent={agent} />
+            {msg.isCreatedByUser ? (
+              <CircleUser className="icon-md mr-0.5" />
+            ) : (
+              <Bot className="icon-md mr-0.5" />
+            )}
             <h2 className={cn('select-none font-semibold', fontSize)}>
-              {msg.isCreatedByUser ? messageLabel : 'BMO'}
+              {msg.isCreatedByUser ? 'You' : 'BMO'}
             </h2>
           </div>
 
@@ -200,24 +205,26 @@ const MessageRender = memo(
               <PlaceholderRow isCard={isCard} />
             ) : (
               <SubRow classes="text-xs">
-                <SiblingSwitch
-                  siblingIdx={siblingIdx}
-                  siblingCount={siblingCount}
-                  setSiblingIdx={setSiblingIdx}
-                />
+              <SiblingSwitch
+                siblingIdx={siblingIdx}
+                siblingCount={siblingCount}
+                setSiblingIdx={setSiblingIdx}
+              />
+              {!msg.isCreatedByUser && (
                 <HoverButtons
-                  index={index}
-                  isEditing={edit}
-                  message={msg}
-                  enterEdit={enterEdit}
-                  isSubmitting={isSubmitting}
-                  conversation={conversation ?? null}
-                  regenerate={handleRegenerateMessage}
-                  copyToClipboard={copyToClipboard}
-                  handleContinue={handleContinue}
-                  latestMessage={latestMessage}
-                  isLast={isLast}
+                index={index}
+                isEditing={edit}
+                message={msg}
+                enterEdit={enterEdit}
+                isSubmitting={isSubmitting}
+                conversation={conversation ?? null}
+                regenerate={handleRegenerateMessage}
+                copyToClipboard={copyToClipboard}
+                handleContinue={handleContinue}
+                latestMessage={latestMessage}
+                isLast={isLast}
                 />
+              )}
               </SubRow>
             )}
           </div>
