@@ -23,9 +23,9 @@ const SidePanel = ({
   setMinSize,
   collapsedSize,
   setCollapsedSize,
-  isCollapsed,
+  isCollapsed=true,
   setIsCollapsed,
-  fullCollapse,
+  fullCollapse=true,
   setFullCollapse,
   interfaceConfig,
 }: {

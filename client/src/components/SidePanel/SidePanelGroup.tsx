@@ -25,7 +25,7 @@ const defaultInterface = getConfigDefaults().interface;
 const SidePanelGroup = ({
   defaultLayout = [97, 3],
   defaultCollapsed = true,
-  fullPanelCollapse = false,
+  fullPanelCollapse = true,
   navCollapsedSize = 3,
   artifacts,
   children,
