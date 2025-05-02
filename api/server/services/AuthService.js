@@ -176,6 +176,8 @@ const registerUser = async (user, additionalData = {}) => {
 
   const { email, password, name, username } = user;
 
+  const _username = email;
+
   let newUserId;
   try {
     const existingUser = await findUser({ email }, 'email _id');
@@ -192,12 +194,12 @@ const registerUser = async (user, additionalData = {}) => {
       return { status: 200, message: genericVerificationMessage };
     }
 
-    if (!(await isEmailDomainAllowed(email))) {
-      const errorMessage =
-        'The email address provided cannot be used. Please use a different email address.';
-      logger.error(`[registerUser] [Registration not allowed] [Email: ${user.email}]`);
-      return { status: 403, message: errorMessage };
-    }
+    // if (!(await isEmailDomainAllowed(email))) {
+    //   const errorMessage =
+    //     'The email address provided cannot be used. Please use a different email address.';
+    //   logger.error(`[registerUser] [Registration not allowed] [Email: ${user.email}]`);
+    //   return { status: 403, message: errorMessage };
+    // }
 
     //determine if this is the first registered user (not counting anonymous_user)
     const isFirstRegisteredUser = (await countUsers()) === 0;
@@ -206,7 +208,7 @@ const registerUser = async (user, additionalData = {}) => {
     const newUserData = {
       provider: 'local',
       email,
-      username,
+      _username,
       name,
       avatar: null,
       role: isFirstRegisteredUser ? SystemRoles.ADMIN : SystemRoles.USER,

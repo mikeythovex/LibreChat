@@ -17,6 +17,8 @@ import { useMediaQuery } from '~/hooks';
 function AccountSettings() {
   const localize = useLocalize();
   const { user, isAuthenticated, logout } = useAuthContext();
+  console.log('user');
+  console.log(user);
   const { data: startupConfig } = useGetStartupConfig();
   const balanceQuery = useGetUserBalance({
     enabled: !!isAuthenticated,
@@ -25,7 +27,7 @@ function AccountSettings() {
   const [showFiles, setShowFiles] = useRecoilState(store.showFiles);
 
   const avatarSrc = useAvatar(user);
-  const avatarSeed = user?.avatar || user?.name || user?.username || '';
+  const avatarSeed = user?.avatar || user?.email || '';
 
   const hasBalance =
     balanceQuery.data?.balance != null && !isNaN(parseFloat(balanceQuery.data.balance));
@@ -69,7 +71,7 @@ function AccountSettings() {
           className="mt-2 grow overflow-hidden text-ellipsis whitespace-nowrap text-left text-text-primary"
           style={{ marginTop: '0', marginLeft: '0.25rem', fontWeight: 500}}
         >
-            {user?.name?.split(' ')[0] ?? user?.username ?? localize('com_nav_user')}
+            {user?.email ?? localize('com_nav_user')}
         </div>
       </Select.Select>
       <Select.SelectPopover

@@ -11,6 +11,9 @@ const { logger } = require('~/config');
 
 const registrationController = async (req, res) => {
   try {
+    if (req.body.secret_password !== process.env.REGISTRATION_SECRET_PASSWORD) {
+      return res.status(400).json({ message: "Invalid referral code" });
+    }
     const response = await registerUser(req.body);
     const { status, message } = response;
     res.status(status).send({ message });

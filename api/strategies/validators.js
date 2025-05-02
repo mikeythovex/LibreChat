@@ -29,7 +29,7 @@ const usernameSchema = z
   });
 
 const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.string(), // Removed email format validation
   password: z
     .string()
     .min(8)
@@ -41,13 +41,12 @@ const loginSchema = z.object({
 
 const registerSchema = z
   .object({
-    name: z.string().min(3).max(80),
     username: z
       .union([z.literal(''), usernameSchema])
       .transform((value) => (value === '' ? null : value))
       .optional()
       .nullable(),
-    email: z.string().email(),
+    email: z.string().min(2).max(60), // Removed email format validation
     password: z
       .string()
       .min(8)
@@ -55,13 +54,6 @@ const registerSchema = z
       .refine((value) => value.trim().length > 0, {
         message: 'Password cannot be only spaces',
       }),
-    // confirm_password: z
-    //   .string()
-    //   .min(8)
-    //   .max(128)
-    //   .refine((value) => value.trim().length > 0, {
-    //     message: 'Password cannot be only spaces',
-    //   }),
   })
   .superRefine(({ confirm_password, password }, ctx) => {
     // if (confirm_password !== password) {

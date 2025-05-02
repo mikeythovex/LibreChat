@@ -9,7 +9,7 @@ charts/
 data-node
 logs
 meili_data_v*
-packages
+dist
 images
 uploads
 utils

@@ -55,6 +55,7 @@
   "com_auth_continue": "Pokračovat",
   "com_auth_create_account": "Vytvořit účet",
   "com_auth_discord_login": "Pokračovat přes Discord",
+"com_auth_referral_code": "Kód doporučení",
   "com_auth_email": "E-mail",
   "com_auth_email_address": "E-mailová adresa",
   "com_auth_email_verification_invalid": "Neplatné ověření e-mailu",

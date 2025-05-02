@@ -19,8 +19,6 @@ const Registration: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<TRegisterUser>({ mode: 'onChange' });
-  const password = watch('password');
-
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [countdown, setCountdown] = useState<number>(0.5);
@@ -98,7 +96,7 @@ const Registration: React.FC = () => {
     <>
       {errorMessage && (
         <ErrorMessage>
-          {localize('com_auth_error_create')} {errorMessage}
+          {errorMessage}
         </ErrorMessage>
       )}
       {registerUser.isSuccess && countdown > 0 && (
@@ -122,21 +120,11 @@ const Registration: React.FC = () => {
             aria-label="Registration form"
             method="POST"
             onSubmit={handleSubmit((data: TRegisterUser) =>
-              registerUser.mutate({ ...data, token: token ?? undefined }),
+              registerUser.mutate({ ...data, username: data.email, token: token ?? undefined }),
             )}
           >
-            {renderInput('name', 'com_auth_full_name', 'text', {
-              required: localize('com_auth_name_required'),
-              minLength: {
-                value: 3,
-                message: localize('com_auth_name_min_length'),
-              },
-              maxLength: {
-                value: 80,
-                message: localize('com_auth_name_max_length'),
-              },
-            })}
             {/* {renderInput('username', 'com_auth_username', 'text', {
+              required: localize('com_auth_username_required'),
               minLength: {
                 value: 2,
                 message: localize('com_auth_username_min_length'),
@@ -146,7 +134,7 @@ const Registration: React.FC = () => {
                 message: localize('com_auth_username_max_length'),
               },
             })} */}
-            {renderInput('email', 'com_auth_email', 'email', {
+            {renderInput('email', 'com_auth_username', 'username', {
               required: localize('com_auth_email_required'),
               minLength: {
                 value: 1,
@@ -155,10 +143,6 @@ const Registration: React.FC = () => {
               maxLength: {
                 value: 120,
                 message: localize('com_auth_email_max_length'),
-              },
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: localize('com_auth_email_pattern'),
               },
             })}
             {renderInput('password', 'com_auth_password', 'password', {
@@ -171,6 +155,9 @@ const Registration: React.FC = () => {
                 value: 128,
                 message: localize('com_auth_password_max_length'),
               },
+            })}
+            {renderInput('secret_password', 'com_auth_referral_code', 'password', {
+              required: 'Referral code is required. Ask Andrew!',
             })}
             {/* {renderInput('confirm_password', 'com_auth_password_confirm', 'password', {
               validate: (value: string) =>

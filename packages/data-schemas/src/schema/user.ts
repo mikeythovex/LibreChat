@@ -70,7 +70,7 @@ const User = new Schema<IUser>(
       required: [true, 'can\'t be blank'],
       lowercase: true,
       unique: true,
-      match: [/\S+@\S+\.\S+/, 'is invalid'],
+      // match: [/\S+@\S+\.\S+/, 'is invalid'],
       index: true,
     },
     emailVerified: {

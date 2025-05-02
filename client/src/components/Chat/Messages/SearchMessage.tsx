@@ -52,7 +52,7 @@ export default function SearchMessage({ message }: Pick<TMessageProps, 'message'
   const messageLabel = useMemo(() => {
     if (message?.isCreatedByUser) {
       return UsernameDisplay
-        ? (user?.name ?? '') || (user?.username ?? '')
+        ? (user?.email ?? '')
         : localize('com_user_message');
     }
     return message?.sender ?? '';
@@ -60,8 +60,7 @@ export default function SearchMessage({ message }: Pick<TMessageProps, 'message'
     message?.isCreatedByUser,
     message?.sender,
     UsernameDisplay,
-    user?.name,
-    user?.username,
+    user?.email,
     localize,
   ]);
 
