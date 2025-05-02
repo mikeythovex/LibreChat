@@ -115,10 +115,6 @@ export default function Conversation({
       toggleNav();
     }
 
-    // if (typeof title === 'string' && title.length > 0) {
-    //   document.title = title;
-    // }
-
     navigateWithLastTools(
       conversation,
       !(conversationId ?? '') || conversationId === Constants.NEW_CONVO,
@@ -152,13 +148,13 @@ export default function Conversation({
           handleNavigation(e.ctrlKey || e.metaKey);
         }
       }}
-      // onTouchEnd={(e) => {
-      //   if (renaming) {
-      //     return;
-      //   }
-      //   e.preventDefault();
-      //   handleNavigation(false);
-      // }}
+      onTouchStart={(e) => {
+        // Allow touchstart to propagate for scrolling
+      }}
+      onTouchEnd={(e) => {
+        // We'll handle taps at the ConvoLink level
+        // This will allow scrolling to work properly
+      }}
       onKeyDown={(e) => {
         if (renaming) {
           return;
