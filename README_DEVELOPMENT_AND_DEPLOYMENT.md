@@ -1,9 +1,16 @@
 
 
 ### Development setup
-#### Run backend in vscode dev container
-`ci` if needed
 
+#### Initial setup
+
+`npm ci`
+
+`npm run frontend`
+
+`num run backend`
+
+#### Run backend in vscode dev container
 `npm run backend:dev`
 
 #### Run frontend

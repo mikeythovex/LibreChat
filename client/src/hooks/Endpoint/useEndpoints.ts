@@ -293,6 +293,7 @@ export const useEndpoints = ({
             'meta-llama/llama-3-70b-instruct',
             'meta-llama/llama-3-8b-instruct',
             'meta-llama/llama-3.1-405b',
+            'meta-llama/llama-3.1-405b:free',
             'meta-llama/llama-3.1-405b-instruct',
             'meta-llama/llama-3.1-70b-instruct',
             'meta-llama/llama-3.1-8b-instruct',

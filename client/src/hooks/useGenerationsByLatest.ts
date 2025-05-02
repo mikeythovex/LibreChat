@@ -59,7 +59,7 @@ export default function useGenerationsByLatest({
   );
 
   const regenerateEnabled =
-    !isCreatedByUser && !searchResult && !isEditing && !isSubmitting && branchingSupported;
+    !isCreatedByUser && !searchResult && !isEditing && !isSubmitting;
 
   const hideEditButton =
     isSubmitting ||
