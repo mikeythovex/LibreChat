@@ -128,6 +128,7 @@ const Nav = memo<{
         }
         setNavWidth(NAV_WIDTH_MOBILE);
       } else {
+        setNavVisible(true);
         setNavWidth(NAV_WIDTH_DESKTOP);
       }
     }, [isSmallScreen, toggleNavVisible]);
