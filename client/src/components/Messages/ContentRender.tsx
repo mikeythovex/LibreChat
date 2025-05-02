@@ -11,6 +11,7 @@ import SubRow from '~/components/Chat/Messages/SubRow';
 import { useMessageActions } from '~/hooks';
 import { cn, logger } from '~/utils';
 import store from '~/store';
+import { CircleUser, Bot } from 'lucide-react';
 
 type ContentRenderProps = {
   message?: TMessage;
@@ -108,7 +109,7 @@ const ContentRender = memo(
       card: 'relative w-full gap-1 rounded-lg border border-border-medium bg-surface-primary-alt p-2 md:w-1/2 md:gap-3 md:p-4',
       chat: maximizeChatSpace
         ? 'w-full max-w-full md:px-5 lg:px-1 xl:px-5'
-        : 'md:max-w-[47rem] xl:max-w-[55rem]',
+        : 'md:max-w-[45rem] xl:max-w-[53rem]',
     };
 
     const conditionalClasses = {
@@ -142,11 +143,11 @@ const ContentRender = memo(
           <div className="absolute right-0 top-0 m-2 h-3 w-3 rounded-full bg-text-primary" />
         )}
 
-        <div className="relative flex flex-shrink-0 flex-col items-center">
+        {/* <div className="relative flex flex-shrink-0 flex-col items-center">
           <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full">
             <MessageIcon iconData={iconData} assistant={assistant} agent={agent} />
           </div>
-        </div>
+        </div> */}
 
         <div
           className={cn(
@@ -154,9 +155,18 @@ const ContentRender = memo(
             msg.isCreatedByUser ? 'user-turn' : 'agent-turn',
           )}
         >
-          <h2 className={cn('select-none font-semibold', fontSize)}>{msg.isCreatedByUser ? messageLabel : 'BMO'}</h2>
+           <div className="flex items-center gap-1 mb-1">
+            {msg.isCreatedByUser ? (
+              <CircleUser className="icon-md mr-0.5" />
+            ) : (
+              <Bot className="icon-md mr-0.5" />
+            )}
+            <h2 className={cn('select-none font-semibold', fontSize)}>
+              {msg.isCreatedByUser ? 'You' : 'BMO'}
+            </h2>
+          </div>
 
-          <div className="content-render flex flex-col gap-1 -ml-5 w-full">
+          <div className="content-render flex flex-col gap-1 w-full">
             <div className="flex max-w-full flex-grow flex-col gap-0">
               <ContentParts
                 edit={edit}
@@ -182,19 +192,21 @@ const ContentRender = memo(
                   siblingCount={siblingCount}
                   setSiblingIdx={setSiblingIdx}
                 />
-                <HoverButtons
-                  index={index}
-                  isEditing={edit}
-                  message={msg}
-                  enterEdit={enterEdit}
-                  isSubmitting={isSubmitting}
-                  conversation={conversation ?? null}
-                  regenerate={handleRegenerateMessage}
-                  copyToClipboard={copyToClipboard}
-                  handleContinue={handleContinue}
-                  latestMessage={latestMessage}
-                  isLast={isLast}
-                />
+                {!msg.isCreatedByUser && (
+                  <HoverButtons
+                    index={index}
+                    isEditing={edit}
+                    message={msg}
+                    enterEdit={enterEdit}
+                    isSubmitting={isSubmitting}
+                    conversation={conversation ?? null}
+                    regenerate={handleRegenerateMessage}
+                    copyToClipboard={copyToClipboard}
+                    handleContinue={handleContinue}
+                    latestMessage={latestMessage}
+                    isLast={isLast}
+                  />
+                )}
               </SubRow>
             )}
           </div>

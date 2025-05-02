@@ -161,7 +161,7 @@ const MessageRender = memo(
             msg.isCreatedByUser ? 'user-turn' : 'agent-turn',
           )}
         >
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 mb-1">
             {msg.isCreatedByUser ? (
               <CircleUser className="icon-md mr-0.5" />
             ) : (

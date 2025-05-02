@@ -25,18 +25,21 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   }, [isActiveConvo, title]);
 
   const handleTouch = (e: React.TouchEvent) => {
-    // Prevent default behavior to avoid double events
-    e.preventDefault();
-    e.stopPropagation();
+    // Only prevent default for single taps on the link itself
+    // This allows scrolling to work normally
+    if (e.touches.length === 1) {
+      // We still want to stop propagation to avoid double events
+      e.stopPropagation();
 
-    if (onClick) {
-      onClick({
-        button: 0,
-        ctrlKey: false,
-        metaKey: false,
-        preventDefault: () => {},
-        stopPropagation: () => {},
-      } as React.MouseEvent);
+      if (onClick) {
+        onClick({
+          button: 0,
+          ctrlKey: false,
+          metaKey: false,
+          preventDefault: () => {},
+          stopPropagation: () => {},
+        } as React.MouseEvent);
+      }
     }
   };
 
