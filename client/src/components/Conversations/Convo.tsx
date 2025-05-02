@@ -138,7 +138,7 @@ export default function Conversation({
   return (
     <div
       className={cn(
-        'group relative mt-1 flex h-8 w-full max-w-[97%] items-center rounded-lg bg-surface-secondary hover:bg-surface-tertiary dark:bg-darkbeige hover:dark:bg-darkbeige800',
+        'group relative mt-1 flex h-8 w-full items-center rounded-lg bg-surface-secondary hover:bg-surface-tertiary dark:bg-darkbeige hover:dark:bg-darkbeige800',
         isActiveConvo ? 'bg-surface-tertiary dark:bg-darkbeige800' : '',
         'touch-manipulation',
       )}
