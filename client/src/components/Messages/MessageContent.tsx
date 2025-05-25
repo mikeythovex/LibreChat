@@ -53,6 +53,7 @@ export default function MessageContent(props: TMessageProps) {
                 message={message}
                 isSubmittingFamily={isSubmittingFamily}
                 isCard
+                showModelName
               />
               <ContentRender
                 {...props}
@@ -60,6 +61,7 @@ export default function MessageContent(props: TMessageProps) {
                 isCard
                 message={siblingMessage ?? latestMultiMessage ?? undefined}
                 isSubmittingFamily={isSubmittingFamily}
+                showModelName
               />
             </div>
           </div>

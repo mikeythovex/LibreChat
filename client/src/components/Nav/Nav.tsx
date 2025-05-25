@@ -187,8 +187,8 @@ const Nav = memo<{
             // !isSmallScreen && '-pr-2',
           )}
           style={{
-            width: navVisible ? navWidth : '0px',
-            visibility: navVisible ? 'visible' : 'hidden',
+            width: navVisible || !isSmallScreen ? navWidth : '0px',
+            visibility: navVisible || !isSmallScreen ? 'visible' : 'hidden',
             transition: 'width 0.12s, visibility 0.12s',
           }}
         >

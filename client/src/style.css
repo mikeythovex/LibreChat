@@ -48,6 +48,8 @@
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.25rem;
+  --color-selection: 55.3% 0.086 208.538;
+  --color-selection-2: 0.55 0.0839 191.65;
 }
 html {
   --presentation: var(--white);
@@ -1468,6 +1470,20 @@ button {
   background-color: transparent;
   border-radius: 9999px;
 }
+
+/* Selection styling */
+
+
+::selection {
+  background-color: oklch(var(--color-selection-2)/0.2);
+  /* color: white; */
+}
+
+.dark ::selection {
+  background-color: oklch(0.93 0.0518 170.47/0.2);
+  /* color: white; */
+}
+
 
 .scrollbar-transparent::-webkit-scrollbar-thumb {
   background-color: transparent;

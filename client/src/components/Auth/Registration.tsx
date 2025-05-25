@@ -156,7 +156,7 @@ const Registration: React.FC = () => {
                 message: localize('com_auth_password_max_length'),
               },
             })}
-            {renderInput('secret_password', 'com_auth_referral_code', 'password', {
+            {renderInput('secret_password', 'com_auth_referral_code', 'text', {
               required: 'Referral code is required. Ask Andrew!',
             })}
             {/* {renderInput('confirm_password', 'com_auth_password_confirm', 'password', {

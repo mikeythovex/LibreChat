@@ -18,6 +18,7 @@ type ContentRenderProps = {
   isCard?: boolean;
   isMultiMessage?: boolean;
   isSubmittingFamily?: boolean;
+  showModelName?: boolean;
 } & Pick<
   TMessageProps,
   'currentEditId' | 'setCurrentEditId' | 'siblingIdx' | 'setSiblingIdx' | 'siblingCount'
@@ -34,6 +35,7 @@ const ContentRender = memo(
     isMultiMessage = false,
     setCurrentEditId,
     isSubmittingFamily = false,
+    showModelName = false,
   }: ContentRenderProps) => {
     const {
       edit,
@@ -162,7 +164,7 @@ const ContentRender = memo(
               <Bot className="icon-md mr-0.5" />
             )}
             <h2 className={cn('select-none font-semibold', fontSize)}>
-              {msg.isCreatedByUser ? 'You' : 'BMO'}
+              {msg.isCreatedByUser ? 'You' : `BMO ${showModelName ? `(${msg.model})` : ''}`}
             </h2>
           </div>
 
